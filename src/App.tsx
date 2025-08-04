@@ -234,7 +234,7 @@ function App() {
       </div>
 
       {/* Services Section */}
-     <div id="services" className="max-w-4xl mx-auto px-4 py-12">
+      <div id="services" className="max-w-4xl mx-auto px-4 py-12">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-white mb-4">What I Do</h2>
           <p className="text-gray-400">Simple delivery services for lazy players</p>
@@ -282,11 +282,6 @@ function App() {
           </div>
         </div>
       </div>
-      {/* Footer */}
-      <Footer />
-    </div>
-  );
-}
 
       {/* Broke People Menu */}
       <div className="max-w-4xl mx-auto px-4 py-12">
@@ -349,4 +344,11 @@ function App() {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
+    </div>
+  );
+}
+
 export default App;
