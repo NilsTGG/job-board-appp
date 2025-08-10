@@ -158,7 +158,7 @@ const ProcessVisualization: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-400 mb-1">< 30min</div>
+              <div className="text-2xl font-bold text-green-400 mb-1">&lt; 30min</div>
               <div className="text-sm text-gray-300">Average Response Time</div>
             </div>
             <div className="text-center">
