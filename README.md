@@ -3,7 +3,7 @@
 A professional Minecraft service delivery platform built with React + TypeScript + Vite.
 
 ## 🚀 Live Demo
-Visit the live application: [https://nilstgg.github.io/job-board-app/](https://nilstgg.github.io/job-board-app/)
+Visit the live application: [https://nilstgg.github.io/job-board-appp/](https://nilstgg.github.io/job-board-appp/)
 
 ## 📦 Features
 - Professional service request system
