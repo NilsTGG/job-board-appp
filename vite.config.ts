@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/job-board-app/",
+  base: "/job-board-appp/",
   plugins: [
     react(),
     // Removed splitVendorChunkPlugin() - we're using manual chunks instead
