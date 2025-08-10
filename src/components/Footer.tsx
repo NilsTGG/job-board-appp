@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Package, Heart, Disc as Discord } from "lucide-react";
+import { Package, Heart, Disc } from "../icons";
 import PrivacyPolicy from "./PrivacyPolicy";
 
 const Footer: React.FC = () => {
@@ -29,9 +29,11 @@ const Footer: React.FC = () => {
                 <a
                   href="#services"
                   className="hover:text-blue-400 transition-colors cursor-pointer"
-                  onClick={e => {
+                  onClick={(e) => {
                     e.preventDefault();
-                    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+                    document
+                      .getElementById("services")
+                      ?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
                   Services
@@ -41,9 +43,11 @@ const Footer: React.FC = () => {
                 <a
                   href="#pricing"
                   className="hover:text-blue-400 transition-colors cursor-pointer"
-                  onClick={e => {
+                  onClick={(e) => {
                     e.preventDefault();
-                    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+                    document
+                      .getElementById("pricing")
+                      ?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
                   Pricing
@@ -87,7 +91,7 @@ const Footer: React.FC = () => {
                 className="text-gray-400 hover:text-blue-400 transition-colors"
                 aria-label="Show Discord username"
               >
-                <Discord className="h-5 w-5" />
+                <Disc className="h-5 w-5" />
               </button>
             </div>
           </div>
@@ -108,39 +112,39 @@ const Footer: React.FC = () => {
           </p>
         </div>
       </div>
-    {/* Discord Toast Popup */}
-    {showDiscordToast && (
-      <div className="fixed bottom-8 right-8 z-50">
-        <div className="bg-gray-800 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 border border-blue-600">
-          <Discord className="h-6 w-6 text-blue-400" />
-          <span className="font-semibold">Discord:</span>
-          <span className="text-blue-300">NilsTG</span>
-          <button
-            onClick={() => setShowDiscordToast(false)}
-            className="ml-4 text-gray-400 hover:text-white text-lg font-bold px-2"
-            aria-label="Close Discord popup"
-          >
-            ×
-          </button>
+      {/* Discord Toast Popup */}
+      {showDiscordToast && (
+        <div className="fixed bottom-8 right-8 z-50">
+          <div className="bg-gray-800 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 border border-blue-600">
+            <Disc className="h-6 w-6 text-blue-400" />
+            <span className="font-semibold">Discord:</span>
+            <span className="text-blue-300">NilsTG</span>
+            <button
+              onClick={() => setShowDiscordToast(false)}
+              className="ml-4 text-gray-400 hover:text-white text-lg font-bold px-2"
+              aria-label="Close Discord popup"
+            >
+              ×
+            </button>
+          </div>
         </div>
-      </div>
-    )}
-    {/* Privacy Policy Modal */}
-    {showPrivacy && (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-        <div className="relative">
-          <button
-            onClick={() => setShowPrivacy(false)}
-            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold px-2"
-            aria-label="Close Privacy Policy"
-          >
-            ×
-          </button>
-          <PrivacyPolicy />
+      )}
+      {/* Privacy Policy Modal */}
+      {showPrivacy && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+          <div className="relative">
+            <button
+              onClick={() => setShowPrivacy(false)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold px-2"
+              aria-label="Close Privacy Policy"
+            >
+              ×
+            </button>
+            <PrivacyPolicy />
+          </div>
         </div>
-      </div>
-    )}
-  </footer>
+      )}
+    </footer>
   );
 };
 
