@@ -63,7 +63,7 @@ npm run deploy
 ```
 
 ## 🔧 Configuration
-- **Base URL**: `/job-board-app/` (configured for GitHub Pages)
+- **Base URL**: `/job-board-appp/` (configured for GitHub Pages)
 - **Build Tool**: Vite
 - **Styling**: Tailwind CSS
 - **Form Handling**: Formspree integration
