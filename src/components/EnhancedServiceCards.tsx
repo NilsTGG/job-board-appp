@@ -6,11 +6,11 @@ const servicesData = [
     id: "delivery",
     title: "📦 Delivery",
     icon: <Package className="h-6 w-6" />,
-    desc: "Move your items safely between locations",
+    desc: "Professional courier service for any items",
     bullets: [
-      "Any items, any distance",
-      "Risk handled for you", 
-      "Transparent distance pricing",
+      "Multi-shop delivery packages",
+      "Player to player transport", 
+      "Event material delivery",
     ],
     range: "5–25+ diamonds",
     completionRate: "99.2%",
@@ -19,7 +19,7 @@ const servicesData = [
     features: [
       "Insurance included",
       "All dimensions supported", 
-      "Real-time tracking",
+      "Base item transport (farm to chest)",
       "Safe route planning"
     ]
   },
@@ -27,20 +27,20 @@ const servicesData = [
     id: "villager",
     title: "👨‍🏭 Villager Transport",
     icon: <Users className="h-6 w-6" />,
-    desc: "Relocate villagers without the pain",
+    desc: "Safe villager relocation with insurance options",
     bullets: [
-      "Pathing / boat / rail setups",
-      "Linked portal routes optional",
-      "+1 diamond per extra villager",
+      "Portal setups and optimization",
+      "Insurance coverage available",
+      "Trading post relocation",
     ],
     range: "6–40+ diamonds",
     completionRate: "98.7%",
     avgTime: "25 mins",
     totalJobs: "312",
     features: [
-      "Professional breeding setup",
+      "Insurance options available",
       "Portal optimization",
-      "Multi-villager discounts",
+      "Multi-villager transport",
       "Trades preserved"
     ]
   },
@@ -48,21 +48,21 @@ const servicesData = [
     id: "task",
     title: "🧰 Custom Task",
     icon: <Wrench className="h-6 w-6" />,
-    desc: "Infrastructure & miscellaneous errands",
+    desc: "Miscellaneous errands and setups",
     bullets: [
-      "Small setup jobs",
-      "Light infrastructure tweaks", 
-      "One-off errands",
+      "Beacon placement services",
+      "Event setup assistance", 
+      "Base organization tasks",
     ],
     range: "5–40+ diamonds",
     completionRate: "97.5%",
     avgTime: "35 mins",
     totalJobs: "523",
     features: [
-      "No bulk farming",
-      "Creative solutions",
-      "Time-based pricing",
-      "Multiple task handling"
+      "No mining or grinding",
+      "Transport and setup only",
+      "Event assistance",
+      "Flexible task handling"
     ]
   },
   {
