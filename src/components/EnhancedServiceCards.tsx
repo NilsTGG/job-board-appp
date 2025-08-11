@@ -69,11 +69,11 @@ const servicesData = [
     id: "recovery",
     title: "🆘 Recovery / Rescue", 
     icon: <Shield className="h-6 w-6" />,
-    desc: "Death chest / stuck / emergency assistance",
+    desc: "Death chest recovery & rescue missions",
     bullets: [
-      "Nether & End supported",
-      "Gear retrieval & escort",
-      "Higher urgency modifiers",
+      "Death chest retrieval",
+      "Rescue missions for stuck players",
+      "Abandoned transport job completion",
     ],
     range: "5–25 diamonds",
     completionRate: "99.8%",
@@ -81,9 +81,9 @@ const servicesData = [
     totalJobs: "194",
     features: [
       "Emergency response",
-      "Risk coverage included",
-      "Gear replacement policy",
-      "24/7 availability"
+      "All dimensions supported",
+      "Rescue mission specialist", 
+      "Fast completion times"
     ]
   },
   {
