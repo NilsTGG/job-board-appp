@@ -27,35 +27,35 @@ const services: {
     blurb: "Move items A → B",
     icon: <Package className="h-5 w-5" />,
     popular: true,
-    examples: ["64 oak logs", "Diamond tools", "Building materials"]
+    examples: ["Multi-shop packages", "Base to base transport", "Event material delivery"]
   },
   { 
     key: "villager", 
     label: "Villager Transport", 
-    blurb: "Relocate villagers",
+    blurb: "Relocate villagers safely",
     icon: <Users className="h-5 w-5" />,
-    examples: ["Librarian transport", "Villager breeding setup", "Trading post relocation"]
+    examples: ["Librarian transport", "Trading post setup", "Villager relocation (insurance available)"]
   },
   { 
     key: "task", 
     label: "Custom Task", 
-    blurb: "Infrastructure / errands",
+    blurb: "Miscellaneous errands",
     icon: <Wrench className="h-5 w-5" />,
-    examples: ["Chest sorting", "Small builds", "Redstone setup"]
+    examples: ["Beacon placement", "Base item transport", "Event setup assistance"]
   },
   { 
     key: "recovery", 
     label: "Recovery / Rescue", 
-    blurb: "Death chest help",
+    blurb: "Death chest & rescue missions",
     icon: <Shield className="h-5 w-5" />,
-    examples: ["Death chest retrieval", "Stuck player rescue", "Item recovery"]
+    examples: ["Death chest retrieval", "Stuck player rescue", "Abandoned transport job completion"]
   },
   { 
     key: "timeblock", 
     label: "Time Block", 
-    blurb: "Buy pure work minutes",
+    blurb: "Buy focused work minutes",
     icon: <Clock className="h-5 w-5" />,
-    examples: ["Mixed tasks", "Flexible work time", "Multiple small jobs"]
+    examples: ["Multiple small deliveries", "Mixed errands", "Flexible task time"]
   },
 ];
 
