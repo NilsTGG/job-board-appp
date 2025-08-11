@@ -14,16 +14,6 @@ const testimonials = [
   },
   {
     id: 2,
-    name: "RedstoneQueen",
-    avatar: "⚡",
-    service: "Custom Task",
-    rating: 5,
-    text: "Had a complex redstone contraption that needed fine-tuning. Explained the issue clearly, fixed it in 20 minutes, and even optimized the design. Worth every diamond!",
-    timeAgo: "1 week ago",
-    verified: true
-  },
-  {
-    id: 3,
     name: "VillagerMaster",
     avatar: "👨‍💼",
     service: "Villager Transport",
@@ -33,7 +23,7 @@ const testimonials = [
     verified: true
   },
   {
-    id: 4,
+    id: 3,
     name: "CaveExplorer",
     avatar: "⛏️",
     service: "Recovery",
@@ -43,23 +33,33 @@ const testimonials = [
     verified: true
   },
   {
+    id: 4,
+    name: "NewPlayer123",
+    avatar: "🆕",
+    service: "Custom Task",
+    rating: 5,
+    text: "As a new player, I was completely lost on the server. NilsTG gave me a full tour, showed me all the important locations, and explained how everything works. Great intro service!",
+    timeAgo: "4 days ago",
+    verified: true
+  },
+  {
     id: 5,
-    name: "LazyBuilder",
-    avatar: "😴",
+    name: "BusyPlayer",
+    avatar: "⏰",
     service: "Time Block",
     rating: 4,
-    text: "Bought a 60-minute block for sorting my mess of a storage room. Got way more done than expected. Will definitely use again for boring tasks!",
+    text: "Bought a 40-minute block for multiple small errands around my base. NilsTG handled fence repairs, animal feeding, and item transport efficiently. Perfect for odd jobs!",
     timeAgo: "1 week ago",
     verified: true
   },
   {
     id: 6,
-    name: "NewPlayer123",
-    avatar: "🆕",
+    name: "ResourceGatherer",
+    avatar: "⛏️",
     service: "Delivery",
     rating: 5,
-    text: "As a new player, I was nervous about trusting someone with my items. NilsTG was patient, explained everything, and even gave me some free building tips. Amazing service!",
-    timeAgo: "4 days ago",
+    text: "Had tons of resources scattered across different mining sites. NilsTG consolidated everything to my main base in one trip. Saved me hours of boring transport work!",
+    timeAgo: "6 days ago",
     verified: true
   }
 ];
