@@ -9,31 +9,7 @@
       name="description"
       content="Minecraft courier, villager moves, rescues & annoying tasks handled for diamonds. Drop coords, get it done. Fast, clear, no fluff."
     />
-    <!-- Development mode - this file should not be served in production -->
-    <script>
-      // If this file is being served instead of the built version, redirect or show error
-      if (location.hostname === 'nilstgg.github.io' && !location.pathname.includes('job-board-appp')) {
-        // Redirect to the correct GitHub Pages URL
-        window.location.replace('https://nilstgg.github.io/job-board-appp/');
-      } else if (location.hostname === 'nilstgg.github.io') {
-        // Show error message for GitHub Pages
-        document.body.innerHTML = `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; border: 2px solid red; border-radius: 10px; background: #ffe6e6;">
-            <h2 style="color: red;">⚠️ Deployment Issue Detected</h2>
-            <p><strong>This appears to be a GitHub Pages deployment issue.</strong></p>
-            <p>The development HTML file is being served instead of the built production files.</p>
-            <h3>To fix this:</h3>
-            <ol>
-              <li>Go to your repository: <a href="https://github.com/NilsTGG/job-board-appp">github.com/NilsTGG/job-board-appp</a></li>
-              <li>Check the "Actions" tab to see if the deployment workflow ran successfully</li>
-              <li>Go to Settings → Pages and ensure Source is set to "GitHub Actions"</li>
-              <li>If needed, manually trigger the workflow from the Actions tab</li>
-            </ol>
-            <p><em>This message will disappear once the proper build is deployed.</em></p>
-          </div>
-        `;
-      }
-    </script>
+    <!-- Development HTML - This should not be served in production -->
     <script type="module" src="/src/main.tsx"></script>
     <link rel="stylesheet" href="/src/index.css" />
   </head>
