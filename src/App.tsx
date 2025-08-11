@@ -955,7 +955,7 @@ function App() {
               <span>⚠️</span>
               Broke People Menu™ Terms:
             </div>
-            <ul className="text-yellow-200 text-sm space-y-2">
+            <ul className="text-yellow-200 text-sm space-y-2 mb-6">
               <li className="flex items-start gap-2">
                 <span className="text-yellow-400 font-bold">•</span>
                 "Budget" doesn't mean "fast" or "with a smile"
@@ -973,6 +973,24 @@ function App() {
                 Quality service guaranteed despite the humor
               </li>
             </ul>
+
+            {/* Contact Section for Broke People Menu */}
+            <div className="border-t border-yellow-700/30 pt-6">
+              <div className="text-yellow-300 font-semibold mb-3 text-center">
+                💬 How to Order Budget Services:
+              </div>
+              <div className="bg-yellow-800/30 rounded-lg p-4 text-center">
+                <p className="text-yellow-200 text-sm mb-3">
+                  For broke people menu services, contact me directly on Discord:
+                </p>
+                <div className="bg-yellow-700/50 rounded-lg px-4 py-2 inline-block">
+                  <span className="text-white font-bold text-lg">NilsTG</span>
+                </div>
+                <p className="text-yellow-300 text-xs mt-3 italic">
+                  Mention "Broke People Menu" for budget pricing • No fancy forms for cheap customers 😉
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
