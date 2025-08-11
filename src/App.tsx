@@ -447,26 +447,341 @@ function App() {
                   </div>
                 </div>
 
-                {/* Service-specific fields remain the same but with enhanced styling */}
+                {/* Service-specific fields */}
                 {serviceType === "delivery" && (
-                  <div>
-                    <label htmlFor="itemDescription" className="block text-white font-medium mb-2">
-                      What needs delivered? *
-                    </label>
-                    <textarea
-                      name="itemDescription"
-                      id="itemDescription"
-                      placeholder="e.g., 64 oak logs, diamond pickaxe, shulker boxes..."
-                      required
-                      rows={3}
-                      className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all duration-200"
-                      onChange={() => setFormTouched(true)}
-                    />
-                  </div>
+                  <>
+                    <div>
+                      <label htmlFor="itemDescription" className="block text-white font-medium mb-2">
+                        What needs delivered? *
+                      </label>
+                      <textarea
+                        name="itemDescription"
+                        id="itemDescription"
+                        placeholder="e.g., 64 oak logs, diamond pickaxe, shulker boxes..."
+                        required
+                        rows={3}
+                        className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all duration-200"
+                        onChange={() => setFormTouched(true)}
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="pickupCoords" className="block text-white font-medium mb-2">
+                          Pickup Location (x, y, z) *
+                        </label>
+                        <input
+                          type="text"
+                          name="pickupCoords"
+                          id="pickupCoords"
+                          placeholder="1234, 64, -5678"
+                          value={pickupCoords}
+                          onChange={(e) => {
+                            setPickupCoords(e.target.value);
+                            setFormTouched(true);
+                          }}
+                          required
+                          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="dropoffCoords" className="block text-white font-medium mb-2">
+                          Delivery Location (x, y, z) *
+                        </label>
+                        <input
+                          type="text"
+                          name="dropoffCoords"
+                          id="dropoffCoords"
+                          placeholder="5678, 70, -1234"
+                          value={dropoffCoords}
+                          onChange={(e) => {
+                            setDropoffCoords(e.target.value);
+                            setFormTouched(true);
+                          }}
+                          required
+                          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        />
+                      </div>
+                    </div>
+                    {coordError && (
+                      <div className="text-red-400 text-sm bg-red-900/20 rounded-lg p-3 border border-red-700/30">
+                        ⚠️ {coordError}
+                      </div>
+                    )}
+                  </>
                 )}
 
-                {/* Rest of the form fields with same structure but enhanced styling... */}
-                {/* (keeping the same logic but with better visual design) */}
+                {serviceType === "villager" && (
+                  <>
+                    <div>
+                      <label htmlFor="villagerCount" className="block text-white font-medium mb-2">
+                        Number of Villagers *
+                      </label>
+                      <input
+                        type="number"
+                        name="villagerCount"
+                        id="villagerCount"
+                        min="1"
+                        value={villagers}
+                        onChange={(e) => {
+                          setVillagers(e.target.value);
+                          setFormTouched(true);
+                        }}
+                        required
+                        className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="pickupCoords" className="block text-white font-medium mb-2">
+                          Pickup Location (x, y, z) *
+                        </label>
+                        <input
+                          type="text"
+                          name="pickupCoords"
+                          id="pickupCoords"
+                          placeholder="1234, 64, -5678"
+                          value={pickupCoords}
+                          onChange={(e) => {
+                            setPickupCoords(e.target.value);
+                            setFormTouched(true);
+                          }}
+                          required
+                          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="dropoffCoords" className="block text-white font-medium mb-2">
+                          Delivery Location (x, y, z) *
+                        </label>
+                        <input
+                          type="text"
+                          name="dropoffCoords"
+                          id="dropoffCoords"
+                          placeholder="5678, 70, -1234"
+                          value={dropoffCoords}
+                          onChange={(e) => {
+                            setDropoffCoords(e.target.value);
+                            setFormTouched(true);
+                          }}
+                          required
+                          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        />
+                      </div>
+                    </div>
+                    {coordError && (
+                      <div className="text-red-400 text-sm bg-red-900/20 rounded-lg p-3 border border-red-700/30">
+                        ⚠️ {coordError}
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {serviceType === "task" && (
+                  <>
+                    <div>
+                      <label htmlFor="taskDescription" className="block text-white font-medium mb-2">
+                        Task Description *
+                      </label>
+                      <textarea
+                        name="taskDescription"
+                        id="taskDescription"
+                        placeholder="Describe what you need done..."
+                        value={taskDesc}
+                        onChange={(e) => {
+                          setTaskDesc(e.target.value);
+                          setFormTouched(true);
+                        }}
+                        required
+                        rows={3}
+                        className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all duration-200"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="timeBlockMinutes" className="block text-white font-medium mb-2">
+                        Estimated Time (minutes)
+                      </label>
+                      <select
+                        name="timeBlockMinutes"
+                        id="timeBlockMinutes"
+                        value={timeBlockMinutes}
+                        onChange={(e) => {
+                          setTimeBlockMinutes(e.target.value);
+                          setFormTouched(true);
+                        }}
+                        className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      >
+                        <option value="20">20 minutes</option>
+                        <option value="40">40 minutes</option>
+                        <option value="60">60 minutes</option>
+                      </select>
+                    </div>
+                  </>
+                )}
+
+                {serviceType === "recovery" && (
+                  <>
+                    <div>
+                      <label htmlFor="recoveryCoords" className="block text-white font-medium mb-2">
+                        Recovery Location (x, y, z) *
+                      </label>
+                      <input
+                        type="text"
+                        name="recoveryCoords"
+                        id="recoveryCoords"
+                        placeholder="1234, 64, -5678"
+                        value={recoveryCoords}
+                        onChange={(e) => {
+                          setRecoveryCoords(e.target.value);
+                          setFormTouched(true);
+                        }}
+                        required
+                        className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      />
+                    </div>
+                  </>
+                )}
+
+                {serviceType === "timeblock" && (
+                  <>
+                    <div>
+                      <label htmlFor="taskDescription" className="block text-white font-medium mb-2">
+                        What do you need done? *
+                      </label>
+                      <textarea
+                        name="taskDescription"
+                        id="taskDescription"
+                        placeholder="Describe the tasks you need help with..."
+                        value={taskDesc}
+                        onChange={(e) => {
+                          setTaskDesc(e.target.value);
+                          setFormTouched(true);
+                        }}
+                        required
+                        rows={3}
+                        className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all duration-200"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="timeBlockMinutes" className="block text-white font-medium mb-2">
+                        Time Block Duration
+                      </label>
+                      <select
+                        name="timeBlockMinutes"
+                        id="timeBlockMinutes"
+                        value={timeBlockMinutes}
+                        onChange={(e) => {
+                          setTimeBlockMinutes(e.target.value);
+                          setFormTouched(true);
+                        }}
+                        className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      >
+                        <option value="20">20 minutes</option>
+                        <option value="40">40 minutes</option>
+                        <option value="60">60 minutes</option>
+                      </select>
+                    </div>
+                  </>
+                )}
+
+                {/* Common fields for all service types */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="dimension" className="block text-white font-medium mb-2">
+                      Dimension
+                    </label>
+                    <select
+                      name="dimension"
+                      id="dimension"
+                      value={dimension}
+                      onChange={(e) => {
+                        setDimension(e.target.value);
+                        setFormTouched(true);
+                      }}
+                      className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    >
+                      <option value="overworld">Overworld</option>
+                      <option value="nether">Nether (+50%)</option>
+                      <option value="end">End (+50%)</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="urgency" className="block text-white font-medium mb-2">
+                      Urgency Level
+                    </label>
+                    <select
+                      name="urgency"
+                      id="urgency"
+                      value={urgency}
+                      onChange={(e) => {
+                        setUrgency(e.target.value);
+                        setFormTouched(true);
+                      }}
+                      className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    >
+                      <option value="whenever">Whenever (20% off)</option>
+                      <option value="soon">Soon (normal price)</option>
+                      <option value="urgent">Urgent (+50%)</option>
+                      <option value="emergency">Emergency (+100%)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    name="hazardous"
+                    id="hazardous"
+                    checked={hazardous}
+                    onChange={(e) => {
+                      setHazardous(e.target.checked);
+                      setFormTouched(true);
+                    }}
+                    className="w-5 h-5 bg-gray-700 border border-gray-600 rounded focus:ring-2 focus:ring-blue-500 text-blue-600"
+                  />
+                  <label htmlFor="hazardous" className="text-white font-medium">
+                    Hazardous location (+25%)
+                    <span className="text-gray-400 text-sm block">Dangerous biomes, heavy mobs, unstable terrain</span>
+                  </label>
+                </div>
+
+                <div>
+                  <label htmlFor="paymentOffer" className="block text-white font-medium mb-2">
+                    Your Payment Offer
+                  </label>
+                  <input
+                    type="text"
+                    name="paymentOffer"
+                    id="paymentOffer"
+                    placeholder="15 diamonds"
+                    value={paymentOffer}
+                    onChange={(e) => {
+                      setPaymentOffer(e.target.value);
+                      setFormTouched(true);
+                    }}
+                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="notes" className="block text-white font-medium mb-2">
+                    Additional Notes
+                  </label>
+                  <textarea
+                    name="notes"
+                    id="notes"
+                    placeholder="Any special requirements, timing preferences, or other details..."
+                    rows={3}
+                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all duration-200"
+                    onChange={() => setFormTouched(true)}
+                  />
+                </div>
 
                 <EnhancedEstimatorPanel 
                   estimate={estimate} 
