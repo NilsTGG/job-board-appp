@@ -131,7 +131,7 @@ const EnhancedServiceSelector: React.FC<Props> = ({ value, onChange }) => {
       
       <div className="text-xs text-gray-500 bg-gray-800/50 rounded-lg p-3 border border-gray-700">
         <div className="font-medium text-gray-400 mb-1">💡 Pro Tip:</div>
-        Unsure which service to choose? Select "Time Block" for multiple small tasks or "Custom Task" for infrastructure work.
+        Unsure which service to choose? Select "Time Block\" for multiple small tasks or "Custom Task\" for infrastructure work.
       </div>
     </fieldset>
   );

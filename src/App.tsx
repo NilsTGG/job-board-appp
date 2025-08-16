@@ -979,7 +979,7 @@ function App() {
             <ul className="text-yellow-200 text-sm space-y-2 mb-6">
               <li className="flex items-start gap-2">
                 <span className="text-yellow-400 font-bold">•</span>
-                "Budget" doesn't mean "fast" or "with a smile"
+                "Budget\" doesn't mean "fast" or \"with a smile"
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-yellow-400 font-bold">•</span>
