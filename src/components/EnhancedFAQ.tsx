@@ -122,9 +122,9 @@ const EnhancedFAQ: React.FC = () => {
   });
 
   return (
-    <section className="max-w-5xl mx-auto px-4 py-16" id="faq">
+    <section className="max-w-5xl mx-auto px-4 py-16" id="faq" aria-labelledby="faq-heading">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <h2 id="faq-heading" className="text-3xl font-bold text-white mb-4">Frequently Asked Questions</h2>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
           Get answers to common questions about our services, pricing, and policies. 
           Can't find what you're looking for? Ask on Discord.
@@ -133,20 +133,27 @@ const EnhancedFAQ: React.FC = () => {
 
       {/* Search Bar */}
       <div className="relative mb-8">
+        <label htmlFor="faq-search" className="sr-only">Search frequently asked questions</label>
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <Search className="h-5 w-5 text-gray-400" />
         </div>
         <input
+          id="faq-search"
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           placeholder="Search FAQs by keyword, topic, or question..."
+          aria-describedby="search-help"
         />
+        <div id="search-help" className="sr-only">
+          Search through {faqData.length} frequently asked questions by keyword, topic, or question content
+        </div>
         {searchTerm && (
           <button
             onClick={() => setSearchTerm("")}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white"
+            aria-label="Clear search"
           >
             ×
           </button>
@@ -154,7 +161,7 @@ const EnhancedFAQ: React.FC = () => {
       </div>
 
       {/* Category Filter */}
-      <div className="flex flex-wrap gap-2 mb-8 justify-center">
+      <div className="flex flex-wrap gap-2 mb-8 justify-center" role="tablist" aria-label="FAQ categories">
         {categories.map((category) => (
           <button
             key={category.id}
@@ -164,6 +171,9 @@ const EnhancedFAQ: React.FC = () => {
                 ? 'bg-blue-600 text-white shadow-lg'
                 : 'bg-gray-800 text-gray-400 border border-gray-700 hover:text-white hover:border-gray-600'
             }`}
+            role="tab"
+            aria-selected={activeCategory === category.id}
+            aria-controls="faq-content"
           >
             {category.icon}
             {category.name}
@@ -178,18 +188,18 @@ const EnhancedFAQ: React.FC = () => {
 
       {/* Results Count */}
       {(searchTerm || activeCategory !== "all") && (
-        <div className="text-center mb-6 text-sm text-gray-400">
+        <div className="text-center mb-6 text-sm text-gray-400" role="status" aria-live="polite">
           Showing {filteredFAQs.length} of {faqData.length} questions
           {searchTerm && ` for "${searchTerm}"`}
         </div>
       )}
 
       {/* FAQ Items */}
-      <div className="space-y-4">
+      <div id="faq-content" className="space-y-4" role="tabpanel">
         {filteredFAQs.length === 0 ? (
           <div className="text-center py-12">
             <HelpCircle className="h-16 w-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-400 mb-2">No matches found</h3>
+            <h3 className="text-lg font-semibold text-gray-400 mb-2">No Questions Found</h3>
             <p className="text-gray-500">Try adjusting your search terms or browse all categories</p>
             {searchTerm && (
               <button
@@ -211,9 +221,11 @@ const EnhancedFAQ: React.FC = () => {
                 <button
                   onClick={() => toggleExpanded(faq.id)}
                   className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-750 transition-colors"
+                  aria-expanded={isExpanded}
+                  aria-controls={`faq-answer-${faq.id}`}
                 >
                   <div className="flex-1">
-                    <h3 className="text-white font-medium mb-1">{faq.question}</h3>
+                    <h3 className="text-white font-medium mb-1" id={`faq-question-${faq.id}`}>{faq.question}</h3>
                     <div className="flex flex-wrap gap-1">
                       {faq.tags.map((tag) => (
                         <span
@@ -229,11 +241,12 @@ const EnhancedFAQ: React.FC = () => {
                     className={`h-5 w-5 text-gray-400 transition-transform duration-200 flex-shrink-0 ml-4 ${
                       isExpanded ? 'rotate-180' : ''
                     }`}
+                    aria-hidden="true"
                   />
                 </button>
                 
                 {isExpanded && (
-                  <div className="px-6 pb-4 animate-fadeIn">
+                  <div id={`faq-answer-${faq.id}`} className="px-6 pb-4 animate-fadeIn" role="region" aria-labelledby={`faq-question-${faq.id}`}>
                     <div className="text-gray-300 text-sm leading-relaxed bg-gray-750 rounded p-4 border-l-4 border-blue-500">
                       {faq.answer}
                     </div>

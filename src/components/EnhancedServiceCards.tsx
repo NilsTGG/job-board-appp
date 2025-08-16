@@ -201,25 +201,25 @@ const EnhancedServiceCards: React.FC = () => {
   };
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-16" id="services">
+    <section className="max-w-6xl mx-auto px-4 py-16" id="services" aria-labelledby="services-heading">
       {/* Section Header */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-white mb-4">Professional Services</h2>
+        <h2 id="services-heading" className="text-3xl font-bold text-white mb-4">Professional Minecraft Services</h2>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-          Outsource the hassle, risk & tedium. Choose from our proven service portfolio with transparent pricing and guaranteed results.
+          Expert logistics solutions for Minecraft players. Choose from our proven service portfolio with transparent pricing and guaranteed results.
         </p>
         
         {/* Trust Indicators */}
-        <div className="flex justify-center gap-8 mt-6 text-sm">
-          <div className="flex items-center gap-2 text-green-400">
+        <div className="flex justify-center gap-8 mt-6 text-sm" role="list" aria-label="Service statistics">
+          <div className="flex items-center gap-2 text-green-400" role="listitem">
             <CheckCircle className="h-4 w-4" />
             <span>2,547+ Jobs Completed</span>
           </div>
-          <div className="flex items-center gap-2 text-blue-400">
+          <div className="flex items-center gap-2 text-blue-400" role="listitem">
             <Star className="h-4 w-4" />
             <span>4.9/5 Average Rating</span>
           </div>
-          <div className="flex items-center gap-2 text-purple-400">
+          <div className="flex items-center gap-2 text-purple-400" role="listitem">
             <Shield className="h-4 w-4" />
             <span>Zero Loss Guarantee</span>
           </div>
@@ -227,14 +227,15 @@ const EnhancedServiceCards: React.FC = () => {
       </div>
 
       {/* Service Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="list" aria-label="Available services">
         {servicesData.map((service) => (
-          <ServiceCard
-            key={service.id}
+          <div key={service.id} role="listitem">
+            <ServiceCard
             service={service}
             isExpanded={expandedCard === service.id}
             onToggle={() => toggleCard(service.id)}
           />
+          </div>
         ))}
       </div>
 

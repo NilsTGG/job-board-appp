@@ -63,15 +63,15 @@ const EnhancedServiceSelector: React.FC<Props> = ({ value, onChange }) => {
   const [hoveredService, setHoveredService] = useState<ServiceType | null>(null);
 
   return (
-    <fieldset className="space-y-4" aria-label="Service Type Selection">
-      <legend className="text-white font-medium mb-2">
+    <fieldset className="space-y-4" aria-labelledby="service-legend">
+      <legend id="service-legend" className="text-white font-medium mb-2">
         Choose Your Service Type
         <span className="text-xs text-gray-400 block font-normal mt-1">
           Select the type of service you need help with
         </span>
       </legend>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" role="radiogroup" aria-labelledby="service-legend">
         {services.map((s) => {
           const active = value === s.key;
           const hovered = hoveredService === s.key;
@@ -90,7 +90,9 @@ const EnhancedServiceSelector: React.FC<Props> = ({ value, onChange }) => {
                   : "bg-gray-700 border-gray-600 hover:border-blue-500 hover:bg-gray-650 hover:scale-102",
                 "group"
               ].join(" ")}
-              aria-pressed={active}
+              role="radio"
+              aria-checked={active}
+              aria-describedby={`service-${s.key}-desc`}
             >
               {s.popular && (
                 <div className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs px-2 py-1 rounded-full font-bold animate-pulse">
@@ -109,7 +111,7 @@ const EnhancedServiceSelector: React.FC<Props> = ({ value, onChange }) => {
                 </div>
               </div>
               
-              <div className="text-gray-300 text-xs mb-3">{s.blurb}</div>
+              <div id={`service-${s.key}-desc`} className="text-gray-300 text-xs mb-3">{s.blurb}</div>
               
               {(active || hovered) && (
                 <div className="space-y-1 animate-fadeIn">
@@ -129,7 +131,7 @@ const EnhancedServiceSelector: React.FC<Props> = ({ value, onChange }) => {
       
       <div className="text-xs text-gray-500 bg-gray-800/50 rounded-lg p-3 border border-gray-700">
         <div className="font-medium text-gray-400 mb-1">💡 Pro Tip:</div>
-        Not sure which service fits your need? Choose "Time Block" for mixed tasks or "Custom Task" for anything infrastructure-related.
+        Unsure which service to choose? Select "Time Block" for multiple small tasks or "Custom Task" for infrastructure work.
       </div>
     </fieldset>
   );

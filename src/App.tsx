@@ -294,12 +294,12 @@ function App() {
                 <Sparkles className="h-6 w-6 text-yellow-400 absolute -top-2 -right-2 animate-ping" />
               </div>
               <div>
-                <h1 className="text-5xl font-extrabold tracking-tight bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
+                <h1 className="text-5xl font-extrabold tracking-tight bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent" id="main-heading">
                   Because You Won't™
                 </h1>
                 <div className="flex items-center justify-center gap-2 mt-2">
                   <Zap className="h-4 w-4 text-yellow-400" />
-                  <span className="text-sm text-yellow-400 font-medium">Professional Minecraft Services</span>
+                  <p className="text-sm text-yellow-400 font-medium" role="doc-subtitle">Professional Minecraft Logistics & Delivery Services</p>
                   <Zap className="h-4 w-4 text-yellow-400" />
                 </div>
               </div>
@@ -307,11 +307,11 @@ function App() {
 
             {/* Enhanced Subtitle */}
             <div className="mb-6">
-              <p className="text-3xl font-bold text-white leading-tight mb-2">
-                I move stuff & rescue villagers.
-              </p>
+              <h2 className="text-3xl font-bold text-white leading-tight mb-2">
+                Professional Minecraft Courier & Rescue Services
+              </h2>
               <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-                Professional delivery service for all your Minecraft logistics needs. 
+                Expert delivery service for all your Minecraft logistics needs. 
                 <span className="text-blue-400 font-medium"> Diamonds in → Problem gone.</span>
               </p>
               
@@ -390,12 +390,12 @@ function App() {
                   <MessageCircle className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">Submit Service Request</h2>
+                  <h2 className="text-2xl font-bold text-white">Request Professional Minecraft Services</h2>
                   <p className="text-gray-400 text-sm">Fill out the details and get an instant price estimate</p>
                 </div>
               </div>
 
-              <form onSubmit={handleEnhancedSubmit} className="space-y-6" noValidate>
+              <form onSubmit={handleEnhancedSubmit} className="space-y-6" noValidate aria-labelledby="main-heading" role="main">
                 {/* Honeypot field */}
                 <input
                   type="text"
@@ -417,31 +417,37 @@ function App() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="discordUsername" className="block text-white font-medium mb-2">
+                    <label htmlFor="discordUsername" className="block text-white font-medium mb-2" id="discord-label">
                       Discord Username *
+                      <span className="text-xs text-gray-400 block font-normal mt-1">We'll contact you here for job confirmation</span>
                     </label>
                     <input
                       type="text"
                       name="discordUsername"
                       id="discordUsername"
-                      placeholder="yourname"
+                      placeholder="e.g., YourUsername#1234"
                       required
                       className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      aria-describedby="discord-label"
+                      aria-required="true"
                       onChange={() => setFormTouched(true)}
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="ign" className="block text-white font-medium mb-2">
+                    <label htmlFor="ign" className="block text-white font-medium mb-2" id="minecraft-label">
                       Minecraft Username *
+                      <span className="text-xs text-gray-400 block font-normal mt-1">Your in-game name for meetup coordination</span>
                     </label>
                     <input
                       type="text"
                       name="ign"
                       id="ign"
-                      placeholder="YourMinecraftName"
+                      placeholder="e.g., Steve_Builder"
                       required
                       className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      aria-describedby="minecraft-label"
+                      aria-required="true"
                       onChange={() => setFormTouched(true)}
                     />
                   </div>
@@ -451,30 +457,34 @@ function App() {
                 {serviceType === "delivery" && (
                   <>
                     <div>
-                      <label htmlFor="itemDescription" className="block text-white font-medium mb-2">
+                      <label htmlFor="itemDescription" className="block text-white font-medium mb-2" id="items-label">
                         What needs delivered? *
+                        <span className="text-xs text-gray-400 block font-normal mt-1">Be specific about items, quantities, and any special handling needs</span>
                       </label>
                       <textarea
                         name="itemDescription"
                         id="itemDescription"
-                        placeholder="e.g., 64 oak logs, diamond pickaxe, shulker boxes..."
+                        placeholder="e.g., 3 shulker boxes of building materials, 1 diamond pickaxe (Efficiency V), 64 oak logs"
                         required
                         rows={3}
                         className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all duration-200"
+                        aria-describedby="items-label"
+                        aria-required="true"
                         onChange={() => setFormTouched(true)}
                       />
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="pickupCoords" className="block text-white font-medium mb-2">
+                        <label htmlFor="pickupCoords" className="block text-white font-medium mb-2" id="pickup-label">
                           Pickup Location (x, y, z) *
+                          <span className="text-xs text-gray-400 block font-normal mt-1">Where I should collect the items</span>
                         </label>
                         <input
                           type="text"
                           name="pickupCoords"
                           id="pickupCoords"
-                          placeholder="1234, 64, -5678"
+                          placeholder="e.g., 1234, 64, -5678"
                           value={pickupCoords}
                           onChange={(e) => {
                             setPickupCoords(e.target.value);
@@ -482,18 +492,21 @@ function App() {
                           }}
                           required
                           className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                          aria-describedby="pickup-label"
+                          aria-required="true"
                         />
                       </div>
                       
                       <div>
-                        <label htmlFor="dropoffCoords" className="block text-white font-medium mb-2">
+                        <label htmlFor="dropoffCoords" className="block text-white font-medium mb-2" id="dropoff-label">
                           Delivery Location (x, y, z) *
+                          <span className="text-xs text-gray-400 block font-normal mt-1">Where the items should be delivered</span>
                         </label>
                         <input
                           type="text"
                           name="dropoffCoords"
                           id="dropoffCoords"
-                          placeholder="5678, 70, -1234"
+                          placeholder="e.g., 5678, 70, -1234"
                           value={dropoffCoords}
                           onChange={(e) => {
                             setDropoffCoords(e.target.value);
@@ -501,12 +514,15 @@ function App() {
                           }}
                           required
                           className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                          aria-describedby="dropoff-label"
+                          aria-required="true"
                         />
                       </div>
                     </div>
                     {coordError && (
-                      <div className="text-red-400 text-sm bg-red-900/20 rounded-lg p-3 border border-red-700/30">
+                      <div className="text-red-400 text-sm bg-red-900/20 rounded-lg p-3 border border-red-700/30" role="alert" aria-live="polite">
                         ⚠️ {coordError}
+                        <div className="text-xs mt-1 text-red-300">Format should be: x, y, z (e.g., 1234, 64, -5678)</div>
                       </div>
                     )}
                   </>
@@ -798,19 +814,24 @@ function App() {
                     (serviceType === "delivery" && !distanceInfo)
                   }
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-700 text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 disabled:hover:scale-100 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                  aria-describedby="submit-help"
                 >
                   {state.submitting ? (
                     <div className="flex items-center justify-center gap-3">
                       <LoadingSpinner size="small" color="white" />
-                      Submitting Request...
+                      <span>Submitting Your Request...</span>
                     </div>
                   ) : (
                     <div className="flex items-center justify-center gap-3">
                       <Package className="h-5 w-5" />
-                      Submit Job Request
+                      <span>Submit Service Request</span>
                     </div>
                   )}
                 </button>
+                
+                <div id="submit-help" className="text-xs text-gray-500 text-center">
+                  By submitting, you agree to our service terms. We'll contact you on Discord within 30 minutes when online.
+                </div>
 
                 {/* Form validation errors */}
                 <div className="space-y-2">
