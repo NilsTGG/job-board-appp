@@ -5,105 +5,42 @@ interface Review {
   id: string;
   customer: string;
   date: string;
-  order: string;
-  deliverySpeed: string;
-  trustLevel: string;
-  surprise: string;
-  summary: string;
+  order?: string;
+  deliverySpeed?: string;
+  trustLevel?: string;
+  surprise?: string;
+  summary?: string;
+  review?: string;
   isReal: boolean;
   isTemplate?: boolean;
 }
 
 const ReviewsSection: React.FC = () => {
-  // Real review data provided
-  const realReview: Review = {
-    id: "real-1",
-    customer: "ilovebmwe30 BMW E30 [SWRZ]",
-    date: "31/08/2025 19:44",
-    order: "I ordered 2 villagers and the process was perfect",
-    deliverySpeed:
-      "Too quick I expected about a hour maybe longer but it was within 10 minutes",
-    trustLevel: "I would trust to do more job",
-    surprise: "It was just so quick",
-    summary: "Superb quick rapid",
-    isReal: true,
-  };
-
-  // Template reviews with variations
-  const templateReviews: Review[] = [
+  // Real customer reviews only
+  const realReviews: Review[] = [
     {
-      id: "template-1",
-      customer: "Your review here? Order now and be forever immortalized!",
-      date: "Soon™",
-      order: "Your dream delivery awaits...",
-      deliverySpeed: "Lightning fast service guaranteed",
-      trustLevel: "Join hundreds of satisfied customers",
-      surprise: "Professional Minecraft logistics at your service",
-      summary: "Order now and experience the difference!",
-      isReal: false,
-      isTemplate: true,
+      id: "real-1",
+      customer: "ilovebmwe30 BMW E30 [SWRZ]",
+      date: "31/08/2025 19:44",
+      order: "I ordered 2 villagers and the process was perfect",
+      deliverySpeed:
+        "Too quick I expected about a hour maybe longer but it was within 10 minutes",
+      trustLevel: "I would trust to do more job",
+      surprise: "It was just so quick",
+      summary: "Superb quick rapid",
+      isReal: true,
     },
     {
-      id: "template-2",
-      customer: "MinecraftPro2024",
-      date: "15/09/2025 14:32",
-      order: "Needed urgent farm supplies transported across dimensions",
-      deliverySpeed: "Faster than my elytra flight!",
-      trustLevel: "Already planning my next order",
-      surprise: "Zero items lost, perfect communication",
-      summary: "Professional service, highly recommend",
-      isReal: false,
-    },
-    {
-      id: "template-3",
-      customer: "BuilderMaster",
-      date: "12/09/2025 09:15",
-      order: "Massive building materials delivery to my mega base",
-      deliverySpeed: "Completed while I was still organizing my chests",
-      trustLevel: "This is my go-to logistics service now",
-      surprise: "Even helped optimize my storage system",
-      summary: "Beyond expectations, worth every diamond",
-      isReal: false,
-    },
-    {
-      id: "template-4",
-      customer: "🎯 Your success story could be next!",
-      date: "Today",
-      order: "Whatever you need delivered, built, or rescued",
-      deliverySpeed: "Professional speed, guaranteed results",
-      trustLevel: "Join our community of satisfied clients",
-      surprise: "Experience premium Minecraft logistics",
-      summary: "Submit your job and join the testimonials!",
-      isReal: false,
-      isTemplate: true,
-    },
-    {
-      id: "template-5",
-      customer: "RedstoneEngineer",
-      date: "10/09/2025 21:03",
-      order: "Complex villager trading hall setup assistance",
-      deliverySpeed: "Finished before my redstone contraption was done",
-      trustLevel: "Definitely using this service again",
-      surprise: "Even gave me some optimization tips",
-      summary: "Expert knowledge, flawless execution",
-      isReal: false,
-    },
-    {
-      id: "template-6",
-      customer: "EndGamePlayer",
-      date: "08/09/2025 16:47",
-      order: "Emergency shulker rescue from the End",
-      deliverySpeed: "Saved my items faster than I could respawn",
-      trustLevel: "My new favorite Minecraft service",
-      surprise: "Professional gear and backup plans",
-      summary: "Reliable, fast, and trustworthy",
-      isReal: false,
+      id: "real-2",
+      customer: "alansis3000 Alan",
+      date: "14/09/2025 19:48",
+      review: "Very professional service! All my villagers got to their destination safe and sound, will definitely recommend Because You Won't™ to everyone!",
+      isReal: true,
     },
   ];
 
-  // Combine all reviews and duplicate for seamless loop
-  const allReviews = [realReview, ...templateReviews];
-  const reviewsForLoop = [...allReviews, ...allReviews, ...allReviews]; // Triple for smooth infinite scroll
+  // Duplicate reviews for seamless infinite loop
+  const reviewsForLoop = [...realReviews, ...realReviews, ...realReviews, ...realReviews]; // Multiple copies for smooth infinite scroll
 
   const ReviewCard: React.FC<{ review: Review; index: number }> = ({
     review,
@@ -306,7 +243,7 @@ const ReviewsSection: React.FC = () => {
             >
               {reviewsForLoop.map((review, index) => (
                 <ReviewCard
-                  key={`${review.id}-${Math.floor(index / allReviews.length)}`}
+                  key={`${review.id}-${Math.floor(index / realReviews.length)}`}
                   review={review}
                   index={index}
                 />
@@ -350,7 +287,7 @@ const ReviewsSection: React.FC = () => {
               transform: translateX(0);
             }
             100% {
-              transform: translateX(-${allReviews.length * 400}px);
+              transform: translateX(-${realReviews.length * 400}px);
             }
           }
 
@@ -370,7 +307,7 @@ const ReviewsSection: React.FC = () => {
                 transform: translateX(0);
               }
               100% {
-                transform: translateX(-${allReviews.length * 320}px);
+                transform: translateX(-${realReviews.length * 320}px);
               }
             }
           }
