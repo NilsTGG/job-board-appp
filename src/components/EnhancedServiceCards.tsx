@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Package, Users, Wrench, Shield, Clock, Star, CheckCircle, TrendingUp } from "lucide-react";
+import {
+  Package,
+  Users,
+  Wrench,
+  Shield,
+  Clock,
+  Star,
+  CheckCircle,
+  TrendingUp,
+} from "../icons";
 
 const servicesData = [
   {
@@ -9,7 +18,7 @@ const servicesData = [
     desc: "Professional courier service for any items",
     bullets: [
       "Multi-shop delivery packages",
-      "Player to player transport", 
+      "Player to player transport",
       "Event material delivery",
     ],
     range: "5–25+ diamonds",
@@ -18,10 +27,10 @@ const servicesData = [
     totalJobs: "847",
     features: [
       "Insurance included",
-      "All dimensions supported", 
+      "All dimensions supported",
       "Base item transport (farm to chest)",
-      "Safe route planning"
-    ]
+      "Safe route planning",
+    ],
   },
   {
     id: "villager",
@@ -41,8 +50,8 @@ const servicesData = [
       "Insurance options available",
       "Portal optimization",
       "Multi-villager transport",
-      "Trades preserved"
-    ]
+      "Trades preserved",
+    ],
   },
   {
     id: "task",
@@ -51,7 +60,7 @@ const servicesData = [
     desc: "Miscellaneous errands and setups",
     bullets: [
       "Beacon placement services",
-      "Event setup assistance", 
+      "Event setup assistance",
       "Base organization tasks",
     ],
     range: "5–40+ diamonds",
@@ -62,12 +71,12 @@ const servicesData = [
       "No mining or grinding",
       "Transport and setup only",
       "Event assistance",
-      "Flexible task handling"
-    ]
+      "Flexible task handling",
+    ],
   },
   {
     id: "recovery",
-    title: "🆘 Recovery / Rescue", 
+    title: "🆘 Recovery / Rescue",
     icon: <Shield className="h-6 w-6" />,
     desc: "Death chest recovery & rescue missions",
     bullets: [
@@ -82,9 +91,9 @@ const servicesData = [
     features: [
       "Emergency response",
       "All dimensions supported",
-      "Rescue mission specialist", 
-      "Fast completion times"
-    ]
+      "Rescue mission specialist",
+      "Fast completion times",
+    ],
   },
   {
     id: "timeblock",
@@ -104,22 +113,28 @@ const servicesData = [
       "Flexible usage",
       "Roll unused time",
       "Multi-task support",
-      "Best value option"
-    ]
+      "Best value option",
+    ],
   },
 ];
 
 interface ServiceCardProps {
-  service: typeof servicesData[0];
+  service: (typeof servicesData)[0];
   isExpanded: boolean;
   onToggle: () => void;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ service, isExpanded, onToggle }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({
+  service,
+  isExpanded,
+  onToggle,
+}) => {
   return (
-    <div className={`bg-gray-800 rounded-xl p-6 border border-gray-700 transition-all duration-300 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 ${
-      isExpanded ? 'transform scale-105 ring-2 ring-blue-500/30' : ''
-    }`}>
+    <div
+      className={`bg-gray-800 rounded-xl p-6 border border-gray-700 transition-all duration-300 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 ${
+        isExpanded ? "transform scale-105 ring-2 ring-blue-500/30" : ""
+      }`}
+    >
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
@@ -173,15 +188,20 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, isExpanded, onToggle
         onClick={onToggle}
         className="w-full text-center text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors"
       >
-        {isExpanded ? '▼ Hide Details' : '▶ Show All Features'}
+        {isExpanded ? "▼ Hide Details" : "▶ Show All Features"}
       </button>
 
       {isExpanded && (
         <div className="mt-4 animate-fadeIn">
-          <div className="text-sm font-medium text-white mb-2">🎯 What's Included:</div>
+          <div className="text-sm font-medium text-white mb-2">
+            🎯 What's Included:
+          </div>
           <div className="grid grid-cols-2 gap-2">
             {service.features.map((feature, idx) => (
-              <div key={idx} className="flex items-center gap-2 text-xs text-gray-300 bg-gray-700/30 rounded p-2">
+              <div
+                key={idx}
+                className="flex items-center gap-2 text-xs text-gray-300 bg-gray-700/30 rounded p-2"
+              >
                 <Star className="h-3 w-3 text-yellow-400 flex-shrink-0" />
                 {feature}
               </div>
@@ -201,25 +221,49 @@ const EnhancedServiceCards: React.FC = () => {
   };
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-16" id="services" aria-labelledby="services-heading">
+    <section
+      className="max-w-6xl mx-auto px-4 py-16"
+      id="services"
+      aria-labelledby="services-heading"
+    >
       {/* Section Header */}
       <div className="text-center mb-12">
-        <h2 id="services-heading" className="text-3xl font-bold text-white mb-4">Professional Minecraft Services</h2>
+        <h2
+          id="services-heading"
+          className="text-3xl font-bold text-white mb-4"
+        >
+          Professional Minecraft Services
+        </h2>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-          Expert logistics solutions for Minecraft players. Choose from our proven service portfolio with transparent pricing and guaranteed results.
+          Expert logistics solutions for Minecraft players. Choose from our
+          proven service portfolio with transparent pricing and guaranteed
+          results.
         </p>
-        
+
         {/* Trust Indicators */}
-        <div className="flex justify-center gap-8 mt-6 text-sm" role="list" aria-label="Service statistics">
-          <div className="flex items-center gap-2 text-green-400" role="listitem">
+        <div
+          className="flex justify-center gap-8 mt-6 text-sm"
+          role="list"
+          aria-label="Service statistics"
+        >
+          <div
+            className="flex items-center gap-2 text-green-400"
+            role="listitem"
+          >
             <CheckCircle className="h-4 w-4" />
             <span>2,547+ Jobs Completed</span>
           </div>
-          <div className="flex items-center gap-2 text-blue-400" role="listitem">
+          <div
+            className="flex items-center gap-2 text-blue-400"
+            role="listitem"
+          >
             <Star className="h-4 w-4" />
             <span>4.9/5 Average Rating</span>
           </div>
-          <div className="flex items-center gap-2 text-purple-400" role="listitem">
+          <div
+            className="flex items-center gap-2 text-purple-400"
+            role="listitem"
+          >
             <Shield className="h-4 w-4" />
             <span>Zero Loss Guarantee</span>
           </div>
@@ -227,14 +271,18 @@ const EnhancedServiceCards: React.FC = () => {
       </div>
 
       {/* Service Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="list" aria-label="Available services">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        role="list"
+        aria-label="Available services"
+      >
         {servicesData.map((service) => (
           <div key={service.id} role="listitem">
             <ServiceCard
-            service={service}
-            isExpanded={expandedCard === service.id}
-            onToggle={() => toggleCard(service.id)}
-          />
+              service={service}
+              isExpanded={expandedCard === service.id}
+              onToggle={() => toggleCard(service.id)}
+            />
           </div>
         ))}
       </div>
@@ -242,14 +290,21 @@ const EnhancedServiceCards: React.FC = () => {
       {/* Bottom CTA */}
       <div className="text-center mt-12">
         <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-8 border border-blue-500/30">
-          <h3 className="text-xl font-bold text-white mb-2">Ready to Get Started?</h3>
-          <p className="text-gray-300 mb-4">Join 500+ satisfied customers who trust us with their Minecraft tasks</p>
-          <a 
+          <h3 className="text-xl font-bold text-white mb-2">
+            Ready to Get Started?
+          </h3>
+          <p className="text-gray-300 mb-4">
+            Join 500+ satisfied customers who trust us with their Minecraft
+            tasks
+          </p>
+          <a
             href="#submit-job"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg"
             onClick={(e) => {
               e.preventDefault();
-              document.getElementById('submit-job')?.scrollIntoView({ behavior: 'smooth' });
+              document
+                .getElementById("submit-job")
+                ?.scrollIntoView({ behavior: "smooth" });
             }}
           >
             <Package className="h-4 w-4" />

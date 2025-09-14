@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ChevronDown, Loader } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { ChevronDown, Loader } from "../icons";
 
 interface ListItem {
   id: string;
@@ -29,11 +29,11 @@ const ProgressiveList: React.FC<ProgressiveListProps> = ({
   loading = false,
   hasMore = true,
   onLoadMore,
-  className = '',
-  itemClassName = '',
-  loadMoreText = 'Load More',
-  noMoreText = 'No more items',
-  emptyText = 'No items to display'
+  className = "",
+  itemClassName = "",
+  loadMoreText = "Load More",
+  noMoreText = "No more items",
+  emptyText = "No items to display",
 }) => {
   const [visibleCount, setVisibleCount] = useState(initialCount);
   const [isIntersecting, setIsIntersecting] = useState(false);
@@ -71,13 +71,13 @@ const ProgressiveList: React.FC<ProgressiveListProps> = ({
     if (onLoadMore) {
       onLoadMore();
     } else {
-      setVisibleCount(prev => prev + loadMoreCount);
+      setVisibleCount((prev) => prev + loadMoreCount);
     }
   }, [onLoadMore, loadMoreCount]);
 
   // Keyboard navigation for load more button
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       handleLoadMore();
     }
@@ -102,15 +102,15 @@ const ProgressiveList: React.FC<ProgressiveListProps> = ({
       </div>
 
       {/* Items list */}
-      <div 
-        role="list" 
+      <div
+        role="list"
         aria-label={`List of items, ${visibleItems.length} of ${items.length} shown`}
       >
         {visibleItems.map((item, index) => (
           <div
             key={item.id}
             role="listitem"
-            className={`${itemClassName} ${index > 0 ? 'mt-4' : ''}`}
+            className={`${itemClassName} ${index > 0 ? "mt-4" : ""}`}
             tabIndex={0}
             aria-setsize={items.length}
             aria-posinset={index + 1}
@@ -122,7 +122,11 @@ const ProgressiveList: React.FC<ProgressiveListProps> = ({
 
       {/* Loading indicator */}
       {loading && (
-        <div className="flex items-center justify-center py-6" role="status" aria-label="Loading more items">
+        <div
+          className="flex items-center justify-center py-6"
+          role="status"
+          aria-label="Loading more items"
+        >
           <Loader className="h-6 w-6 animate-spin text-blue-500 mr-2" />
           <span className="text-gray-400">Loading more items...</span>
         </div>
@@ -142,10 +146,12 @@ const ProgressiveList: React.FC<ProgressiveListProps> = ({
             {loadMoreText}
           </button>
           <div id="load-more-help" className="text-xs text-gray-500 mt-2">
-            {onLoadMore 
+            {onLoadMore
               ? `${items.length - visibleItems.length} more items available`
-              : `${Math.min(loadMoreCount, items.length - visibleItems.length)} more items will be shown`
-            }
+              : `${Math.min(
+                  loadMoreCount,
+                  items.length - visibleItems.length
+                )} more items will be shown`}
           </div>
         </div>
       )}
@@ -162,7 +168,9 @@ const ProgressiveList: React.FC<ProgressiveListProps> = ({
         <div className="sr-only">
           <button
             onClick={() => {
-              const lastItem = listRef.current?.querySelector('[role="listitem"]:last-child');
+              const lastItem = listRef.current?.querySelector(
+                '[role="listitem"]:last-child'
+              );
               if (lastItem) {
                 (lastItem as HTMLElement).focus();
               }

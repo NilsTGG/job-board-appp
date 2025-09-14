@@ -11,6 +11,8 @@ import ProcessVisualization from "./components/ProcessVisualization";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { useForm, ValidationError } from "@formspree/react";
 import Footer from "./components/Footer";
+import Navigation from "./components/Navigation";
+import ReviewsSection from "./components/ReviewsSection";
 
 // Extended pricing configuration (approximate, illustrative only)
 const PRICING = {
@@ -88,6 +90,29 @@ function App() {
     }
   }, []);
 
+  // Handle calculation timer with proper cleanup
+  useEffect(() => {
+    if (formTouched && (pickupCoords || dropoffCoords || taskDesc || recoveryCoords)) {
+      setIsCalculating(true);
+      const timer = setTimeout(() => setIsCalculating(false), 800);
+      
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [formTouched, pickupCoords, dropoffCoords, taskDesc, recoveryCoords]);
+
+  // Handle success animation with auto-hide
+  useEffect(() => {
+    if (showSuccessAnimation) {
+      const timer = setTimeout(() => setShowSuccessAnimation(false), 3000);
+      
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [showSuccessAnimation]);
+
   const coordError = useMemo(() => {
     if (!pickupCoords && !dropoffCoords) return "";
     if (pickupCoords && !COORD_REGEX.test(pickupCoords))
@@ -125,7 +150,7 @@ function App() {
     // Simulate calculation delay for better UX
     if (formTouched && (pickupCoords || dropoffCoords || taskDesc || recoveryCoords)) {
       setIsCalculating(true);
-      const timer = setTimeout(() => setIsCalculating(false), 800);
+      // Note: Timer cleanup handled by separate useEffect
       return { diamonds: null, breakdown: [] };
     }
 
@@ -223,7 +248,7 @@ function App() {
   }, [paymentOffer]);
 
   // Enhanced form submission with animation
-  const handleEnhancedSubmit = async (e: React.FormEvent) => {
+  const handleEnhancedSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setShowSuccessAnimation(true);
     
@@ -278,14 +303,15 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
+      <Navigation />
       {/* Enhanced Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/20">
+      <div id="hero" className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/20">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5"></div>
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         
-        <div className="relative max-w-4xl mx-auto px-4 py-16">
+        <div className="relative max-w-4xl mx-auto px-4 pt-24 pb-16">
           <div className="text-center">
             {/* Main Title */}
             <div className="flex items-center justify-center space-x-4 mb-6">
@@ -900,13 +926,22 @@ function App() {
       </div>
 
       {/* Enhanced Content Sections */}
-      <EnhancedServiceCards />
-      <ProcessVisualization />
-      <EnhancedTrustSection />
-      <EnhancedFAQ />
+      <div id="services">
+        <EnhancedServiceCards />
+      </div>
+      <div id="process">
+        <ProcessVisualization />
+      </div>
+      <div id="trust">
+        <EnhancedTrustSection />
+      </div>
+      <ReviewsSection />
+      <div id="faq">
+        <EnhancedFAQ />
+      </div>
 
       {/* Enhanced Broke People Menu */}
-      <div className="max-w-4xl mx-auto px-4 py-16">
+      <div id="budget-options" className="max-w-4xl mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-600 to-orange-600 px-8 py-4 rounded-xl shadow-lg">
             <span className="text-3xl animate-bounce">🪙</span>

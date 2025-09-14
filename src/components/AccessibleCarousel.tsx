@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import React, { useState, useRef, useEffect } from "react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "../icons";
 
 interface CarouselItem {
   id: string;
@@ -22,13 +22,13 @@ const AccessibleCarousel: React.FC<AccessibleCarouselProps> = ({
   autoPlayInterval = 5000,
   showControls = true,
   showIndicators = true,
-  className = ''
+  className = "",
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [isUserInteracting, setIsUserInteracting] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<number | null>(null);
 
   // Auto-play functionality
   useEffect(() => {
@@ -72,19 +72,19 @@ const AccessibleCarousel: React.FC<AccessibleCarouselProps> = ({
   // Keyboard navigation
   const handleKeyDown = (event: React.KeyboardEvent) => {
     switch (event.key) {
-      case 'ArrowLeft':
+      case "ArrowLeft":
         event.preventDefault();
         goToPrevious();
         break;
-      case 'ArrowRight':
+      case "ArrowRight":
         event.preventDefault();
         goToNext();
         break;
-      case 'Home':
+      case "Home":
         event.preventDefault();
         goToSlide(0);
         break;
-      case 'End':
+      case "End":
         event.preventDefault();
         goToSlide(items.length - 1);
         break;
@@ -96,7 +96,7 @@ const AccessibleCarousel: React.FC<AccessibleCarouselProps> = ({
   }
 
   return (
-    <div 
+    <div
       className={`relative ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -105,7 +105,8 @@ const AccessibleCarousel: React.FC<AccessibleCarouselProps> = ({
     >
       {/* Screen reader announcement */}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        Showing item {currentIndex + 1} of {items.length}: {items[currentIndex]?.title}
+        Showing item {currentIndex + 1} of {items.length}:{" "}
+        {items[currentIndex]?.title}
       </div>
 
       {/* Main carousel container */}
@@ -118,7 +119,7 @@ const AccessibleCarousel: React.FC<AccessibleCarouselProps> = ({
         onKeyDown={handleKeyDown}
         tabIndex={0}
       >
-        <div 
+        <div
           className="flex transition-transform duration-300 ease-in-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
@@ -148,7 +149,7 @@ const AccessibleCarousel: React.FC<AccessibleCarouselProps> = ({
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
-            
+
             <button
               onClick={goToNext}
               className="p-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -163,9 +164,13 @@ const AccessibleCarousel: React.FC<AccessibleCarouselProps> = ({
             <button
               onClick={() => setIsPlaying(!isPlaying)}
               className="p-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-              aria-label={isPlaying ? 'Pause carousel' : 'Play carousel'}
+              aria-label={isPlaying ? "Pause carousel" : "Play carousel"}
             >
-              {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+              {isPlaying ? (
+                <Pause className="h-4 w-4" />
+              ) : (
+                <Play className="h-4 w-4" />
+              )}
             </button>
           )}
         </div>
@@ -173,15 +178,19 @@ const AccessibleCarousel: React.FC<AccessibleCarouselProps> = ({
 
       {/* Indicators */}
       {showIndicators && items.length > 1 && (
-        <div className="flex justify-center gap-2 mt-4" role="tablist" aria-label="Carousel navigation">
+        <div
+          className="flex justify-center gap-2 mt-4"
+          role="tablist"
+          aria-label="Carousel navigation"
+        >
           {items.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
               className={`w-3 h-3 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                index === currentIndex 
-                  ? 'bg-blue-500' 
-                  : 'bg-gray-400 hover:bg-gray-300'
+                index === currentIndex
+                  ? "bg-blue-500"
+                  : "bg-gray-400 hover:bg-gray-300"
               }`}
               role="tab"
               aria-selected={index === currentIndex}

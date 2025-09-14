@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { ChevronDown, Check } from 'lucide-react';
+import React, { useState, useRef, useEffect } from "react";
+import { ChevronDown, Check } from "../icons";
 
 interface Option {
   value: string;
@@ -31,36 +31,40 @@ const AccessibleSelect: React.FC<AccessibleSelectProps> = ({
   required = false,
   disabled = false,
   error,
-  className = ''
+  className = "",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
-  const [searchTerm, setSearchTerm] = useState('');
-  
+  const [searchTerm, setSearchTerm] = useState("");
+
   const selectRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
 
-  const filteredOptions = options.filter(option =>
-    option.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    option.description?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredOptions = options.filter(
+    (option) =>
+      option.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      option.description?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const selectedOption = options.find(option => option.value === value);
+  const selectedOption = options.find((option) => option.value === value);
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
+      if (
+        selectRef.current &&
+        !selectRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
-        setSearchTerm('');
+        setSearchTerm("");
         setFocusedIndex(-1);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Focus management
@@ -73,8 +77,8 @@ const AccessibleSelect: React.FC<AccessibleSelectProps> = ({
   // Keyboard navigation
   const handleKeyDown = (event: React.KeyboardEvent) => {
     switch (event.key) {
-      case 'Enter':
-      case ' ':
+      case "Enter":
+      case " ":
         event.preventDefault();
         if (!isOpen) {
           setIsOpen(true);
@@ -82,42 +86,42 @@ const AccessibleSelect: React.FC<AccessibleSelectProps> = ({
           handleSelect(filteredOptions[focusedIndex].value);
         }
         break;
-      
-      case 'Escape':
+
+      case "Escape":
         setIsOpen(false);
-        setSearchTerm('');
+        setSearchTerm("");
         setFocusedIndex(-1);
         buttonRef.current?.focus();
         break;
-      
-      case 'ArrowDown':
+
+      case "ArrowDown":
         event.preventDefault();
         if (!isOpen) {
           setIsOpen(true);
         } else {
-          setFocusedIndex(prev => 
+          setFocusedIndex((prev) =>
             prev < filteredOptions.length - 1 ? prev + 1 : 0
           );
         }
         break;
-      
-      case 'ArrowUp':
+
+      case "ArrowUp":
         event.preventDefault();
         if (isOpen) {
-          setFocusedIndex(prev => 
+          setFocusedIndex((prev) =>
             prev > 0 ? prev - 1 : filteredOptions.length - 1
           );
         }
         break;
-      
-      case 'Home':
+
+      case "Home":
         if (isOpen) {
           event.preventDefault();
           setFocusedIndex(0);
         }
         break;
-      
-      case 'End':
+
+      case "End":
         if (isOpen) {
           event.preventDefault();
           setFocusedIndex(filteredOptions.length - 1);
@@ -129,7 +133,7 @@ const AccessibleSelect: React.FC<AccessibleSelectProps> = ({
   const handleSelect = (optionValue: string) => {
     onChange(optionValue);
     setIsOpen(false);
-    setSearchTerm('');
+    setSearchTerm("");
     setFocusedIndex(-1);
     buttonRef.current?.focus();
   };
@@ -141,14 +145,11 @@ const AccessibleSelect: React.FC<AccessibleSelectProps> = ({
 
   return (
     <div className={`relative ${className}`} ref={selectRef}>
-      <label 
-        htmlFor={id}
-        className="block text-white font-medium mb-2"
-      >
+      <label htmlFor={id} className="block text-white font-medium mb-2">
         {label}
         {required && <span className="text-red-400 ml-1">*</span>}
       </label>
-      
+
       <button
         ref={buttonRef}
         id={id}
@@ -160,8 +161,8 @@ const AccessibleSelect: React.FC<AccessibleSelectProps> = ({
           w-full px-4 py-3 bg-gray-700 border rounded-lg text-white text-left
           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
           transition-all duration-200 flex items-center justify-between
-          ${error ? 'border-red-500' : 'border-gray-600 hover:border-blue-500'}
-          ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+          ${error ? "border-red-500" : "border-gray-600 hover:border-blue-500"}
+          ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
         `}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
@@ -169,13 +170,13 @@ const AccessibleSelect: React.FC<AccessibleSelectProps> = ({
         aria-describedby={error ? `${id}-error` : undefined}
         aria-required={required}
       >
-        <span className={selectedOption ? 'text-white' : 'text-gray-400'}>
+        <span className={selectedOption ? "text-white" : "text-gray-400"}>
           {selectedOption ? selectedOption.label : placeholder}
         </span>
-        <ChevronDown 
+        <ChevronDown
           className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${
-            isOpen ? 'rotate-180' : ''
-          }`} 
+            isOpen ? "rotate-180" : ""
+          }`}
         />
       </button>
 
@@ -215,12 +216,18 @@ const AccessibleSelect: React.FC<AccessibleSelectProps> = ({
                   className={`
                     px-4 py-2 cursor-pointer flex items-center justify-between
                     transition-colors duration-150
-                    ${option.disabled ? 'opacity-50 cursor-not-allowed' : ''}
-                    ${index === focusedIndex ? 'bg-blue-600 text-white' : 'text-gray-200 hover:bg-gray-600'}
-                    ${option.value === value ? 'bg-blue-700 text-white' : ''}
+                    ${option.disabled ? "opacity-50 cursor-not-allowed" : ""}
+                    ${
+                      index === focusedIndex
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-200 hover:bg-gray-600"
+                    }
+                    ${option.value === value ? "bg-blue-700 text-white" : ""}
                   `}
                   onClick={() => !option.disabled && handleSelect(option.value)}
-                  onMouseEnter={() => !option.disabled && setFocusedIndex(index)}
+                  onMouseEnter={() =>
+                    !option.disabled && setFocusedIndex(index)
+                  }
                 >
                   <div>
                     <div className="font-medium">{option.label}</div>
@@ -242,7 +249,11 @@ const AccessibleSelect: React.FC<AccessibleSelectProps> = ({
 
       {/* Error message */}
       {error && (
-        <div id={`${id}-error`} className="mt-1 text-red-400 text-sm" role="alert">
+        <div
+          id={`${id}-error`}
+          className="mt-1 text-red-400 text-sm"
+          role="alert"
+        >
           {error}
         </div>
       )}

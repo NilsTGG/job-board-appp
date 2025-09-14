@@ -1,6 +1,6 @@
 // Central typed icon exports to limit what we import application-wide.
 // This still uses lucide-react's types (no per-file path issues) while
-// providing a single place to manage icon usage.
+// providing a single place to manage icon usage and fallback handling.
 export {
   Package,
   Diamond,
@@ -27,5 +27,14 @@ export {
   ThumbsUp,
   Quote,
   Award,
-  ArrowRight
+  ArrowRight,
+  // Additional icons used across components
+  User,
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  Pause,
+  Play,
+  Check,
+  Loader
 } from "lucide-react";
