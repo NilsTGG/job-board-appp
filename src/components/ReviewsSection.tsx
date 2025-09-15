@@ -32,7 +32,7 @@ const ReviewsSection: React.FC = () => {
     },
     {
       id: "real-2",
-      customer: "alansis3000 Alan",
+      customer: "Alan",
       date: "14/09/2025 19:48",
       order: "Villager relocation (multiple villagers delivered safely)",
       deliverySpeed: "On time / smooth (no delays reported)",
