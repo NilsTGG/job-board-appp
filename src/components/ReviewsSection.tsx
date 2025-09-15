@@ -20,7 +20,7 @@ const ReviewsSection: React.FC = () => {
   const realReviews: Review[] = [
     {
       id: "real-1",
-      customer: "ilovebmwe30 BMW E30 [SWRZ]",
+      customer: "ilovebmwe30",
       date: "31/08/2025 19:44",
       order: "I ordered 2 villagers and the process was perfect",
       deliverySpeed:
@@ -34,13 +34,22 @@ const ReviewsSection: React.FC = () => {
       id: "real-2",
       customer: "alansis3000 Alan",
       date: "14/09/2025 19:48",
-      review: "Very professional service! All my villagers got to their destination safe and sound, will definitely recommend Because You Won't™ to everyone!",
+      order: "Villager relocation (multiple villagers delivered safely)",
+      deliverySpeed: "On time / smooth (no delays reported)",
+      trustLevel: "Very professional service — would recommend",
+      surprise: "All villagers arrived safe and sound",
+      summary: "Will definitely recommend Because You Won't™ to everyone!",
       isReal: true,
     },
   ];
 
   // Duplicate reviews for seamless infinite loop
-  const reviewsForLoop = [...realReviews, ...realReviews, ...realReviews, ...realReviews]; // Multiple copies for smooth infinite scroll
+  const reviewsForLoop = [
+    ...realReviews,
+    ...realReviews,
+    ...realReviews,
+    ...realReviews,
+  ]; // Multiple copies for smooth infinite scroll
 
   const ReviewCard: React.FC<{ review: Review; index: number }> = ({
     review,
@@ -109,70 +118,84 @@ const ReviewsSection: React.FC = () => {
           )}
         </div>
 
-        {/* Review Content */}
+        {/* Review Content (conditionally rendered fields) */}
         <div className="space-y-3 text-sm">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <Package className="h-4 w-4 text-blue-400" />
-              <span className="font-medium text-blue-300">Order:</span>
+          {review.order && (
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <Package className="h-4 w-4 text-blue-400" />
+                <span className="font-medium text-blue-300">Order:</span>
+              </div>
+              <p className="text-gray-300 pl-6">&quot;{review.order}&quot;</p>
             </div>
-            <p className="text-gray-300 pl-6">&quot;{review.order}&quot;</p>
-          </div>
+          )}
 
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <Clock className="h-4 w-4 text-purple-400" />
-              <span className="font-medium text-purple-300">
-                Delivery Speed:
-              </span>
+          {review.deliverySpeed && (
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <Clock className="h-4 w-4 text-purple-400" />
+                <span className="font-medium text-purple-300">
+                  Delivery Speed:
+                </span>
+              </div>
+              <p className="text-gray-300 pl-6">
+                &quot;{review.deliverySpeed}&quot;
+              </p>
             </div>
-            <p className="text-gray-300 pl-6">
-              &quot;{review.deliverySpeed}&quot;
-            </p>
-          </div>
+          )}
 
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <Star className="h-4 w-4 text-green-400" />
-              <span className="font-medium text-green-300">Trust Level:</span>
+          {review.trustLevel && (
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <Star className="h-4 w-4 text-green-400" />
+                <span className="font-medium text-green-300">Trust Level:</span>
+              </div>
+              <p className="text-gray-300 pl-6">
+                &quot;{review.trustLevel}&quot;
+              </p>
             </div>
-            <p className="text-gray-300 pl-6">
-              &quot;{review.trustLevel}&quot;
-            </p>
-          </div>
+          )}
 
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <Sparkles className="h-4 w-4 text-yellow-400" />
-              <span className="font-medium text-yellow-300">Surprise:</span>
+          {review.surprise && (
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <Sparkles className="h-4 w-4 text-yellow-400" />
+                <span className="font-medium text-yellow-300">Surprise:</span>
+              </div>
+              <p className="text-gray-300 pl-6">
+                &quot;{review.surprise}&quot;
+              </p>
             </div>
-            <p className="text-gray-300 pl-6">&quot;{review.surprise}&quot;</p>
-          </div>
+          )}
         </div>
 
-        {/* Summary */}
-        <div
-          className={`mt-4 p-3 rounded-lg ${
-            isTemplate
-              ? "bg-yellow-900/20"
-              : review.isReal
-              ? "bg-green-900/20"
-              : "bg-blue-900/20"
-          }`}
-        >
+        {/* Summary / Review block (only if text provided) */}
+        {(review.summary || review.review) && (
           <div
-            className={`font-semibold ${
+            className={`mt-4 p-3 rounded-lg ${
               isTemplate
-                ? "text-yellow-300"
+                ? "bg-yellow-900/20"
                 : review.isReal
-                ? "text-green-300"
-                : "text-blue-300"
+                ? "bg-green-900/20"
+                : "bg-blue-900/20"
             }`}
           >
-            Summary:
+            <div
+              className={`font-semibold ${
+                isTemplate
+                  ? "text-yellow-300"
+                  : review.isReal
+                  ? "text-green-300"
+                  : "text-blue-300"
+              }`}
+            >
+              Summary:
+            </div>
+            <p className="text-gray-300 italic">
+              &quot;{review.summary || review.review}&quot;
+            </p>
           </div>
-          <p className="text-gray-300 italic">&quot;{review.summary}&quot;</p>
-        </div>
+        )}
 
         {/* Call to action for templates */}
         {isTemplate && (
