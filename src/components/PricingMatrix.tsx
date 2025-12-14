@@ -50,6 +50,16 @@ const PricingMatrix: React.FC = () => {
         </div>
         <div className="bg-gray-700/40 rounded p-3 border border-gray-600">
           <div className="font-semibold text-white text-sm mb-1">
+            7/11 Shop
+          </div>
+          <ul className="list-disc list-inside space-y-0.5">
+            <li>Dyes: 1 dia / stack</li>
+            <li>Glass: 1 dia / 3 stacks</li>
+            <li>Tinted/Glow: 2 dia / stack</li>
+          </ul>
+        </div>
+        <div className="bg-gray-700/40 rounded p-3 border border-gray-600">
+          <div className="font-semibold text-white text-sm mb-1">
             Time Block
           </div>
           <ul className="list-disc list-inside space-y-0.5">

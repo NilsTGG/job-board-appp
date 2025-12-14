@@ -1,5 +1,14 @@
 import React from "react";
-import { User, Calendar, Package, Clock, Star, Sparkles } from "../icons";
+import {
+  User,
+  Calendar,
+  Package,
+  Clock,
+  Star,
+  Sparkles,
+  MessageSquarePlus,
+  ExternalLink,
+} from "../icons";
 
 interface Review {
   id: string;
@@ -43,24 +52,54 @@ const ReviewsSection: React.FC = () => {
     },
   ];
 
-  // Duplicate reviews for seamless infinite loop
+  // Duplicate reviews for seamless infinite loop (only real reviews)
   const reviewsForLoop = [
     ...realReviews,
     ...realReviews,
     ...realReviews,
     ...realReviews,
-  ]; // Multiple copies for smooth infinite scroll
+  ];
+
+  // "Leave a Review" placeholder card
+  const LeaveReviewCard: React.FC = () => (
+    <div className="flex-shrink-0 w-80 md:w-96 p-6 rounded-xl border border-dashed border-blue-500/50 bg-gradient-to-br from-blue-900/20 to-purple-900/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:border-blue-500">
+      <div className="text-center py-4">
+        <div className="inline-flex p-4 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 mb-4">
+          <MessageSquarePlus className="h-8 w-8 text-white" />
+        </div>
+        <h3 className="text-xl font-bold text-white mb-2">
+          Share Your Experience!
+        </h3>
+        <p className="text-gray-400 text-sm mb-6">
+          Had a great delivery? Let others know about your experience with
+          Because You Won't™
+        </p>
+        <a
+          href="#submit-job"
+          className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
+          onClick={(e) => {
+            e.preventDefault();
+            document
+              .getElementById("submit-job")
+              ?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          <Star className="h-4 w-4" />
+          Leave a Review
+        </a>
+        <p className="text-xs text-gray-500 mt-4">
+          Contact us on Discord after your order to share feedback
+        </p>
+      </div>
+    </div>
+  );
 
   const ReviewCard: React.FC<{ review: Review; index: number }> = ({
     review,
     index,
   }) => {
-    const isTemplate = review.isTemplate;
-    const cardClasses = isTemplate
-      ? "bg-gradient-to-br from-yellow-900/20 to-orange-900/10 border-yellow-500/20 shadow-yellow-500/10"
-      : review.isReal
-      ? "bg-gradient-to-br from-green-900/20 to-blue-900/10 border-green-500/20 shadow-green-500/10"
-      : "bg-gray-800/80 border-gray-600/30 shadow-gray-500/10";
+    const cardClasses =
+      "bg-gradient-to-br from-green-900/20 to-blue-900/10 border-green-500/20 shadow-green-500/10";
 
     return (
       <div
@@ -72,31 +111,11 @@ const ReviewsSection: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div
-              className={`p-2 rounded-lg ${
-                isTemplate
-                  ? "bg-yellow-600"
-                  : review.isReal
-                  ? "bg-green-600"
-                  : "bg-blue-600"
-              }`}
-            >
-              {isTemplate ? (
-                <Sparkles className="h-5 w-5 text-white" />
-              ) : (
-                <User className="h-5 w-5 text-white" />
-              )}
+            <div className="p-2 rounded-lg bg-green-600">
+              <User className="h-5 w-5 text-white" />
             </div>
             <div>
-              <div
-                className={`font-semibold text-sm ${
-                  isTemplate
-                    ? "text-yellow-300"
-                    : review.isReal
-                    ? "text-green-300"
-                    : "text-white"
-                }`}
-              >
+              <div className="font-semibold text-sm text-green-300">
                 {review.customer}
               </div>
               <div className="flex items-center gap-1 text-xs text-gray-400">
@@ -105,20 +124,13 @@ const ReviewsSection: React.FC = () => {
               </div>
             </div>
           </div>
-          {review.isReal && (
-            <div className="flex items-center gap-1 text-green-400">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-xs font-medium">Verified</span>
-            </div>
-          )}
-          {isTemplate && (
-            <div className="flex items-center gap-1 text-yellow-400">
-              <Star className="h-4 w-4 animate-pulse" />
-            </div>
-          )}
+          <div className="flex items-center gap-1 text-green-400">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <span className="text-xs font-medium">Verified</span>
+          </div>
         </div>
 
-        {/* Review Content (conditionally rendered fields) */}
+        {/* Review Content */}
         <div className="space-y-3 text-sm">
           {review.order && (
             <div>
@@ -169,50 +181,11 @@ const ReviewsSection: React.FC = () => {
           )}
         </div>
 
-        {/* Summary / Review block (only if text provided) */}
-        {(review.summary || review.review) && (
-          <div
-            className={`mt-4 p-3 rounded-lg ${
-              isTemplate
-                ? "bg-yellow-900/20"
-                : review.isReal
-                ? "bg-green-900/20"
-                : "bg-blue-900/20"
-            }`}
-          >
-            <div
-              className={`font-semibold ${
-                isTemplate
-                  ? "text-yellow-300"
-                  : review.isReal
-                  ? "text-green-300"
-                  : "text-blue-300"
-              }`}
-            >
-              Summary:
-            </div>
-            <p className="text-gray-300 italic">
-              &quot;{review.summary || review.review}&quot;
-            </p>
-          </div>
-        )}
-
-        {/* Call to action for templates */}
-        {isTemplate && (
-          <div className="mt-4 text-center">
-            <a
-              href="#submit-job"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white px-4 py-2 rounded-lg font-semibold text-xs transition-all duration-300 hover:scale-105"
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById("submit-job")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              <Package className="h-3 w-3" />
-              Order Now
-            </a>
+        {/* Summary */}
+        {review.summary && (
+          <div className="mt-4 p-3 rounded-lg bg-green-900/20">
+            <div className="font-semibold text-green-300">Summary:</div>
+            <p className="text-gray-300 italic">&quot;{review.summary}&quot;</p>
           </div>
         )}
       </div>
@@ -240,9 +213,9 @@ const ReviewsSection: React.FC = () => {
               <span>Verified Reviews</span>
             </div>
             <div className="w-1 h-1 bg-gray-500 rounded-full"></div>
-            <div className="flex items-center gap-2 text-yellow-400">
-              <Star className="h-4 w-4" />
-              <span>Your Review Next?</span>
+            <div className="flex items-center gap-2 text-blue-400">
+              <MessageSquarePlus className="h-4 w-4" />
+              <span>Your Review Could Be Next!</span>
             </div>
           </div>
         </div>
@@ -258,9 +231,9 @@ const ReviewsSection: React.FC = () => {
             <div
               className="flex gap-6 hover-pause-animation reviews-scroll"
               style={{
-                width: `${reviewsForLoop.length * 400}px`,
+                width: `${(reviewsForLoop.length + 2) * 400}px`,
                 animation: `scroll-horizontal ${
-                  reviewsForLoop.length * 8
+                  (reviewsForLoop.length + 2) * 8
                 }s linear infinite`,
               }}
             >
@@ -271,6 +244,9 @@ const ReviewsSection: React.FC = () => {
                   index={index}
                 />
               ))}
+              {/* Add Leave Review cards scattered in the scroll */}
+              <LeaveReviewCard />
+              <LeaveReviewCard />
             </div>
           </div>
         </div>
@@ -278,26 +254,51 @@ const ReviewsSection: React.FC = () => {
         {/* Bottom CTA */}
         <div className="text-center mt-12">
           <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-8 border border-blue-500/30 max-w-2xl mx-auto">
+            <div className="flex justify-center mb-4">
+              <div className="flex -space-x-2">
+                <div className="w-10 h-10 rounded-full bg-green-600 border-2 border-gray-900 flex items-center justify-center">
+                  <User className="h-5 w-5 text-white" />
+                </div>
+                <div className="w-10 h-10 rounded-full bg-blue-600 border-2 border-gray-900 flex items-center justify-center">
+                  <User className="h-5 w-5 text-white" />
+                </div>
+                <div className="w-10 h-10 rounded-full bg-purple-600 border-2 border-gray-900 flex items-center justify-center text-white font-bold text-sm">
+                  +?
+                </div>
+              </div>
+            </div>
             <h3 className="text-xl font-bold text-white mb-2">
-              Ready to Join Our Success Stories?
+              Be Part of Our Growing Community!
             </h3>
-            <p className="text-gray-300 mb-4">
-              Experience professional Minecraft logistics and share your own
-              testimonial
+            <p className="text-gray-300 mb-6">
+              Use our services and share your experience. Your feedback helps us
+              improve and helps others make informed decisions.
             </p>
-            <a
-              href="#submit-job"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg"
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById("submit-job")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              <Package className="h-4 w-4" />
-              Submit Your First Job
-            </a>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="#submit-job"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .getElementById("submit-job")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                <Package className="h-4 w-4" />
+                Submit Your First Job
+              </a>
+              <button
+                className="inline-flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold border border-gray-600 hover:border-gray-500 transition-all duration-300"
+                onClick={() => {
+                  // Open Discord contact
+                  alert("Contact NilsTG on Discord to leave a review!");
+                }}
+              >
+                <MessageSquarePlus className="h-4 w-4" />
+                Leave a Review
+              </button>
+            </div>
           </div>
         </div>
       </div>

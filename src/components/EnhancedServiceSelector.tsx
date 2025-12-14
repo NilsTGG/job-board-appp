@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Package, Users, Wrench, Shield, Clock } from "../icons";
+import { Package, Users, Wrench, Shield, Clock, ShoppingCart } from "../icons";
 
 export type ServiceType =
   | "delivery"
   | "villager"
   | "task"
   | "recovery"
-  | "timeblock";
+  | "timeblock"
+  | "shop711";
 
 interface Props {
   value: ServiceType;
@@ -75,6 +76,18 @@ const services: {
       "Multiple small deliveries",
       "Mixed errands",
       "Flexible task time",
+      "Flexible task time",
+    ],
+  },
+  {
+    key: "shop711",
+    label: "7/11 Shop",
+    blurb: "Order dyes, glass & more",
+    icon: <ShoppingCart className="h-5 w-5" />,
+    examples: [
+      "Dyes & Stained Glass",
+      "Regular & Tinted Glass",
+      "Slime & Glow Ink",
     ],
   },
 ];

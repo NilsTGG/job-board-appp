@@ -36,5 +36,8 @@ export {
   Pause,
   Play,
   Check,
-  Loader
+  Loader,
+  ShoppingCart,
+  MessageSquarePlus,
+  ExternalLink,
 } from "lucide-react";
