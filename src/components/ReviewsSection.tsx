@@ -7,7 +7,6 @@ import {
   Star,
   Sparkles,
   MessageSquarePlus,
-  ExternalLink,
 } from "../icons";
 
 interface Review {

@@ -176,7 +176,7 @@ const Shop711Selection: React.FC<Props> = ({ onUpdate }) => {
   };
 
   const currentProduct = PRODUCTS.find(p => p.id === selectedProduct);
-  const currentUnit = currentProduct?.units.find(u => u.name === selectedUnit);
+
 
   return (
     <div className="bg-gray-800 rounded-xl p-6 border border-gray-700 space-y-6">

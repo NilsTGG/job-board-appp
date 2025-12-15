@@ -1,0 +1,50 @@
+
+> vite-react-typescript-starter@0.0.0 lint
+> eslint .
+
+
+C:\Users\repair123\Desktop\Projects\job-board-appp\src\App.tsx
+  4:8  error  'Navigation' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\repair123\Desktop\Projects\job-board-appp\src\MarketplaceApp.tsx
+   30:9   error  'products' is never reassigned. Use 'const' instead  prefer-const
+   95:51  error  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+   99:16  error  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  135:19  error  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  138:18  error  'err' is defined but never used                      @typescript-eslint/no-unused-vars
+  157:18  error  'err' is defined but never used                      @typescript-eslint/no-unused-vars
+
+C:\Users\repair123\Desktop\Projects\job-board-appp\src\ServiceRequestApp.tsx
+   16:8   error  'Shop711Selection' is defined but never used  @typescript-eslint/no-unused-vars
+   19:8   error  'Navigation' is defined but never used        @typescript-eslint/no-unused-vars
+  118:16  error  'e' is defined but never used                 @typescript-eslint/no-unused-vars
+  198:53  error  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  250:32  error  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+C:\Users\repair123\Desktop\Projects\job-board-appp\src\components\Navigation.tsx
+  4:11  error  An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+
+C:\Users\repair123\Desktop\Projects\job-board-appp\src\components\QuickNavTabs.tsx
+  4:3  error  'MapPin' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\repair123\Desktop\Projects\job-board-appp\src\components\ReviewsSection.tsx
+  10:3  error  'ExternalLink' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\repair123\Desktop\Projects\job-board-appp\src\components\Shop711Selection.tsx
+  179:9  error  'currentUnit' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\repair123\Desktop\Projects\job-board-appp\src\components\marketplace\CheckoutModal.tsx
+  18:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\repair123\Desktop\Projects\job-board-appp\src\components\marketplace\OrderConfirmation.tsx
+  158:14  error  'err' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\repair123\Desktop\Projects\job-board-appp\src\utils\logger.ts
+  42:3  error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+
+Γ£û 19 problems (19 errors, 0 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

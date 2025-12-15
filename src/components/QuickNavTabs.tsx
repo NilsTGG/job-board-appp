@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Package,
-  MapPin,
   Clock,
   Users,
   HelpCircle,

@@ -13,10 +13,10 @@ import PaymentPolicyCard from "./components/PaymentPolicyCard";
 import EnhancedServiceCards from "./components/EnhancedServiceCards";
 import ProcessVisualization from "./components/ProcessVisualization";
 import LoadingSpinner from "./components/LoadingSpinner";
-import Shop711Selection from "./components/Shop711Selection";
+
 import { useForm, ValidationError } from "@formspree/react";
 import Footer from "./components/Footer";
-import Navigation from "./components/Navigation";
+
 import ReviewsSection from "./components/ReviewsSection";
 import FormProgressIndicator from "./components/FormProgressIndicator";
 import CoordinateHelpTooltip from "./components/CoordinateHelpTooltip";
@@ -115,7 +115,7 @@ function ServiceRequestApp() {
         setTaskDesc(data.taskDesc || "");
         setTimeBlockMinutes(data.timeBlockMinutes || "20");
         setRecoveryCoords(data.recoveryCoords || "");
-      } catch (e) {
+      } catch {
         // Invalid draft, ignore
       }
     }
@@ -195,7 +195,7 @@ function ServiceRequestApp() {
     const breakdown: string[] = [];
 
     const urgencyMult = PRICING.urgencyMultiplier[urgency] || 1;
-    const dimMult = (PRICING.dimensionMultiplier as any)[dimension] || 1;
+    const dimMult = (PRICING.dimensionMultiplier as Record<string, number>)[dimension] || 1;
     const hazardMult = hazardous ? PRICING.hazardAdd : 1;
 
     switch (serviceType) {
@@ -247,7 +247,7 @@ function ServiceRequestApp() {
       }
       case "recovery": {
         const base =
-          (PRICING.recovery as any)[dimension] || PRICING.recovery.overworld;
+          (PRICING.recovery as Record<string, number>)[dimension] || PRICING.recovery.overworld;
         total = Math.round(base * urgencyMult);
         breakdown.push(`Base ${dimension}: ${base}`, `Urgency ×${urgencyMult}`);
         break;

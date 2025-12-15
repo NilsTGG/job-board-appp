@@ -155,7 +155,7 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
     try {
       const result = await onResend();
       setResendResult(result);
-    } catch (err) {
+    } catch {
       setResendResult({ ok: false, message: "Failed to resend order." });
     } finally {
       setIsResending(false);

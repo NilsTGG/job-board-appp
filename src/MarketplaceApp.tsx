@@ -27,7 +27,7 @@ const MarketplaceApp = () => {
 
   // Filter products
   const filteredProducts = useMemo(() => {
-    let products: { product: Product; shop: Shop }[] = [];
+    const products: { product: Product; shop: Shop }[] = [];
 
     // Flatten all products from all shops
     SHOPS.forEach((shop) => {
@@ -92,10 +92,12 @@ const MarketplaceApp = () => {
     setIsCheckoutOpen(true);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleConfirmOrder = async (orderDetails: any) => {
     console.log("Order Confirmed:", orderDetails);
     // Build a readable message for forwarding
     const itemsText = orderDetails.cartItems
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .map((i: any) => `• ${i.quantity}x ${i.product.name} (${i.shop.name})`)
       .join("\n");
     const coords = `${orderDetails.userLocation.x}, ${orderDetails.userLocation.y}, ${orderDetails.userLocation.z}`;
@@ -132,10 +134,11 @@ const MarketplaceApp = () => {
         }
 
         // Try to parse a response body for additional info (submission id/message)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let body: any = null;
         try {
           body = await r.json();
-        } catch (err) {
+        } catch {
           // ignore parse errors
         }
 
@@ -154,7 +157,7 @@ const MarketplaceApp = () => {
             submissionId,
           };
           localStorage.setItem("lastOrder", JSON.stringify(stored));
-        } catch (err) {
+        } catch {
           // ignore localStorage errors
         }
 

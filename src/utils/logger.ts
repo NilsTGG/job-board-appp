@@ -39,7 +39,6 @@ function push(entry: LogEntry) {
 function emit(level: Level, msg: string, data?: unknown) {
   const entry: LogEntry = { ts: timestamp(), level, msg, data };
   const method = level === "info" || level === "debug" ? "log" : level;
-  // @ts-ignore dynamic console
   console[method](`[${level.toUpperCase()}] ${msg}`, data ?? "");
   push(entry);
   return entry;

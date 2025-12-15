@@ -15,6 +15,7 @@ interface CheckoutModalProps {
   cartItems: CartItem[];
   // Returns a promise resolving to { ok, message? }
   onConfirmOrder: (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     orderDetails: any
   ) => Promise<{ ok: boolean; message?: string }>;
 }

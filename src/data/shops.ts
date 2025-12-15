@@ -4,7 +4,7 @@ export interface Product {
   price: number;
   description: string;
   image?: string;
-  category: 'materials' | 'tools' | 'redstone' | 'food' | 'misc';
+  category: "materials" | "tools" | "redstone" | "food" | "misc";
   inStock: boolean;
 }
 
@@ -24,103 +24,127 @@ export interface Shop {
 
 export const SHOPS: Shop[] = [
   {
-    id: '7-eleven',
-    name: '7-Eleven',
-    owner: 'NilsTG',
-    description: 'Convenience at its finest. Open 24/7.',
+    id: "7-eleven",
+    name: "7/11",
+    owner: "NilsTG",
+    description:
+      "Your one-stop convenience shop! Dyes, glass, slime, and more.",
     coords: { x: 64, y: 105, z: -38 },
-    themeColor: 'green-500',
+    themeColor: "green-500",
     products: [
+      // Dyes
       {
-        id: 'p1',
-        name: 'Cooked Beef (Stack)',
-        price: 2,
-        description: '64x Juicy steak. Best food source.',
-        category: 'food',
-        inStock: true,
-      },
-      {
-        id: 'p2',
-        name: 'Golden Carrots (Stack)',
-        price: 4,
-        description: '64x The ultimate saturation food.',
-        category: 'food',
-        inStock: true,
-      },
-      {
-        id: 'p3',
-        name: 'Rocket (Duration 3)',
+        id: "dye-all",
+        name: "Dyes (All Colors)",
         price: 1,
-        description: 'Stack of 64 firework rockets for elytra flight.',
-        category: 'misc',
+        description: "1 stack of any color dye. All 16 colors available!",
+        category: "materials",
         inStock: true,
       },
-    ],
-  },
-  {
-    id: 'redstone-r-us',
-    name: 'Redstone R Us',
-    owner: 'MumboJumboFan',
-    description: 'All your technical needs in one place.',
-    coords: { x: 200, y: 64, z: 200 },
-    themeColor: 'red-600',
-    products: [
+      // Stained Glass
       {
-        id: 'r1',
-        name: 'Observer',
+        id: "stained-glass",
+        name: "Stained Glass (All Colors)",
         price: 1,
-        description: 'Watches your blocks.',
-        category: 'redstone',
+        description: "2 stacks of stained glass per diamond. Any color!",
+        category: "materials",
         inStock: true,
       },
+      // Regular Glass
       {
-        id: 'r2',
-        name: 'Piston',
+        id: "regular-glass-stacks",
+        name: "Regular Glass (Stacks)",
         price: 1,
-        description: 'Pushy block.',
-        category: 'redstone',
+        description: "3 stacks of regular glass per diamond.",
+        category: "materials",
         inStock: true,
       },
       {
-        id: 'r3',
-        name: 'Sticky Piston',
-        price: 2,
-        description: 'Very sticky.',
-        category: 'redstone',
-        inStock: true,
-      },
-    ],
-  },
-  {
-    id: 'build-mart',
-    name: 'Build Mart',
-    owner: 'GrianStan',
-    description: 'Blocks, blocks, and more blocks.',
-    coords: { x: -500, y: 70, z: -150 },
-    themeColor: 'blue-500',
-    products: [
-      {
-        id: 'b1',
-        name: 'Stone Bricks (Shulker Box)',
+        id: "regular-glass-shulker",
+        name: "Regular Glass (Shulker)",
         price: 5,
-        description: 'Full shulker of stone bricks.',
-        category: 'materials',
+        description: "Full shulker of regular glass.",
+        category: "materials",
+        inStock: true,
+      },
+      // Slime Blocks (discounted, moved inside 7/11)
+      {
+        id: "slime-block",
+        name: "Slime Blocks",
+        price: 2,
+        description:
+          "1 stack of slime blocks. Can be broken into slime balls! Discounted price.",
+        category: "materials",
+        inStock: true,
+      },
+      // Glow Squid Ink
+      {
+        id: "glow-ink",
+        name: "Glow Squid Ink",
+        price: 2,
+        description: "1 stack of glow ink sacs.",
+        category: "materials",
+        inStock: true,
+      },
+      // Tinted Glass
+      {
+        id: "tinted-glass",
+        name: "Tinted Glass",
+        price: 2,
+        description: "1 stack of tinted glass.",
+        category: "materials",
+        inStock: true,
+      },
+    ],
+  },
+  {
+    id: "mvp-bulk",
+    name: "MVP's Bulk Items Shop",
+    owner: "Mountain Bois & Full_Code",
+    description:
+      "We're Mountain Bois and Full_Code. Selling items in bulk for discounted prices! Active players keeping stock fresh. Contact DarkestBlink for restocks.",
+    coords: { x: 45, y: 64, z: -70 },
+    themeColor: "purple-500",
+    products: [
+      {
+        id: "totems-shulker",
+        name: "Totems of Undying (Shulker)",
+        price: 27,
+        description: "Full shulker of Totems of Undying. Never die again!",
+        category: "misc",
         inStock: true,
       },
       {
-        id: 'b2',
-        name: 'Oak Logs (Shulker Box)',
-        price: 8,
-        description: 'Full shulker of oak logs.',
-        category: 'materials',
-        inStock: true,
-      },
-      {
-        id: 'b3',
-        name: 'Glass (Shulker Box)',
+        id: "rockets-shulker",
+        name: "Rockets (Shulker)",
         price: 4,
-        description: 'Clear glass.',
-        category: 'materials',
+        description: "Full shulker of firework rockets for elytra flight.",
+        category: "misc",
+        inStock: true,
+      },
+      {
+        id: "golden-carrots-shulker",
+        name: "Golden Carrots (Shulker)",
+        price: 16,
+        description: "Full shulker of golden carrots. Best food in the game!",
+        category: "food",
+        inStock: true,
+      },
+      {
+        id: "mending-book",
+        name: "Mending Book",
+        price: 2,
+        description:
+          "Single mending book. Need late night mending? We got you!",
+        category: "misc",
+        inStock: true,
+      },
+      {
+        id: "elytra-new-players",
+        name: "Elytra (New Players Only)",
+        price: 0,
+        description: "For new players only. Contact Sorayamii to purchase.",
+        category: "tools",
         inStock: true,
       },
     ],

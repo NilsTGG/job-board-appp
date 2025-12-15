@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ServiceRequestApp from "./ServiceRequestApp";
 import MarketplaceApp from "./MarketplaceApp";
-import Navigation from "./components/Navigation";
+
 import { Package, ShoppingBag } from "lucide-react";
 
 export type ViewMode = "services" | "marketplace";

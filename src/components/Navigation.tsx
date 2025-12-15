@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Package, MapPin, MessageCircle, Clock, Users, HelpCircle, DollarSign } from '../icons';
 
-interface NavigationProps {}
 
 interface NavItem {
   id: string;
@@ -21,7 +20,7 @@ const navItems: NavItem[] = [
   { id: 'budget-options', label: 'Budget Options', icon: DollarSign, href: '#budget-options' }
 ];
 
-const Navigation: React.FC<NavigationProps> = () => {
+const Navigation: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
