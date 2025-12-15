@@ -20,7 +20,37 @@ interface CheckoutModalProps {
   ) => Promise<{ ok: boolean; message?: string }>;
 }
 
-const COORD_REGEX = /^-?\d{1,6}\s*,\s*-?\d{1,3}\s*,\s*-?\d{1,6}$/;
+// Minecraft Y limits: -64 to 320 (1.18+)
+const MC_Y_MIN = -64;
+const MC_Y_MAX = 320;
+
+// Parse coordinates flexibly - handles various formats
+const parseCoords = (
+  input: string
+): { x: number; y: number; z: number } | null => {
+  // Remove extra spaces, handle various separators
+  const cleaned = input.trim().replace(/\s+/g, " ");
+
+  // Try to extract 3 numbers (supports "x, y, z" or "x y z" or "x,y,z")
+  const numbers = cleaned.match(/-?\d+\.?\d*/g);
+  if (!numbers || numbers.length < 3) return null;
+
+  const x = Math.round(parseFloat(numbers[0]));
+  const y = Math.round(parseFloat(numbers[1]));
+  const z = Math.round(parseFloat(numbers[2]));
+
+  if (isNaN(x) || isNaN(y) || isNaN(z)) return null;
+
+  // Clamp Y to Minecraft limits
+  const clampedY = Math.max(MC_Y_MIN, Math.min(MC_Y_MAX, y));
+
+  return { x, y: clampedY, z };
+};
+
+// Format coords nicely
+const formatCoords = (loc: { x: number; y: number; z: number }): string => {
+  return `${loc.x}, ${loc.y}, ${loc.z}`;
+};
 
 const CheckoutModal: React.FC<CheckoutModalProps> = ({
   isOpen,
@@ -29,6 +59,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
   onConfirmOrder,
 }) => {
   const [coords, setCoords] = useState("");
+  const [coordsError, setCoordsError] = useState<string | null>(null);
   const [discord, setDiscord] = useState("");
   const [ign, setIgn] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,12 +70,42 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
     0
   );
 
-  // Parse user coords
+  // Parse user coords with smart validation
   const userLocation = useMemo(() => {
-    if (!COORD_REGEX.test(coords)) return null;
-    const parts = coords.split(",").map((s) => Number(s.trim()));
-    if (parts.length !== 3 || parts.some((n) => Number.isNaN(n))) return null;
-    return { x: parts[0], y: parts[1], z: parts[2] };
+    if (!coords.trim()) {
+      return null;
+    }
+
+    const parsed = parseCoords(coords);
+    if (!parsed) {
+      return null;
+    }
+
+    return parsed;
+  }, [coords]);
+
+  // Update coordsError based on coords (separate from useMemo to avoid React warnings)
+  useEffect(() => {
+    if (!coords.trim()) {
+      setCoordsError(null);
+      return;
+    }
+
+    const parsed = parseCoords(coords);
+    if (!parsed) {
+      setCoordsError("Invalid format. Use: x, y, z (e.g., 100, 64, -200)");
+      return;
+    }
+
+    // Check if Y was clamped (user entered invalid Y)
+    const originalY = parseInt(coords.match(/-?\d+\.?\d*/g)?.[1] || "0");
+    if (originalY < MC_Y_MIN || originalY > MC_Y_MAX) {
+      setCoordsError(
+        `Y adjusted to ${parsed.y} (Minecraft limit: ${MC_Y_MIN} to ${MC_Y_MAX})`
+      );
+    } else {
+      setCoordsError(null);
+    }
   }, [coords]);
 
   // Calculate delivery fee
@@ -67,9 +128,8 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
       if (dist > maxDist) maxDist = dist;
     });
 
-    const segments = Math.ceil(maxDist / 100);
-    // Base fee (3) + 2 per 100 blocks
-    return 3 + segments * 2;
+    // Flat delivery fee of 4 diamonds
+    return 4;
   }, [userLocation, cartItems]);
 
   const total = subtotal + (deliveryFee || 0);
@@ -284,11 +344,19 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                         className={`w-full bg-gray-700 border rounded-lg pl-9 pr-3 py-2 text-white focus:ring-2 outline-none ${
                           coords && !userLocation
                             ? "border-red-500 focus:ring-red-500"
+                            : coordsError
+                            ? "border-yellow-500 focus:ring-yellow-500"
                             : "border-gray-600 focus:ring-blue-500"
                         }`}
                         placeholder="100, 64, -200"
                         value={coords}
                         onChange={(e) => setCoords(e.target.value)}
+                        onBlur={() => {
+                          // Auto-format coords on blur if valid
+                          if (userLocation) {
+                            setCoords(formatCoords(userLocation));
+                          }
+                        }}
                       />
                     </div>
                     {coords && !userLocation ? (
@@ -298,6 +366,14 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                         role="alert"
                       >
                         Invalid format. Use: x, y, z (e.g., 100, 64, -200)
+                      </p>
+                    ) : coordsError ? (
+                      <p
+                        id="coords-error"
+                        className="text-yellow-400 text-xs mt-1"
+                        role="alert"
+                      >
+                        ⚠️ {coordsError}
                       </p>
                     ) : (
                       <p
