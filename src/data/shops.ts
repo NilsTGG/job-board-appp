@@ -76,8 +76,7 @@ export const SHOPS: Shop[] = [
         id: "slime-block",
         name: "Slime Blocks",
         price: 3,
-        description:
-          "1 stack of slime blocks. Can be broken into slime balls!",
+        description: "1 stack of slime blocks. Can be broken into slime balls!",
         image: "/job-board-appp/images/products/slimeblock.png",
         category: "materials",
         inStock: true,
