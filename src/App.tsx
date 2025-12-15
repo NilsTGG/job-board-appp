@@ -32,34 +32,28 @@ function App() {
           </div>
 
           {/* View Switcher */}
-          <div className="flex bg-gray-800 p-1.5 rounded-xl border border-gray-700 shadow-inner">
+          <div className="flex bg-gray-800 p-1 rounded-xl border border-gray-700 shadow-inner gap-1">
             <button
               onClick={() => setCurrentView("services")}
-              className={`relative flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-300 ${
+              className={`relative flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-300 text-sm ${
                 currentView === "services"
-                  ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/25 scale-105"
+                  ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/25"
                   : "text-gray-400 hover:text-white hover:bg-gray-700/50"
               }`}
             >
               <Package className="h-4 w-4" />
-              <span className="font-medium">Services</span>
-              {currentView === "services" && (
-                <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              )}
+              <span className="font-medium hidden sm:inline">Services</span>
             </button>
             <button
               onClick={() => setCurrentView("marketplace")}
-              className={`relative flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-300 ${
+              className={`relative flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-300 text-sm ${
                 currentView === "marketplace"
-                  ? "bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-lg shadow-purple-500/25 scale-105"
+                  ? "bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-lg shadow-purple-500/25"
                   : "text-gray-400 hover:text-white hover:bg-gray-700/50"
               }`}
             >
               <ShoppingBag className="h-4 w-4" />
-              <span className="font-medium">Marketplace</span>
-              {currentView === "marketplace" && (
-                <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              )}
+              <span className="font-medium hidden sm:inline">Shops</span>
             </button>
           </div>
         </div>
@@ -68,7 +62,9 @@ function App() {
       {/* Main Content Area */}
       <div className="pt-20">
         {currentView === "services" ? (
-          <ServiceRequestApp />
+          <ServiceRequestApp
+            onNavigateToMarketplace={() => setCurrentView("marketplace")}
+          />
         ) : (
           <MarketplaceApp />
         )}

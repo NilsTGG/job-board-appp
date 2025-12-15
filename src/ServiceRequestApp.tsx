@@ -22,6 +22,11 @@ import FormProgressIndicator from "./components/FormProgressIndicator";
 import CoordinateHelpTooltip from "./components/CoordinateHelpTooltip";
 import QuickNavTabs from "./components/QuickNavTabs";
 import BudgetMenu from "./components/BudgetMenu";
+import ShopPartners from "./components/ShopPartners";
+
+interface ServiceRequestAppProps {
+  onNavigateToMarketplace?: () => void;
+}
 
 // Extended pricing configuration (approximate, illustrative only)
 const PRICING = {
@@ -43,7 +48,9 @@ const PRICING = {
 
 const COORD_REGEX = /^-?\d{1,6}\s*,\s*-?\d{1,3}\s*,\s*-?\d{1,6}$/; // x, y, z basic check
 
-function ServiceRequestApp() {
+function ServiceRequestApp({
+  onNavigateToMarketplace,
+}: ServiceRequestAppProps) {
   const [state, handleSubmit] = useForm("xqabvypp");
 
   // Enhanced state management
@@ -195,7 +202,8 @@ function ServiceRequestApp() {
     const breakdown: string[] = [];
 
     const urgencyMult = PRICING.urgencyMultiplier[urgency] || 1;
-    const dimMult = (PRICING.dimensionMultiplier as Record<string, number>)[dimension] || 1;
+    const dimMult =
+      (PRICING.dimensionMultiplier as Record<string, number>)[dimension] || 1;
     const hazardMult = hazardous ? PRICING.hazardAdd : 1;
 
     switch (serviceType) {
@@ -247,7 +255,8 @@ function ServiceRequestApp() {
       }
       case "recovery": {
         const base =
-          (PRICING.recovery as Record<string, number>)[dimension] || PRICING.recovery.overworld;
+          (PRICING.recovery as Record<string, number>)[dimension] ||
+          PRICING.recovery.overworld;
         total = Math.round(base * urgencyMult);
         breakdown.push(`Base ${dimension}: ${base}`, `Urgency ×${urgencyMult}`);
         break;
@@ -418,9 +427,9 @@ function ServiceRequestApp() {
             </div>
 
             {/* Enhanced CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-8">
               <button
-                className="group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-xl text-lg font-bold transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl hover:shadow-blue-500/25 flex items-center gap-3"
+                className="group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-blue-500/25 flex items-center gap-2"
                 onClick={() => {
                   setActiveTab("order");
                   setTimeout(() => {
@@ -430,15 +439,12 @@ function ServiceRequestApp() {
                   }, 100);
                 }}
               >
-                <Package className="h-5 w-5 group-hover:animate-bounce" />
+                <Package className="h-5 w-5" />
                 Order Now
-                <div className="bg-white/20 px-2 py-1 rounded text-xs">
-                  Popular
-                </div>
               </button>
 
               <button
-                className="group bg-gray-800 hover:bg-gray-700 border border-gray-600 hover:border-blue-500 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 hover:scale-105 flex items-center gap-3"
+                className="group bg-gray-800 hover:bg-gray-700 border border-gray-600 hover:border-blue-500 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 flex items-center gap-2"
                 onClick={() => {
                   setActiveTab("services");
                   setTimeout(() => {
@@ -449,8 +455,18 @@ function ServiceRequestApp() {
                 }}
               >
                 <MapPin className="h-5 w-5 group-hover:text-blue-400" />
-                View Services
+                Services
               </button>
+
+              {onNavigateToMarketplace && (
+                <button
+                  className="group bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-purple-500/25 flex items-center gap-2"
+                  onClick={onNavigateToMarketplace}
+                >
+                  <Sparkles className="h-5 w-5" />
+                  Partner Shops
+                </button>
+              )}
             </div>
 
             {/* Enhanced Key Points */}
@@ -1180,6 +1196,13 @@ function ServiceRequestApp() {
         {activeTab === "services" && (
           <div id="services">
             <EnhancedServiceCards />
+          </div>
+        )}
+
+        {/* Partner Shops Tab */}
+        {activeTab === "shops" && onNavigateToMarketplace && (
+          <div id="shops">
+            <ShopPartners onNavigateToMarketplace={onNavigateToMarketplace} />
           </div>
         )}
 

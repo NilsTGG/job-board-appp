@@ -38,6 +38,7 @@ export {
   Check,
   Loader,
   ShoppingCart,
+  ShoppingBag,
   MessageSquarePlus,
   ExternalLink,
 } from "lucide-react";

@@ -8,6 +8,7 @@ import {
   Star,
   ChevronDown,
   MessageCircle,
+  ShoppingBag,
 } from "../icons";
 
 interface Tab {
@@ -36,6 +37,13 @@ const tabs: Tab[] = [
     label: "Services",
     shortLabel: "Services",
     icon: <Package className="h-4 w-4" />,
+  },
+  {
+    id: "shops",
+    label: "Partner Shops",
+    shortLabel: "Shops",
+    icon: <ShoppingBag className="h-4 w-4" />,
+    highlight: true,
   },
   {
     id: "process",
