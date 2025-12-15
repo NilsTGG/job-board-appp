@@ -47,7 +47,7 @@ export const SHOPS: Shop[] = [
         id: "stained-glass",
         name: "Stained Glass (All Colors)",
         price: 1,
-        description: "2 stacks of stained glass per diamond. Any color!",
+        description: "3 stacks of stained glass per diamond. Any color!",
         image: "/job-board-appp/images/products/stainedglass.png",
         category: "materials",
         inStock: true,
@@ -65,19 +65,19 @@ export const SHOPS: Shop[] = [
       {
         id: "regular-glass-shulker",
         name: "Regular Glass (Shulker)",
-        price: 5,
+        price: 7,
         description: "Full shulker of regular glass.",
         image: "/job-board-appp/images/products/regularglass.png",
         category: "materials",
         inStock: true,
       },
-      // Slime Blocks (discounted, moved inside 7/11)
+      // Slime Blocks
       {
         id: "slime-block",
         name: "Slime Blocks",
-        price: 2,
+        price: 3,
         description:
-          "1 stack of slime blocks. Can be broken into slime balls! Discounted price.",
+          "1 stack of slime blocks. Can be broken into slime balls!",
         image: "/job-board-appp/images/products/slimeblock.png",
         category: "materials",
         inStock: true,
