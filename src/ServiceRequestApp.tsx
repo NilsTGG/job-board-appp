@@ -1031,7 +1031,11 @@ function ServiceRequestApp({
                               type="text"
                               name="paymentOffer"
                               id="paymentOffer"
-                              placeholder={estimate.diamonds ? `${estimate.diamonds} diamonds` : "15 diamonds"}
+                              placeholder={
+                                estimate.diamonds
+                                  ? `${estimate.diamonds} diamonds`
+                                  : "15 diamonds"
+                              }
                               value={paymentOffer}
                               onChange={(e) => {
                                 setPaymentOffer(e.target.value);
@@ -1042,7 +1046,11 @@ function ServiceRequestApp({
                             {estimate.diamonds && !paymentOffer && (
                               <button
                                 type="button"
-                                onClick={() => setPaymentOffer(`${estimate.diamonds} diamonds`)}
+                                onClick={() =>
+                                  setPaymentOffer(
+                                    `${estimate.diamonds} diamonds`
+                                  )
+                                }
                                 className="absolute right-2 top-1/2 -translate-y-1/2 text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition-colors"
                               >
                                 Use suggested
@@ -1050,7 +1058,8 @@ function ServiceRequestApp({
                             )}
                           </div>
                           <p className="text-xs text-gray-500 mt-1">
-                            Enter your offer or use the suggested price based on our calculation
+                            Enter your offer or use the suggested price based on
+                            our calculation
                           </p>
                         </div>
 
@@ -1082,7 +1091,11 @@ function ServiceRequestApp({
                         <input
                           type="hidden"
                           name="estimatedPrice"
-                          value={estimate.diamonds ? `${estimate.diamonds} diamonds` : "Not calculated"}
+                          value={
+                            estimate.diamonds
+                              ? `${estimate.diamonds} diamonds`
+                              : "Not calculated"
+                          }
                         />
                         <input
                           type="hidden"
