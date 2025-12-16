@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.3.0] - 2025-12-16
+
+### Added
+
+- New CoordinateInput component with separate X, Y, Z fields
+- Commas pre-filled between coordinate fields
+
+### Changed
+
+- Coordinate inputs now show 3 separate number fields instead of single text input
+- Users only need to type numbers, no formatting required
+
+### Fixed
+
+- Coordinate validation now trims whitespace before checking
+- Improved regex to support larger coordinate ranges
+
+---
+
 ## [1.2.0] - 2025-12-16
 
 ### Added
