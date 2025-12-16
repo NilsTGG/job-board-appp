@@ -1,91 +1,46 @@
 # Changelog
 
-## [1.3.0] - 2025-12-16
+## December 16, 2025
 
-### Added
+### Coordinate Input Update
 
-- New CoordinateInput component with separate X, Y, Z fields
-- Commas pre-filled between coordinate fields
+- Made it easier to enter coordinates - now just type numbers in X, Y, Z boxes instead of formatting "x, y, z" yourself
 
-### Changed
+### Review System
 
-- Coordinate inputs now show 3 separate number fields instead of single text input
-- Users only need to type numbers, no formatting required
+- Added a review form so customers can leave reviews directly on the site
+- Reviews get sent to Discord with star ratings and delivery feedback
 
-### Fixed
+### Order Form Fixes
 
-- Coordinate validation now trims whitespace before checking
-- Improved regex to support larger coordinate ranges
+- Payment offer now shows suggested price and actually gets sent with the order
+- Added "Use suggested" button to quickly fill in the calculated price
 
----
+### Store Updates
 
-## [1.2.0] - 2025-12-16
+- Added Partner Shops tab with links to 7/11 and MVP's Bulk Items Shop
+- Renamed "Marketplace" to "Shops" in the header
+- Added back button when browsing shops
+- Cart now shows delivery fee (4💎) before checkout
+- Made remove button easier to see in cart
 
-### Added
+### Accessibility
 
-- Review form modal with Formspree integration (star rating, delivery speed, review text)
-- "Use suggested" button for payment offer field
-- Hidden form fields for estimated price, breakdown, service type, urgency, and dimension
-- Human-readable date format for review submissions
+- Better text contrast throughout the site
+- Bigger fonts and input fields
+- Added focus outlines for keyboard navigation
 
-### Changed
+### Bug Fixes
 
-- "Leave a Review" buttons now open form modal instead of Discord link
-- Payment offer field shows suggested price from calculator
-- Review submission date format: "Dec 16, 2025 at 12:51 AM"
-
-### Fixed
-
-- Payment offer now included in form submission payload
-- Empty optional fields show "Not provided" instead of blank
+- Fixed coordinate validation errors
+- Delivery fee is now flat 4💎
+- Fixed form not sending all the data
 
 ---
 
-## [1.1.0] - 2025-12-16
+## Initial Release
 
-### Added
-
-- Tabbed navigation (QuickNavTabs) to reduce page scroll
-- Partner Shops section with clickable shop cards
-- "Partner Shops" button in hero section
-- Back navigation button in marketplace header
-- Delivery fee notice displayed in cart before checkout
-- Discord link for leaving reviews
-- Real-time coordinate validation with visual feedback
-- Skip link and improved keyboard navigation
-- Focus rings on all interactive elements
-
-### Changed
-
-- Header simplified: "Marketplace" renamed to "Shops"
-- Improved color contrast (gray-400 → gray-300)
-- Increased font sizes for better readability
-- Enhanced form inputs with larger padding
-- Cart remove button made more visible (red + larger icon)
-- Product cards use semantic `<article>` elements
-- Reviews "Leave a Review" now links to Discord
-
-### Fixed
-
-- Delivery fee now flat 4💎 (previously distance-based)
-- Coordinate Y-axis validation with Minecraft limits (-64 to 320)
-- Auto-format coordinates on blur
-
-### Removed
-
-- 7/11 from service selector (moved to Partner Shops)
-- Footer disclaimer text
-- Distance-based delivery fee calculation
-
----
-
-## [1.0.0] - Initial Release
-
-### Features
-
-- Service request form with Formspree integration
-- Marketplace with product grid and cart
-- Shop filtering by category and shop
-- Checkout modal with coordinate input
-- Reviews carousel with real testimonials
-- Mobile-responsive design
+- Service request form
+- Marketplace with shops and products
+- Reviews section
+- Mobile support

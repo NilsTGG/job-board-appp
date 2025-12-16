@@ -46,8 +46,14 @@ const PRICING = {
   hazardAdd: 1.25, // +25%
 };
 
-// Minecraft coord format: x, y, z - allows negative numbers and reasonable ranges
-const COORD_REGEX = /^-?\d{1,7}\s*,\s*-?\d{1,4}\s*,\s*-?\d{1,7}$/;
+// Check if coordinates are complete (all 3 values filled)
+function isValidCoords(str: string): boolean {
+  if (!str) return false;
+  const parts = str.split(",").map((s) => s.trim());
+  if (parts.length !== 3) return false;
+  // All three parts must be valid numbers (can be negative)
+  return parts.every((p) => p !== "" && !isNaN(Number(p)));
+}
 
 function ServiceRequestApp({
   onNavigateToMarketplace,
@@ -159,17 +165,22 @@ function ServiceRequestApp({
     if (!pickupCoords && !dropoffCoords) return "";
     const pickup = pickupCoords.trim();
     const dropoff = dropoffCoords.trim();
-    if (pickup && !COORD_REGEX.test(pickup))
-      return "Pickup coords format: x, y, z";
-    if (dropoff && !COORD_REGEX.test(dropoff))
-      return "Delivery coords format: x, y, z";
+    // Only show error if user has started typing but coords are incomplete
+    const pickupStarted = pickup && pickup !== ", , ";
+    const dropoffStarted = dropoff && dropoff !== ", , ";
+    if (pickupStarted && !isValidCoords(pickup))
+      return "Please fill in all pickup coordinates (X, Y, Z)";
+    if (dropoffStarted && !isValidCoords(dropoff))
+      return "Please fill in all delivery coordinates (X, Y, Z)";
     return "";
   }, [pickupCoords, dropoffCoords]);
 
   function parseCoordTriple(str: string): [number, number, number] | null {
-    const trimmed = str.trim();
-    if (!COORD_REGEX.test(trimmed)) return null;
-    const parts = trimmed.split(",").map((s) => Number(s.trim()));
+    if (!isValidCoords(str)) return null;
+    const parts = str
+      .trim()
+      .split(",")
+      .map((s) => Number(s.trim()));
     if (parts.length !== 3 || parts.some((n) => Number.isNaN(n))) return null;
     return parts as [number, number, number];
   }
