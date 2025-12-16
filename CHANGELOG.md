@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.2.0] - 2025-12-16
+
+### Added
+
+- Review form modal with Formspree integration (star rating, delivery speed, review text)
+- "Use suggested" button for payment offer field
+- Hidden form fields for estimated price, breakdown, service type, urgency, and dimension
+- Human-readable date format for review submissions
+
+### Changed
+
+- "Leave a Review" buttons now open form modal instead of Discord link
+- Payment offer field shows suggested price from calculator
+- Review submission date format: "Dec 16, 2025 at 12:51 AM"
+
+### Fixed
+
+- Payment offer now included in form submission payload
+- Empty optional fields show "Not provided" instead of blank
+
+---
+
 ## [1.1.0] - 2025-12-16
 
 ### Added

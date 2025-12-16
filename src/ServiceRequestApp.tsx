@@ -1020,19 +1020,38 @@ function ServiceRequestApp({
                             className="block text-white font-medium mb-2"
                           >
                             Your Payment Offer
+                            {estimate.diamonds && (
+                              <span className="text-gray-400 text-sm ml-2">
+                                (Suggested: {estimate.diamonds}💎)
+                              </span>
+                            )}
                           </label>
-                          <input
-                            type="text"
-                            name="paymentOffer"
-                            id="paymentOffer"
-                            placeholder="15 diamonds"
-                            value={paymentOffer}
-                            onChange={(e) => {
-                              setPaymentOffer(e.target.value);
-                              setFormTouched(true);
-                            }}
-                            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                          />
+                          <div className="relative">
+                            <input
+                              type="text"
+                              name="paymentOffer"
+                              id="paymentOffer"
+                              placeholder={estimate.diamonds ? `${estimate.diamonds} diamonds` : "15 diamonds"}
+                              value={paymentOffer}
+                              onChange={(e) => {
+                                setPaymentOffer(e.target.value);
+                                setFormTouched(true);
+                              }}
+                              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                            />
+                            {estimate.diamonds && !paymentOffer && (
+                              <button
+                                type="button"
+                                onClick={() => setPaymentOffer(`${estimate.diamonds} diamonds`)}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition-colors"
+                              >
+                                Use suggested
+                              </button>
+                            )}
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1">
+                            Enter your offer or use the suggested price based on our calculation
+                          </p>
                         </div>
 
                         <div>
@@ -1057,6 +1076,33 @@ function ServiceRequestApp({
                           serviceType={serviceType}
                           isCalculating={isCalculating}
                           paymentOffer={offerNumber}
+                        />
+
+                        {/* Hidden fields to ensure data is captured */}
+                        <input
+                          type="hidden"
+                          name="estimatedPrice"
+                          value={estimate.diamonds ? `${estimate.diamonds} diamonds` : "Not calculated"}
+                        />
+                        <input
+                          type="hidden"
+                          name="priceBreakdown"
+                          value={estimate.breakdown?.join(" | ") || "N/A"}
+                        />
+                        <input
+                          type="hidden"
+                          name="serviceTypeLabel"
+                          value={serviceType || "Not selected"}
+                        />
+                        <input
+                          type="hidden"
+                          name="urgencyLevel"
+                          value={urgency}
+                        />
+                        <input
+                          type="hidden"
+                          name="dimensionType"
+                          value={dimension}
                         />
 
                         <button
