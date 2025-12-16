@@ -66,7 +66,9 @@ function App() {
             onNavigateToMarketplace={() => setCurrentView("marketplace")}
           />
         ) : (
-          <MarketplaceApp />
+          <MarketplaceApp
+            onNavigateToServices={() => setCurrentView("services")}
+          />
         )}
       </div>
     </div>

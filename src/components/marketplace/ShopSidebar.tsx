@@ -91,10 +91,10 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
         >
           <button
             onClick={() => onSelectShop(null)}
-            className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+            className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
               selectedShopId === null
-                ? "bg-blue-600 text-white"
-                : "text-gray-400 hover:bg-gray-800 hover:text-white"
+                ? "bg-blue-600 text-white font-medium"
+                : "text-gray-300 hover:bg-gray-800 hover:text-white"
             }`}
           >
             All Shops
@@ -109,10 +109,10 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
                 key={shop.id}
                 onClick={() => onSelectShop(shop.id)}
                 aria-pressed={isSelected}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+                className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
                   isSelected
-                    ? "text-white"
-                    : "text-gray-400 hover:bg-gray-800 hover:text-white"
+                    ? "text-white font-medium"
+                    : "text-gray-300 hover:bg-gray-800 hover:text-white"
                 }`}
                 style={style}
               >
@@ -154,10 +154,10 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
         >
           <button
             onClick={() => onSelectCategory(null)}
-            className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+            className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
               selectedCategory === null
-                ? "bg-purple-600 text-white"
-                : "text-gray-400 hover:bg-gray-800 hover:text-white"
+                ? "bg-purple-600 text-white font-medium"
+                : "text-gray-300 hover:bg-gray-800 hover:text-white"
             }`}
           >
             All Categories
@@ -166,10 +166,10 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
             <button
               key={cat.id}
               onClick={() => onSelectCategory(cat.id)}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+              className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
                 selectedCategory === cat.id
-                  ? "bg-purple-600 text-white"
-                  : "text-gray-400 hover:bg-gray-800 hover:text-white"
+                  ? "bg-purple-600 text-white font-medium"
+                  : "text-gray-300 hover:bg-gray-800 hover:text-white"
               }`}
             >
               {cat.label}

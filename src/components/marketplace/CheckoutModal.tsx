@@ -277,11 +277,13 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 >
                   <div>
                     <label
-                      className="block text-sm font-medium text-gray-300 mb-1"
+                      className="block text-sm font-medium text-gray-200 mb-1.5"
                       htmlFor="ign-input"
                     >
                       Minecraft Username (IGN){" "}
-                      <span className="text-red-400">*</span>
+                      <span className="text-red-400" aria-hidden="true">
+                        *
+                      </span>
                     </label>
                     <input
                       id="ign-input"
@@ -289,22 +291,25 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       required
                       aria-required="true"
                       aria-describedby="ign-help"
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder:text-gray-400"
                       placeholder="Steve"
                       value={ign}
                       onChange={(e) => setIgn(e.target.value)}
                     />
-                    <p id="ign-help" className="text-xs text-gray-500 mt-1">
+                    <p id="ign-help" className="text-sm text-gray-400 mt-1.5">
                       Your in-game name for delivery
                     </p>
                   </div>
 
                   <div>
                     <label
-                      className="block text-sm font-medium text-gray-300 mb-1"
+                      className="block text-sm font-medium text-gray-200 mb-1.5"
                       htmlFor="discord-input"
                     >
-                      Discord Username <span className="text-red-400">*</span>
+                      Discord Username{" "}
+                      <span className="text-red-400" aria-hidden="true">
+                        *
+                      </span>
                     </label>
                     <input
                       id="discord-input"
@@ -312,26 +317,31 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       required
                       aria-required="true"
                       aria-describedby="discord-help"
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-blue-500 outline-none"
-                      placeholder="User#1234"
+                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder:text-gray-400"
+                      placeholder="username or User#1234"
                       value={discord}
                       onChange={(e) => setDiscord(e.target.value)}
                     />
-                    <p id="discord-help" className="text-xs text-gray-500 mt-1">
-                      We'll DM you to coordinate
+                    <p
+                      id="discord-help"
+                      className="text-sm text-gray-400 mt-1.5"
+                    >
+                      We'll DM you to coordinate delivery
                     </p>
                   </div>
 
                   <div>
                     <label
-                      className="block text-sm font-medium text-gray-300 mb-1"
+                      className="block text-sm font-medium text-gray-200 mb-1.5"
                       htmlFor="coords-input"
                     >
                       Delivery Coordinates (x, y, z){" "}
-                      <span className="text-red-400">*</span>
+                      <span className="text-red-400" aria-hidden="true">
+                        *
+                      </span>
                     </label>
                     <div className="relative">
-                      <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-gray-500" />
+                      <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                       <input
                         id="coords-input"
                         type="text"
@@ -341,12 +351,12 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                           coords && !userLocation ? "true" : "false"
                         }
                         aria-describedby="coords-error coords-help"
-                        className={`w-full bg-gray-700 border rounded-lg pl-9 pr-3 py-2 text-white focus:ring-2 outline-none ${
+                        className={`w-full bg-gray-700 border rounded-lg pl-10 pr-4 py-2.5 text-white text-base focus:ring-2 outline-none transition-all placeholder:text-gray-400 ${
                           coords && !userLocation
-                            ? "border-red-500 focus:ring-red-500"
+                            ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                             : coordsError
-                            ? "border-yellow-500 focus:ring-yellow-500"
-                            : "border-gray-600 focus:ring-blue-500"
+                            ? "border-yellow-500 focus:ring-yellow-500 focus:border-yellow-500"
+                            : "border-gray-600 focus:ring-blue-500 focus:border-blue-500"
                         }`}
                         placeholder="100, 64, -200"
                         value={coords}
@@ -362,23 +372,32 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     {coords && !userLocation ? (
                       <p
                         id="coords-error"
-                        className="text-red-400 text-xs mt-1"
+                        className="text-red-400 text-sm mt-1.5 flex items-center gap-1"
                         role="alert"
                       >
-                        Invalid format. Use: x, y, z (e.g., 100, 64, -200)
+                        <span aria-hidden="true">✗</span> Invalid format. Use:
+                        x, y, z (e.g., 100, 64, -200)
                       </p>
                     ) : coordsError ? (
                       <p
                         id="coords-error"
-                        className="text-yellow-400 text-xs mt-1"
+                        className="text-yellow-400 text-sm mt-1.5"
                         role="alert"
                       >
                         ⚠️ {coordsError}
                       </p>
+                    ) : userLocation ? (
+                      <p
+                        id="coords-help"
+                        className="text-green-400 text-sm mt-1.5 flex items-center gap-1"
+                      >
+                        <span aria-hidden="true">✓</span> Coordinates valid:{" "}
+                        {formatCoords(userLocation)}
+                      </p>
                     ) : (
                       <p
                         id="coords-help"
-                        className="text-xs text-gray-500 mt-1"
+                        className="text-sm text-gray-400 mt-1.5"
                       >
                         Press F3 in-game to find your coordinates
                       </p>

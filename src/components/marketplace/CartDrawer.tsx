@@ -1,5 +1,12 @@
 import React from "react";
-import { ShoppingCart, X, Trash2, ShoppingBag, Sparkles } from "lucide-react";
+import {
+  ShoppingCart,
+  X,
+  Trash2,
+  ShoppingBag,
+  Sparkles,
+  Package,
+} from "lucide-react";
 import { Product, Shop } from "../../data/shops";
 
 export interface CartItem {
@@ -104,40 +111,47 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
 
                 {/* Details */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex justify-between items-start">
-                    <h3 className="text-white font-medium truncate">
+                  <div className="flex justify-between items-start gap-2">
+                    <h3 className="text-white font-medium truncate text-base">
                       {item.product.name}
                     </h3>
                     <button
                       onClick={() => onRemoveItem(item.product.id)}
-                      className="text-gray-500 hover:text-red-400 transition-colors"
+                      className="text-red-400 hover:text-red-300 hover:bg-red-500/20 p-1.5 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500"
+                      aria-label={`Remove ${item.product.name} from cart`}
+                      title="Remove item"
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className="h-5 w-5" />
                     </button>
                   </div>
-                  <div className="text-xs text-gray-400 mb-2">
+                  <div className="text-sm text-gray-300 mb-2">
                     Sold by: {item.shop.name}
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 bg-gray-900 rounded px-2 py-1">
+                    <div className="flex items-center gap-2 bg-gray-900 rounded-lg px-2 py-1.5">
                       <button
                         onClick={() => onUpdateQuantity(item.product.id, -1)}
-                        className="text-gray-400 hover:text-white px-1"
+                        className="text-gray-300 hover:text-white hover:bg-gray-700 w-7 h-7 flex items-center justify-center rounded transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        aria-label={`Decrease quantity of ${item.product.name}`}
                       >
-                        -
+                        −
                       </button>
-                      <span className="text-white text-sm w-4 text-center">
+                      <span
+                        className="text-white text-base font-medium w-6 text-center"
+                        aria-label={`Quantity: ${item.quantity}`}
+                      >
                         {item.quantity}
                       </span>
                       <button
                         onClick={() => onUpdateQuantity(item.product.id, 1)}
-                        className="text-gray-400 hover:text-white px-1"
+                        className="text-gray-300 hover:text-white hover:bg-gray-700 w-7 h-7 flex items-center justify-center rounded transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        aria-label={`Increase quantity of ${item.product.name}`}
                       >
                         +
                       </button>
                     </div>
-                    <div className="text-yellow-400 font-bold">
+                    <div className="text-yellow-400 font-bold text-lg">
                       {item.product.price * item.quantity} 💎
                     </div>
                   </div>
@@ -149,19 +163,33 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
 
         {/* Footer */}
         <div className="p-6 border-t border-gray-800 bg-gray-900">
+          {/* Delivery Fee Notice - Shown BEFORE checkout */}
+          <div className="mb-4 p-3 bg-blue-900/30 border border-blue-500/30 rounded-lg">
+            <div className="flex items-center gap-2 text-blue-300 text-sm font-medium mb-1">
+              <Package className="h-4 w-4" />
+              Flat Delivery Fee
+            </div>
+            <p className="text-gray-300 text-sm">
+              <span className="text-yellow-400 font-bold">+4 💎</span> delivery
+              will be added at checkout
+            </p>
+          </div>
+
           <div className="flex justify-between items-center mb-4">
-            <span className="text-gray-400">Subtotal</span>
+            <span className="text-gray-300 font-medium">Subtotal</span>
             <span className="text-2xl font-bold text-yellow-400">
               {totalDiamonds} 💎
             </span>
           </div>
-          <p className="text-xs text-gray-500 mb-4 text-center">
-            Delivery fees calculated at checkout based on distance.
-          </p>
           <button
             onClick={onCheckout}
             disabled={cartItems.length === 0}
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-700 disabled:to-gray-800 disabled:text-gray-500 text-white py-3 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:shadow-none"
+            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-700 disabled:to-gray-800 disabled:text-gray-500 text-white py-3 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:shadow-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+            aria-label={
+              cartItems.length === 0
+                ? "Cart is empty"
+                : `Proceed to checkout with ${cartItems.length} items`
+            }
           >
             Proceed to Checkout
           </button>

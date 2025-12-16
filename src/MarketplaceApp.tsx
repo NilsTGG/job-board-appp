@@ -1,5 +1,11 @@
 import { useState, useMemo, useEffect } from "react";
-import { ShoppingCart, Search, Receipt } from "lucide-react";
+import {
+  ShoppingCart,
+  Search,
+  Receipt,
+  ArrowLeft,
+  Package,
+} from "lucide-react";
 import { SHOPS, Product, Shop } from "./data/shops";
 import ShopSidebar from "./components/marketplace/ShopSidebar";
 import ProductCard from "./components/marketplace/ProductCard";
@@ -8,7 +14,13 @@ import CheckoutModal from "./components/marketplace/CheckoutModal";
 import OrderConfirmation from "./components/marketplace/OrderConfirmation";
 import { ProductCardSkeleton } from "./components/Skeleton";
 
-const MarketplaceApp = () => {
+interface MarketplaceAppProps {
+  onNavigateToServices?: () => void;
+}
+
+const MarketplaceApp: React.FC<MarketplaceAppProps> = ({
+  onNavigateToServices,
+}) => {
   const [selectedShopId, setSelectedShopId] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -220,25 +232,46 @@ const MarketplaceApp = () => {
       {/* Header / Search Bar */}
       <div className="bg-gray-800 border-b border-gray-700 sticky top-20 z-30">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
-          <div className="relative w-full sm:max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-            <input
-              type="text"
-              placeholder="Search items, shops, or categories..."
-              className="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2 text-white focus:ring-2 focus:ring-blue-500 outline-none"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+          {/* Back button + Search */}
+          <div className="flex items-center gap-3 w-full sm:max-w-md">
+            {onNavigateToServices && (
+              <button
+                onClick={onNavigateToServices}
+                className="flex items-center gap-2 px-3 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 whitespace-nowrap"
+                aria-label="Back to services"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                <Package className="h-4 w-4 hidden sm:block" />
+                <span className="text-sm font-medium hidden sm:inline">
+                  Services
+                </span>
+              </button>
+            )}
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <input
+                type="text"
+                placeholder="Search items, shops, or categories..."
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white text-base focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 transition-all"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                aria-label="Search products"
+              />
+            </div>
           </div>
 
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+            className="relative bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 active:scale-[0.98]"
+            aria-label={`Open cart with ${cartItems.length} items`}
           >
             <ShoppingCart className="h-5 w-5" />
             <span>Cart</span>
             {cartItems.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-800">
+              <span
+                className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-800"
+                aria-hidden="true"
+              >
                 {cartItems.reduce((a, b) => a + b.quantity, 0)}
               </span>
             )}
