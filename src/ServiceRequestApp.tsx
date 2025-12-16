@@ -19,10 +19,10 @@ import Footer from "./components/Footer";
 
 import ReviewsSection from "./components/ReviewsSection";
 import FormProgressIndicator from "./components/FormProgressIndicator";
-import CoordinateHelpTooltip from "./components/CoordinateHelpTooltip";
 import QuickNavTabs from "./components/QuickNavTabs";
 import BudgetMenu from "./components/BudgetMenu";
 import ShopPartners from "./components/ShopPartners";
+import CoordinateInput from "./components/CoordinateInput";
 
 interface ServiceRequestAppProps {
   onNavigateToMarketplace?: () => void;
@@ -46,7 +46,8 @@ const PRICING = {
   hazardAdd: 1.25, // +25%
 };
 
-const COORD_REGEX = /^-?\d{1,6}\s*,\s*-?\d{1,3}\s*,\s*-?\d{1,6}$/; // x, y, z basic check
+// Minecraft coord format: x, y, z - allows negative numbers and reasonable ranges
+const COORD_REGEX = /^-?\d{1,7}\s*,\s*-?\d{1,4}\s*,\s*-?\d{1,7}$/;
 
 function ServiceRequestApp({
   onNavigateToMarketplace,
@@ -156,16 +157,19 @@ function ServiceRequestApp({
 
   const coordError = useMemo(() => {
     if (!pickupCoords && !dropoffCoords) return "";
-    if (pickupCoords && !COORD_REGEX.test(pickupCoords))
+    const pickup = pickupCoords.trim();
+    const dropoff = dropoffCoords.trim();
+    if (pickup && !COORD_REGEX.test(pickup))
       return "Pickup coords format: x, y, z";
-    if (dropoffCoords && !COORD_REGEX.test(dropoffCoords))
+    if (dropoff && !COORD_REGEX.test(dropoff))
       return "Delivery coords format: x, y, z";
     return "";
   }, [pickupCoords, dropoffCoords]);
 
   function parseCoordTriple(str: string): [number, number, number] | null {
-    if (!COORD_REGEX.test(str)) return null;
-    const parts = str.split(",").map((s) => Number(s.trim()));
+    const trimmed = str.trim();
+    if (!COORD_REGEX.test(trimmed)) return null;
+    const parts = trimmed.split(",").map((s) => Number(s.trim()));
     if (parts.length !== 3 || parts.some((n) => Number.isNaN(n))) return null;
     return parts as [number, number, number];
   }
@@ -651,68 +655,29 @@ function ServiceRequestApp({
                               />
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <label
-                                  htmlFor="pickupCoords"
-                                  className="block text-white font-medium mb-2"
-                                  id="pickup-label"
-                                >
-                                  <span className="flex items-center gap-2">
-                                    Pickup Location (x, y, z) *
-                                    <CoordinateHelpTooltip />
-                                  </span>
-                                  <span className="text-xs text-gray-400 block font-normal mt-1">
-                                    Where I should collect the items
-                                  </span>
-                                </label>
-                                <input
-                                  type="text"
-                                  name="pickupCoords"
-                                  id="pickupCoords"
-                                  placeholder="e.g., 1234, 64, -5678"
-                                  value={pickupCoords}
-                                  onChange={(e) => {
-                                    setPickupCoords(e.target.value);
-                                    setFormTouched(true);
-                                  }}
-                                  required
-                                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                                  aria-describedby="pickup-label"
-                                  aria-required="true"
-                                />
-                              </div>
-
-                              <div>
-                                <label
-                                  htmlFor="dropoffCoords"
-                                  className="block text-white font-medium mb-2"
-                                  id="dropoff-label"
-                                >
-                                  <span className="flex items-center gap-2">
-                                    Delivery Location (x, y, z) *
-                                    <CoordinateHelpTooltip />
-                                  </span>
-                                  <span className="text-xs text-gray-400 block font-normal mt-1">
-                                    Where the items should be delivered
-                                  </span>
-                                </label>
-                                <input
-                                  type="text"
-                                  name="dropoffCoords"
-                                  id="dropoffCoords"
-                                  placeholder="e.g., 5678, 70, -1234"
-                                  value={dropoffCoords}
-                                  onChange={(e) => {
-                                    setDropoffCoords(e.target.value);
-                                    setFormTouched(true);
-                                  }}
-                                  required
-                                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                                  aria-describedby="dropoff-label"
-                                  aria-required="true"
-                                />
-                              </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              <CoordinateInput
+                                label="Pickup Location"
+                                sublabel="Where I should collect the items"
+                                name="pickupCoords"
+                                value={pickupCoords}
+                                onChange={(val) => {
+                                  setPickupCoords(val);
+                                  setFormTouched(true);
+                                }}
+                                required
+                              />
+                              <CoordinateInput
+                                label="Delivery Location"
+                                sublabel="Where the items should be delivered"
+                                name="dropoffCoords"
+                                value={dropoffCoords}
+                                onChange={(val) => {
+                                  setDropoffCoords(val);
+                                  setFormTouched(true);
+                                }}
+                                required
+                              />
                             </div>
                             {coordError && (
                               <div
@@ -721,10 +686,6 @@ function ServiceRequestApp({
                                 aria-live="polite"
                               >
                                 ⚠️ {coordError}
-                                <div className="text-xs mt-1 text-red-300">
-                                  Format should be: x, y, z (e.g., 1234, 64,
-                                  -5678)
-                                </div>
                               </div>
                             )}
                           </>
@@ -754,56 +715,27 @@ function ServiceRequestApp({
                               />
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <label
-                                  htmlFor="pickupCoords"
-                                  className="block text-white font-medium mb-2"
-                                >
-                                  <span className="flex items-center gap-2">
-                                    Pickup Location (x, y, z) *
-                                    <CoordinateHelpTooltip />
-                                  </span>
-                                </label>
-                                <input
-                                  type="text"
-                                  name="pickupCoords"
-                                  id="pickupCoords"
-                                  placeholder="1234, 64, -5678"
-                                  value={pickupCoords}
-                                  onChange={(e) => {
-                                    setPickupCoords(e.target.value);
-                                    setFormTouched(true);
-                                  }}
-                                  required
-                                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                                />
-                              </div>
-
-                              <div>
-                                <label
-                                  htmlFor="dropoffCoords"
-                                  className="block text-white font-medium mb-2"
-                                >
-                                  <span className="flex items-center gap-2">
-                                    Delivery Location (x, y, z) *
-                                    <CoordinateHelpTooltip />
-                                  </span>
-                                </label>
-                                <input
-                                  type="text"
-                                  name="dropoffCoords"
-                                  id="dropoffCoords"
-                                  placeholder="5678, 70, -1234"
-                                  value={dropoffCoords}
-                                  onChange={(e) => {
-                                    setDropoffCoords(e.target.value);
-                                    setFormTouched(true);
-                                  }}
-                                  required
-                                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                                />
-                              </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              <CoordinateInput
+                                label="Pickup Location"
+                                name="pickupCoords"
+                                value={pickupCoords}
+                                onChange={(val) => {
+                                  setPickupCoords(val);
+                                  setFormTouched(true);
+                                }}
+                                required
+                              />
+                              <CoordinateInput
+                                label="Delivery Location"
+                                name="dropoffCoords"
+                                value={dropoffCoords}
+                                onChange={(val) => {
+                                  setDropoffCoords(val);
+                                  setFormTouched(true);
+                                }}
+                                required
+                              />
                             </div>
                             {coordError && (
                               <div className="text-red-400 text-sm bg-red-900/20 rounded-lg p-3 border border-red-700/30">
