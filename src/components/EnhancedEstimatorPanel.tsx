@@ -27,7 +27,7 @@ const EnhancedEstimatorPanel: React.FC<Props> = ({
 
   if (isCalculating) {
     return (
-      <div className="rounded-lg border border-blue-600/50 bg-blue-900/20 p-4 text-sm text-blue-200">
+      <div className="rounded-lg border border-brand-primary/50 bg-brand-primary/20 p-4 text-sm text-brand-primary">
         <div className="flex items-center gap-2">
           <LoadingSpinner size="small" color="blue" />
           <span>Calculating price...</span>
@@ -50,33 +50,35 @@ const EnhancedEstimatorPanel: React.FC<Props> = ({
       : null;
 
   return (
-    <div className="rounded-lg border border-blue-600 bg-gradient-to-br from-blue-900/40 to-purple-900/20 p-4 text-sm text-blue-200 animate-slideIn">
+    <div className="rounded-lg border border-brand-primary bg-gradient-to-br from-brand-primary/20 to-brand-accent/20 p-4 text-sm text-blue-100 animate-slideIn">
       <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2 font-semibold">
+        <div className="flex items-center gap-2 font-bold text-white">
           <Calculator className="h-4 w-4" />
           Estimated Price
         </div>
         <button
           type="button"
           onClick={() => setShowBreakdown(!showBreakdown)}
-          className="text-xs text-blue-300 hover:text-blue-200 underline transition-colors"
+          className="text-xs text-brand-primary hover:text-white underline transition-colors"
         >
           {showBreakdown ? "Hide" : "Show"} breakdown
         </button>
       </div>
 
       {/* Main Price Display */}
-      <div className="bg-blue-800/30 rounded-lg p-3 mb-3">
+      <div className="bg-brand-dark/50 rounded-lg p-3 mb-3 border border-brand-primary/30">
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-xs text-blue-300 uppercase tracking-wide mb-1">
+            <div className="text-xs text-gray-300 uppercase tracking-wide mb-1">
               Service:{" "}
-              <span className="capitalize font-medium">{serviceType}</span>
+              <span className="capitalize font-bold text-brand-primary">
+                {serviceType}
+              </span>
             </div>
             <div className="text-xl font-bold text-white flex items-center gap-2">
               💎 {estimate.diamonds} diamonds
               {estimate.diamonds > 10 && (
-                <span className="text-xs text-blue-300 font-normal">
+                <span className="text-xs text-gray-400 font-normal">
                   (≈{Math.floor(estimate.diamonds / 64)} stacks +{" "}
                   {estimate.diamonds % 64})
                 </span>
@@ -84,8 +86,10 @@ const EnhancedEstimatorPanel: React.FC<Props> = ({
             </div>
           </div>
           <div className="text-right">
-            <TrendingUp className="h-6 w-6 text-green-400 mx-auto mb-1" />
-            <div className="text-xs text-green-400 font-medium">Fair Price</div>
+            <TrendingUp className="h-6 w-6 text-brand-success mx-auto mb-1" />
+            <div className="text-xs text-brand-success font-medium">
+              Fair Price
+            </div>
           </div>
         </div>
       </div>

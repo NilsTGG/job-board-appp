@@ -41,11 +41,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <article
-      className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:scale-[1.02] group focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-900"
+      className="bg-brand-surface rounded-xl border border-brand-border overflow-hidden hover:border-brand-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-primary/10 hover:scale-[1.02] group focus-within:ring-2 focus-within:ring-brand-primary focus-within:ring-offset-2 focus-within:ring-offset-brand-black"
       aria-label={`${product.name} by ${shop.name} - ${product.price} diamonds`}
     >
       {/* Image Placeholder */}
-      <div className="h-48 bg-gray-700/50 flex items-center justify-center relative overflow-hidden">
+      <div className="h-48 bg-brand-black flex items-center justify-center relative overflow-hidden group-hover:bg-brand-black transition-colors">
         {product.image ? (
           <img
             src={product.image}
@@ -53,7 +53,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <Package className="h-16 w-16 text-gray-600 group-hover:scale-110 transition-transform duration-300" />
+          <Package className="h-16 w-16 text-gray-700 group-hover:scale-110 transition-transform duration-300" />
         )}
 
         {/* Shop Badge - using inline style for dynamic color */}
@@ -70,19 +70,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <h3 className="font-bold text-white text-lg leading-tight">
             {product.name}
           </h3>
-          <div className="flex items-center gap-1 bg-gray-900/50 px-2.5 py-1.5 rounded-lg text-yellow-400 font-bold whitespace-nowrap">
+          <div className="flex items-center gap-1 bg-brand-black border border-brand-border px-2.5 py-1.5 rounded-lg text-yellow-400 font-bold whitespace-nowrap">
             <span aria-hidden="true">💎</span>
             <span>{product.price}</span>
           </div>
         </div>
 
-        <p className="text-gray-300 text-sm mb-4 line-clamp-2 leading-relaxed">
+        <p className="text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">
           {product.description}
         </p>
 
         <button
           onClick={() => onAddToCart(product, shop)}
-          className="w-full bg-gray-700 hover:bg-blue-600 text-white py-2.5 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 group-hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 active:scale-[0.98]"
+          className="w-full bg-brand-black border border-brand-border hover:bg-brand-primary hover:border-brand-primary text-white py-2.5 rounded-lg font-bold transition-all duration-200 flex items-center justify-center gap-2 group-hover:bg-brand-primary group-hover:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-black active:scale-[0.98]"
           aria-label={`Add ${product.name} to cart for ${product.price} diamonds`}
         >
           <ShoppingCart className="h-4 w-4" />

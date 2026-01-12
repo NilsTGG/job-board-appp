@@ -15,7 +15,7 @@ const Skeleton: React.FC<SkeletonProps> = ({
   height,
   count = 1,
 }) => {
-  const baseClasses = "bg-gray-700 animate-pulse";
+  const baseClasses = "bg-brand-border animate-pulse";
 
   const variantClasses = {
     text: "rounded h-4",
@@ -42,7 +42,7 @@ const Skeleton: React.FC<SkeletonProps> = ({
 
 // Product Card Skeleton
 export const ProductCardSkeleton: React.FC = () => (
-  <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+  <div className="bg-brand-surface rounded-xl border border-brand-border overflow-hidden">
     <Skeleton variant="rectangular" className="h-48 w-full rounded-none" />
     <div className="p-4 space-y-3">
       <div className="flex justify-between items-start">
@@ -57,7 +57,7 @@ export const ProductCardSkeleton: React.FC = () => (
 
 // Review Card Skeleton
 export const ReviewCardSkeleton: React.FC = () => (
-  <div className="flex-shrink-0 w-80 md:w-96 p-6 rounded-xl border border-gray-700 bg-gray-800">
+  <div className="flex-shrink-0 w-80 md:w-96 p-6 rounded-xl border border-brand-border bg-brand-surface">
     <div className="flex items-center gap-3 mb-4">
       <Skeleton variant="circular" width={40} height={40} />
       <div className="flex-1">

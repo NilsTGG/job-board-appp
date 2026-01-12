@@ -180,7 +180,7 @@ const EnhancedFAQ: React.FC = () => {
         <h2 id="faq-heading" className="text-3xl font-bold text-white mb-4">
           Frequently Asked Questions
         </h2>
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+        <p className="text-brand-muted text-lg max-w-2xl mx-auto">
           Get answers to common questions about our services, pricing, and
           policies. Can't find what you're looking for? Ask on Discord.
         </p>
@@ -192,14 +192,14 @@ const EnhancedFAQ: React.FC = () => {
           Search frequently asked questions
         </label>
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Search className="h-5 w-5 text-gray-400" />
+          <Search className="h-5 w-5 text-brand-muted" />
         </div>
         <input
           id="faq-search"
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full pl-10 pr-4 py-3 bg-brand-surface border border-brand-border rounded-lg text-brand-gray-100 placeholder-brand-muted focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all"
           placeholder="Search FAQs by keyword, topic, or question..."
           aria-describedby="search-help"
         />
@@ -210,7 +210,7 @@ const EnhancedFAQ: React.FC = () => {
         {searchTerm && (
           <button
             onClick={() => setSearchTerm("")}
-            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-brand-muted hover:text-white transition-colors"
             aria-label="Clear search"
           >
             ×
@@ -230,8 +230,8 @@ const EnhancedFAQ: React.FC = () => {
             onClick={() => setActiveCategory(category.id)}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
               activeCategory === category.id
-                ? "bg-blue-600 text-white shadow-lg"
-                : "bg-gray-800 text-gray-400 border border-gray-700 hover:text-white hover:border-gray-600"
+                ? "bg-brand-primary text-white shadow-lg"
+                : "bg-brand-surface text-brand-muted border border-brand-border hover:text-white hover:border-brand-gray-600"
             }`}
             role="tab"
             aria-selected={activeCategory === category.id}
@@ -241,7 +241,9 @@ const EnhancedFAQ: React.FC = () => {
             {category.name}
             <span
               className={`text-xs px-2 py-1 rounded-full ${
-                activeCategory === category.id ? "bg-blue-500" : "bg-gray-700"
+                activeCategory === category.id
+                  ? "bg-white/20 text-white"
+                  : "bg-brand-black/50 text-brand-muted"
               }`}
             >
               {category.count}
@@ -253,7 +255,7 @@ const EnhancedFAQ: React.FC = () => {
       {/* Results Count */}
       {(searchTerm || activeCategory !== "all") && (
         <div
-          className="text-center mb-6 text-sm text-gray-400"
+          className="text-center mb-6 text-sm text-brand-muted"
           role="status"
           aria-live="polite"
         >
@@ -266,17 +268,17 @@ const EnhancedFAQ: React.FC = () => {
       <div id="faq-content" className="space-y-4" role="tabpanel">
         {filteredFAQs.length === 0 ? (
           <div className="text-center py-12">
-            <HelpCircle className="h-16 w-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-400 mb-2">
+            <HelpCircle className="h-16 w-16 text-brand-muted mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-brand-muted mb-2">
               No Questions Found
             </h3>
-            <p className="text-gray-500">
+            <p className="text-brand-muted/70">
               Try adjusting your search terms or browse all categories
             </p>
             {searchTerm && (
               <button
                 onClick={() => setSearchTerm("")}
-                className="mt-4 text-blue-400 hover:text-blue-300 underline"
+                className="mt-4 text-brand-primary hover:text-blue-300 underline"
               >
                 Clear search
               </button>
@@ -288,17 +290,25 @@ const EnhancedFAQ: React.FC = () => {
             return (
               <div
                 key={faq.id}
-                className="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden hover:border-gray-600 transition-all duration-300"
+                className={`bg-brand-surface border rounded-lg overflow-hidden transition-all duration-300 ${
+                  isExpanded
+                    ? "border-brand-primary/50"
+                    : "border-brand-border hover:border-brand-gray-600"
+                }`}
               >
                 <button
                   onClick={() => toggleExpanded(faq.id)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-750 transition-colors"
+                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-brand-white/5 transition-colors"
                   aria-expanded={isExpanded}
                   aria-controls={`faq-answer-${faq.id}`}
                 >
                   <div className="flex-1">
                     <h3
-                      className="text-white font-medium mb-1"
+                      className={`font-medium mb-1 transition-colors ${
+                        isExpanded
+                          ? "text-brand-primary"
+                          : "text-brand-gray-100"
+                      }`}
                       id={`faq-question-${faq.id}`}
                     >
                       {faq.question}
@@ -307,7 +317,7 @@ const EnhancedFAQ: React.FC = () => {
                       {faq.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-xs px-2 py-1 bg-gray-700 text-gray-300 rounded"
+                          className="text-xs px-2 py-1 bg-brand-black/30 text-brand-muted rounded border border-brand-border/50"
                         >
                           {tag}
                         </span>
@@ -315,8 +325,8 @@ const EnhancedFAQ: React.FC = () => {
                     </div>
                   </div>
                   <ChevronDown
-                    className={`h-5 w-5 text-gray-400 transition-transform duration-200 flex-shrink-0 ml-4 ${
-                      isExpanded ? "rotate-180" : ""
+                    className={`h-5 w-5 text-brand-muted transition-transform duration-200 flex-shrink-0 ml-4 ${
+                      isExpanded ? "rotate-180 text-brand-primary" : ""
                     }`}
                     aria-hidden="true"
                   />
@@ -329,7 +339,7 @@ const EnhancedFAQ: React.FC = () => {
                     role="region"
                     aria-labelledby={`faq-question-${faq.id}`}
                   >
-                    <div className="text-gray-300 text-sm leading-relaxed bg-gray-750 rounded p-4 border-l-4 border-blue-500">
+                    <div className="text-brand-gray-200 text-sm leading-relaxed bg-brand-black/20 rounded p-4 border-l-4 border-brand-primary">
                       {faq.answer}
                     </div>
                   </div>
@@ -342,12 +352,12 @@ const EnhancedFAQ: React.FC = () => {
 
       {/* Bottom Contact CTA */}
       <div className="mt-16 text-center">
-        <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/20 rounded-2xl p-8 border border-blue-500/30">
-          <HelpCircle className="h-12 w-12 text-blue-400 mx-auto mb-4" />
+        <div className="bg-gradient-to-r from-brand-primary/10 to-brand-accent/10 rounded-2xl p-8 border border-brand-primary/20">
+          <HelpCircle className="h-12 w-12 text-brand-primary mx-auto mb-4" />
           <h3 className="text-xl font-bold text-white mb-2">
             Still Have Questions?
           </h3>
-          <p className="text-gray-300 mb-6">
+          <p className="text-brand-muted mb-6">
             Can't find the answer you're looking for? I'm always happy to
             clarify details about services, pricing, or policies.
           </p>
@@ -357,18 +367,18 @@ const EnhancedFAQ: React.FC = () => {
                 // Simulate Discord contact
                 const toast = document.createElement("div");
                 toast.className =
-                  "fixed bottom-4 right-4 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg z-50";
+                  "fixed bottom-4 right-4 bg-brand-primary text-white px-6 py-3 rounded-lg shadow-lg z-50";
                 toast.textContent = "Contact me on Discord: NilsTG";
                 document.body.appendChild(toast);
                 setTimeout(() => document.body.removeChild(toast), 3000);
               }}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-300 hover:scale-105 shadow-lg"
+              className="bg-brand-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300 hover:scale-105 shadow-lg"
             >
               Ask on Discord
             </button>
             <a
               href="#submit-job"
-              className="text-blue-400 hover:text-blue-300 underline font-medium"
+              className="text-brand-primary hover:text-blue-300 underline font-medium"
               onClick={(e) => {
                 e.preventDefault();
                 document

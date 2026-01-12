@@ -228,16 +228,28 @@ const MarketplaceApp: React.FC<MarketplaceAppProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white pb-20">
+    <div className="min-h-screen bg-brand-black text-white pb-20">
+      {/* Global Warning Banner */}
+      <div className="bg-yellow-500/10 border-b border-yellow-500/20 text-yellow-500 py-3 relative z-40">
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-center gap-3 text-sm font-medium">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-500 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
+          </span>
+          Shop is open for browsing, but checkout is temporarily paused for
+          academic focus.
+        </div>
+      </div>
+
       {/* Header / Search Bar */}
-      <div className="bg-gray-800 border-b border-gray-700 sticky top-20 z-30">
+      <div className="bg-brand-surface border-b border-brand-border sticky top-20 z-30">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
           {/* Back button + Search */}
           <div className="flex items-center gap-3 w-full sm:max-w-md">
             {onNavigateToServices && (
               <button
                 onClick={onNavigateToServices}
-                className="flex items-center gap-2 px-3 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 whitespace-nowrap"
+                className="flex items-center gap-2 px-3 py-2 bg-brand-border hover:bg-brand-border/80 text-gray-300 hover:text-white rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-surface whitespace-nowrap"
                 aria-label="Back to services"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -252,7 +264,7 @@ const MarketplaceApp: React.FC<MarketplaceAppProps> = ({
               <input
                 type="text"
                 placeholder="Search items, shops, or categories..."
-                className="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white text-base focus:ring-2 focus:ring-blue-500 outline-none focus:border-blue-500 transition-all"
+                className="w-full bg-brand-dark border border-brand-border rounded-lg pl-10 pr-4 py-2.5 text-white text-base focus:ring-2 focus:ring-brand-primary outline-none focus:border-brand-primary transition-all placeholder:text-gray-600"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search products"
@@ -262,14 +274,14 @@ const MarketplaceApp: React.FC<MarketplaceAppProps> = ({
 
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 active:scale-[0.98]"
+            className="relative bg-brand-primary hover:bg-blue-600 text-white px-4 py-2.5 rounded-lg font-bold transition-all duration-200 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-surface active:scale-[0.98] shadow-lg shadow-brand-primary/20"
             aria-label={`Open cart with ${cartItems.length} items`}
           >
             <ShoppingCart className="h-5 w-5" />
             <span>Cart</span>
             {cartItems.length > 0 && (
               <span
-                className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-800"
+                className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-brand-surface"
                 aria-hidden="true"
               >
                 {cartItems.reduce((a, b) => a + b.quantity, 0)}

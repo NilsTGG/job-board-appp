@@ -60,7 +60,7 @@ const servicesData = [
     desc: "Miscellaneous errands and setups",
     bullets: [
       "Beacon placement services",
-      "Event setup assistance",
+      "Event logistics support",
       "Base organization tasks",
     ],
     range: "5–40+ diamonds",
@@ -131,42 +131,46 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 }) => {
   return (
     <div
-      className={`bg-gray-800 rounded-xl p-6 border border-gray-700 transition-all duration-300 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 ${
-        isExpanded ? "transform scale-105 ring-2 ring-blue-500/30" : ""
+      className={`bg-brand-surface rounded-xl p-6 border border-brand-border transition-all duration-300 hover:border-brand-primary/50 hover:shadow-lg hover:shadow-brand-primary/10 ${
+        isExpanded ? "transform scale-105 ring-2 ring-brand-primary/30" : ""
       }`}
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-600 rounded-lg text-white">
+          <div className="p-2 bg-brand-primary rounded-lg text-white shadow-lg shadow-brand-primary/20">
             {service.icon}
           </div>
-          <h3 className="text-lg font-semibold text-white">{service.title}</h3>
+          <h3 className="text-lg font-bold text-white tracking-tight">
+            {service.title}
+          </h3>
         </div>
         <div className="text-right">
-          <div className="flex items-center gap-1 text-green-400 text-sm font-medium">
+          <div className="flex items-center gap-1 text-brand-success text-sm font-medium">
             <CheckCircle className="h-4 w-4" />
             {service.completionRate}
           </div>
-          <div className="text-xs text-gray-400">Success Rate</div>
+          <div className="text-xs text-brand-muted">Success Rate</div>
         </div>
       </div>
 
       {/* Description */}
-      <p className="text-gray-300 text-sm mb-4">{service.desc}</p>
+      <p className="text-brand-muted text-sm mb-4 leading-relaxed">
+        {service.desc}
+      </p>
 
       {/* Key Features */}
-      <ul className="text-gray-400 text-sm space-y-1 mb-4">
+      <ul className="text-brand-muted text-sm space-y-1 mb-4">
         {service.bullets.map((bullet, idx) => (
           <li key={idx} className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-blue-400 rounded-full flex-shrink-0"></div>
+            <div className="w-1.5 h-1.5 bg-brand-primary rounded-full flex-shrink-0"></div>
             {bullet}
           </li>
         ))}
       </ul>
 
       {/* Stats Row */}
-      <div className="flex justify-between items-center text-xs text-gray-500 mb-4">
+      <div className="flex justify-between items-center text-xs text-brand-muted/70 mb-4">
         <div className="flex items-center gap-1">
           <Clock className="h-3 w-3" />
           Avg: {service.avgTime}
@@ -178,15 +182,17 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       </div>
 
       {/* Price Range */}
-      <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/20 rounded-lg p-3 mb-4">
-        <div className="text-xs text-blue-300 mb-1">Typical Price Range</div>
+      <div className="bg-brand-black/50 border border-brand-border rounded-lg p-3 mb-4">
+        <div className="text-xs text-brand-primary mb-1 font-semibold uppercase tracking-wide">
+          Typical Price Range
+        </div>
         <div className="text-lg font-bold text-white">{service.range}</div>
       </div>
 
       {/* Expandable Features */}
       <button
         onClick={onToggle}
-        className="w-full text-center text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors"
+        className="w-full text-center text-brand-primary hover:text-white text-sm font-bold transition-colors uppercase tracking-wide"
       >
         {isExpanded ? "▼ Hide Details" : "▶ Show All Features"}
       </button>

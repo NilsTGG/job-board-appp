@@ -64,26 +64,26 @@ const ReviewsSection: React.FC = () => {
 
   // "Leave a Review" placeholder card
   const LeaveReviewCard: React.FC = () => (
-    <div className="flex-shrink-0 w-80 md:w-96 p-6 rounded-xl border border-dashed border-blue-500/50 bg-gradient-to-br from-blue-900/20 to-purple-900/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500">
+    <div className="flex-shrink-0 w-80 md:w-96 p-6 rounded-xl border border-dashed border-brand-primary/50 bg-brand-surface shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:border-brand-primary focus-within:ring-2 focus-within:ring-brand-primary">
       <div className="text-center py-4">
-        <div className="inline-flex p-4 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 mb-4">
-          <MessageSquarePlus className="h-8 w-8 text-white" />
+        <div className="inline-flex p-4 rounded-full bg-brand-primary/10 mb-4 border border-brand-primary/20">
+          <MessageSquarePlus className="h-8 w-8 text-brand-primary" />
         </div>
         <h3 className="text-xl font-bold text-white mb-2">
           Share Your Experience!
         </h3>
-        <p className="text-gray-300 text-sm mb-6 leading-relaxed">
+        <p className="text-brand-muted text-sm mb-6 leading-relaxed">
           Had a great delivery? Let others know about your experience with
           Because You Won't™
         </p>
         <button
           onClick={() => setIsReviewModalOpen(true)}
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+          className="inline-flex items-center gap-2 bg-brand-primary hover:bg-brand-primary/80 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 hover:scale-105 shadow-lg shadow-brand-primary/25 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-black"
         >
           <Star className="h-4 w-4" />
           Leave a Review
         </button>
-        <p className="text-xs text-gray-400 mt-4">
+        <p className="text-xs text-brand-muted mt-4">
           Your review will be sent to our team
         </p>
       </div>
@@ -95,7 +95,7 @@ const ReviewsSection: React.FC = () => {
     index,
   }) => {
     const cardClasses =
-      "bg-gradient-to-br from-green-900/20 to-blue-900/10 border-green-500/20 shadow-green-500/10";
+      "bg-brand-surface border-brand-border/50 shadow-black/20";
 
     return (
       <div
@@ -107,22 +107,24 @@ const ReviewsSection: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-green-600">
-              <User className="h-5 w-5 text-white" />
+            <div className="p-2 rounded-lg bg-brand-success/10 border border-brand-success/20">
+              <User className="h-5 w-5 text-brand-success" />
             </div>
             <div>
-              <div className="font-semibold text-sm text-green-300">
+              <div className="font-bold text-sm text-white">
                 {review.customer}
               </div>
-              <div className="flex items-center gap-1 text-xs text-gray-400">
+              <div className="flex items-center gap-1 text-xs text-brand-muted">
                 <Calendar className="h-3 w-3" />
                 {review.date}
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-1 text-green-400">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-xs font-medium">Verified</span>
+          <div className="flex items-center gap-1 text-brand-success">
+            <div className="w-2 h-2 bg-brand-success rounded-full animate-pulse"></div>
+            <span className="text-xs font-bold uppercase tracking-wider">
+              Verified
+            </span>
           </div>
         </div>
 
@@ -131,22 +133,20 @@ const ReviewsSection: React.FC = () => {
           {review.order && (
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <Package className="h-4 w-4 text-blue-400" />
-                <span className="font-medium text-blue-300">Order:</span>
+                <Package className="h-4 w-4 text-brand-primary" />
+                <span className="font-bold text-gray-300">Order:</span>
               </div>
-              <p className="text-gray-300 pl-6">&quot;{review.order}&quot;</p>
+              <p className="text-gray-400 pl-6">&quot;{review.order}&quot;</p>
             </div>
           )}
 
           {review.deliverySpeed && (
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <Clock className="h-4 w-4 text-purple-400" />
-                <span className="font-medium text-purple-300">
-                  Delivery Speed:
-                </span>
+                <Clock className="h-4 w-4 text-brand-accent" />
+                <span className="font-bold text-gray-300">Delivery Speed:</span>
               </div>
-              <p className="text-gray-300 pl-6">
+              <p className="text-gray-400 pl-6">
                 &quot;{review.deliverySpeed}&quot;
               </p>
             </div>

@@ -39,21 +39,21 @@ const CoordinateInput: React.FC<CoordinateInputProps> = ({
   };
 
   const inputClass =
-    "w-full px-3 py-2.5 bg-gray-700 border border-gray-600 rounded-lg text-white text-center placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
+    "w-full px-3 py-2.5 bg-brand-surface border border-brand-border rounded-lg text-white text-center placeholder-brand-muted/30 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition-all duration-200 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
 
   return (
     <div>
       <label className="block text-white font-medium mb-2">
         {label} {required && "*"}
         {sublabel && (
-          <span className="text-xs text-gray-400 block font-normal mt-1">
+          <span className="text-xs text-brand-muted block font-normal mt-1">
             {sublabel}
           </span>
         )}
       </label>
       <div className="flex items-center gap-2">
         <div className="flex-1">
-          <label className="text-xs text-gray-500 mb-1 block text-center">
+          <label className="text-xs text-brand-muted mb-1 block text-center">
             X
           </label>
           <input
@@ -66,9 +66,9 @@ const CoordinateInput: React.FC<CoordinateInputProps> = ({
             aria-label={`${name} X coordinate`}
           />
         </div>
-        <span className="text-gray-500 font-bold mt-5">,</span>
+        <span className="text-brand-muted font-bold mt-5">,</span>
         <div className="flex-1">
-          <label className="text-xs text-gray-500 mb-1 block text-center">
+          <label className="text-xs text-brand-muted mb-1 block text-center">
             Y
           </label>
           <input
@@ -81,9 +81,9 @@ const CoordinateInput: React.FC<CoordinateInputProps> = ({
             aria-label={`${name} Y coordinate`}
           />
         </div>
-        <span className="text-gray-500 font-bold mt-5">,</span>
+        <span className="text-brand-muted font-bold mt-5">,</span>
         <div className="flex-1">
-          <label className="text-xs text-gray-500 mb-1 block text-center">
+          <label className="text-xs text-brand-muted mb-1 block text-center">
             Z
           </label>
           <input

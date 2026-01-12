@@ -6,12 +6,12 @@ const Footer: React.FC = () => {
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showDiscordToast, setShowDiscordToast] = useState(false);
   return (
-    <footer className="bg-gray-900 border-t border-gray-800 py-12">
+    <footer className="bg-brand-black border-t border-brand-border py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <Package className="h-8 w-8 text-blue-400" />
+              <Package className="h-8 w-8 text-brand-primary" />
               <span className="text-xl font-bold text-white">
                 Because You Won't™
               </span>
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
               <li>
                 <a
                   href="#services"
-                  className="hover:text-blue-400 transition-colors cursor-pointer"
+                  className="hover:text-brand-primary transition-colors cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
                     document
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
               <li>
                 <a
                   href="#pricing"
-                  className="hover:text-blue-400 transition-colors cursor-pointer"
+                  className="hover:text-brand-primary transition-colors cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
                     document
@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
               <li>
                 <a
                   href="#submit-job"
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg block text-center"
+                  className="bg-brand-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg block text-center font-bold"
                 >
                   Submit Job
                 </a>
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
               <li>
                 <button
                   type="button"
-                  className="hover:text-blue-400 transition-colors underline bg-transparent border-none p-0 m-0 text-left"
+                  className="hover:text-brand-primary transition-colors underline bg-transparent border-none p-0 m-0 text-left"
                   onClick={() => setShowPrivacy(true)}
                 >
                   Privacy Policy
@@ -88,7 +88,7 @@ const Footer: React.FC = () => {
             <div className="flex space-x-4">
               <button
                 onClick={() => setShowDiscordToast(true)}
-                className="text-gray-400 hover:text-blue-400 transition-colors"
+                className="text-gray-400 hover:text-brand-primary transition-colors"
                 aria-label="Show Discord username"
               >
                 <Disc className="h-5 w-5" />
@@ -97,7 +97,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-800 text-center">
+        <div className="mt-12 pt-8 border-t border-brand-border text-center">
           <p className="text-gray-500 text-sm">
             © 2024 Because You Won't™. All rights reserved.
           </p>
@@ -106,8 +106,8 @@ const Footer: React.FC = () => {
       {/* Discord Toast Popup */}
       {showDiscordToast && (
         <div className="fixed bottom-8 right-8 z-50">
-          <div className="bg-gray-800 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 border border-blue-600">
-            <Disc className="h-6 w-6 text-blue-400" />
+          <div className="bg-brand-surface text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 border border-brand-primary shadow-brand-primary/20">
+            <Disc className="h-6 w-6 text-brand-primary" />
             <span className="font-semibold">Discord:</span>
             <span className="text-blue-300">NilsTG</span>
             <button

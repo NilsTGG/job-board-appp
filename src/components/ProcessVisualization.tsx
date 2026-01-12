@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  MessageCircle,
-  MapPin,
-  CheckCircle,
-  Clock,
-} from "../icons";
+import { MessageCircle, MapPin, CheckCircle, Clock } from "../icons";
 
 const steps = [
   {
@@ -52,7 +47,7 @@ const ProcessVisualization: React.FC = () => {
     <section className="max-w-5xl mx-auto px-4 py-16">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold text-white mb-4">How It Works</h2>
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+        <p className="text-brand-muted text-lg max-w-2xl mx-auto">
           Simple, transparent process from request to completion. No hidden
           steps or surprises.
         </p>
@@ -95,7 +90,7 @@ const ProcessVisualization: React.FC = () => {
                   <div className="text-white">{step.icon}</div>
 
                   {/* Step Number */}
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-gray-800 border-2 border-white rounded-full flex items-center justify-center text-xs font-bold text-white">
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-brand-black border-2 border-brand-surface rounded-full flex items-center justify-center text-xs font-bold text-white">
                     {step.id}
                   </div>
                 </div>
@@ -105,22 +100,22 @@ const ProcessVisualization: React.FC = () => {
                   <h3 className="text-lg font-semibold text-white mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-gray-400 text-sm mb-2">
+                  <p className="text-brand-muted text-sm mb-2">
                     {step.description}
                   </p>
 
-                  <div className="flex items-center justify-center gap-1 text-xs text-gray-500">
+                  <div className="flex items-center justify-center gap-1 text-xs text-brand-muted/70">
                     <Clock className="h-3 w-3" />
                     {step.timeEstimate}
                   </div>
 
                   {/* Expanded Details */}
                   {activeStep === step.id && (
-                    <div className="absolute top-full mt-4 left-1/2 transform -translate-x-1/2 bg-gray-800 rounded-lg p-4 border border-gray-700 shadow-xl z-10 w-64 animate-fadeIn">
-                      <div className="text-sm text-gray-300">
+                    <div className="absolute top-full mt-4 left-1/2 transform -translate-x-1/2 bg-brand-surface rounded-lg p-4 border border-brand-border shadow-xl z-50 w-64 animate-fadeIn">
+                      <div className="text-sm text-brand-gray-200">
                         {step.details}
                       </div>
-                      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-800 border-l border-t border-gray-700 rotate-45"></div>
+                      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-brand-surface border-l border-t border-brand-border rotate-45"></div>
                     </div>
                   )}
                 </div>
@@ -152,7 +147,7 @@ const ProcessVisualization: React.FC = () => {
                 })}
               </div>
 
-              <div className="absolute -top-1 -right-1 w-5 h-5 bg-gray-800 border-2 border-white rounded-full flex items-center justify-center text-xs font-bold text-white">
+              <div className="absolute -top-1 -right-1 w-5 h-5 bg-brand-black border-2 border-brand-surface rounded-full flex items-center justify-center text-xs font-bold text-white">
                 {step.id}
               </div>
 

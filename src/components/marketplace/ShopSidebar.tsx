@@ -71,7 +71,7 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
           className="w-full text-lg font-bold text-white mb-4 flex items-center justify-between gap-2 lg:cursor-default"
         >
           <span className="flex items-center gap-2">
-            <Store className="h-5 w-5 text-blue-400" />
+            <Store className="h-5 w-5 text-brand-primary" />
             Shops
           </span>
           <span className="lg:hidden">
@@ -91,10 +91,10 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
         >
           <button
             onClick={() => onSelectShop(null)}
-            className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
+            className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-black ${
               selectedShopId === null
-                ? "bg-blue-600 text-white font-medium"
-                : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                ? "bg-brand-primary text-white font-bold"
+                : "text-gray-300 hover:bg-brand-surface hover:text-white"
             }`}
           >
             All Shops
@@ -109,10 +109,10 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
                 key={shop.id}
                 onClick={() => onSelectShop(shop.id)}
                 aria-pressed={isSelected}
-                className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
+                className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-black ${
                   isSelected
-                    ? "text-white font-medium"
-                    : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                    ? "text-white font-bold"
+                    : "text-gray-300 hover:bg-brand-surface hover:text-white"
                 }`}
                 style={style}
               >
@@ -134,7 +134,7 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
           className="w-full text-lg font-bold text-white mb-4 flex items-center justify-between gap-2 lg:cursor-default"
         >
           <span className="flex items-center gap-2">
-            <Filter className="h-5 w-5 text-purple-400" />
+            <Filter className="h-5 w-5 text-brand-accent" />
             Categories
           </span>
           <span className="lg:hidden">
@@ -154,10 +154,10 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
         >
           <button
             onClick={() => onSelectCategory(null)}
-            className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
+            className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 focus:ring-offset-brand-black ${
               selectedCategory === null
-                ? "bg-purple-600 text-white font-medium"
-                : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                ? "bg-brand-accent text-white font-bold"
+                : "text-gray-300 hover:bg-brand-surface hover:text-white"
             }`}
           >
             All Categories
@@ -166,10 +166,10 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
             <button
               key={cat.id}
               onClick={() => onSelectCategory(cat.id)}
-              className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
+              className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 focus:ring-offset-brand-black ${
                 selectedCategory === cat.id
-                  ? "bg-purple-600 text-white font-medium"
-                  : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                  ? "bg-brand-accent text-white font-bold"
+                  : "text-gray-300 hover:bg-brand-surface hover:text-white"
               }`}
             >
               {cat.label}
@@ -185,7 +185,7 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
             onSelectShop(null);
             onSelectCategory(null);
           }}
-          className="w-full mt-4 py-2 px-4 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
+          className="w-full mt-4 py-2 px-4 bg-brand-surface border border-brand-border hover:bg-brand-border text-gray-300 rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
         >
           <X className="h-4 w-4" />
           Clear All Filters
@@ -200,13 +200,13 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
       <div className="lg:hidden mb-4">
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 flex items-center justify-between text-white font-medium transition-colors hover:bg-gray-750"
+          className="w-full bg-brand-surface border border-brand-border rounded-xl px-4 py-3 flex items-center justify-between text-white font-bold transition-colors hover:bg-brand-surface/80"
         >
           <span className="flex items-center gap-2">
-            <Filter className="h-5 w-5 text-purple-400" />
+            <Filter className="h-5 w-5 text-brand-accent" />
             Filters
             {activeFiltersCount > 0 && (
-              <span className="bg-purple-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+              <span className="bg-brand-accent text-white text-xs font-bold px-2 py-0.5 rounded-full">
                 {activeFiltersCount}
               </span>
             )}
@@ -220,7 +220,7 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
 
         {/* Mobile Expanded Filters */}
         {isMobileOpen && (
-          <div className="mt-3 bg-gray-800 border border-gray-700 rounded-xl p-4 space-y-6 animate-fadeIn">
+          <div className="mt-3 bg-brand-surface border border-brand-border rounded-xl p-4 space-y-6 animate-fadeIn">
             <SidebarContent />
           </div>
         )}

@@ -113,8 +113,8 @@ const EnhancedServiceSelector: React.FC<Props> = ({ value, onChange }) => {
               className={[
                 "relative rounded-lg p-4 text-left border text-sm transition-all duration-200 transform",
                 active
-                  ? "bg-gradient-to-br from-blue-700 to-blue-800 border-blue-500 shadow-lg scale-105 ring-2 ring-blue-400"
-                  : "bg-gray-700 border-gray-600 hover:border-blue-500 hover:bg-gray-650 hover:scale-102",
+                  ? "bg-brand-primary border-brand-primary shadow-lg shadow-brand-primary/25 scale-105 ring-2 ring-brand-primary/50"
+                  : "bg-brand-surface border-brand-border hover:border-brand-primary hover:bg-brand-surface/80 hover:scale-[1.02]",
                 "group",
               ].join(" ")}
               role="radio"
@@ -122,7 +122,7 @@ const EnhancedServiceSelector: React.FC<Props> = ({ value, onChange }) => {
               aria-describedby={`service-${s.key}-desc`}
             >
               {s.popular && (
-                <div className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs px-2 py-1 rounded-full font-bold animate-pulse">
+                <div className="absolute -top-2 -right-2 bg-brand-accent text-white text-xs px-2 py-1 rounded-full font-bold animate-pulse shadow-lg">
                   Popular
                 </div>
               )}
@@ -131,35 +131,47 @@ const EnhancedServiceSelector: React.FC<Props> = ({ value, onChange }) => {
                 <div
                   className={`p-2 rounded-lg transition-colors ${
                     active
-                      ? "bg-blue-600"
-                      : "bg-gray-600 group-hover:bg-blue-600"
+                      ? "bg-brand-black/20"
+                      : "bg-brand-border group-hover:bg-brand-primary"
                   }`}
                 >
                   {s.icon}
                 </div>
-                <div className="font-semibold text-white leading-tight">
+                <div className="font-bold text-white leading-tight">
                   {s.label}
                 </div>
               </div>
 
               <div
                 id={`service-${s.key}-desc`}
-                className="text-gray-300 text-xs mb-3"
+                className={`text-xs mb-3 ${
+                  active ? "text-white/90" : "text-gray-400"
+                }`}
               >
                 {s.blurb}
               </div>
 
               {(active || hovered) && (
                 <div className="space-y-1 animate-fadeIn">
-                  <div className="text-xs font-medium text-blue-300 mb-1">
+                  <div
+                    className={`text-xs font-bold mb-1 ${
+                      active ? "text-white" : "text-brand-primary"
+                    }`}
+                  >
                     Examples:
                   </div>
                   {s.examples.slice(0, 2).map((example, idx) => (
                     <div
                       key={idx}
-                      className="text-xs text-gray-400 flex items-center"
+                      className={`text-xs flex items-center ${
+                        active ? "text-white/80" : "text-gray-400"
+                      }`}
                     >
-                      <div className="w-1 h-1 bg-blue-400 rounded-full mr-2"></div>
+                      <div
+                        className={`w-1 h-1 rounded-full mr-2 ${
+                          active ? "bg-white" : "bg-brand-primary"
+                        }`}
+                      ></div>
                       {example}
                     </div>
                   ))}
@@ -170,10 +182,10 @@ const EnhancedServiceSelector: React.FC<Props> = ({ value, onChange }) => {
         })}
       </div>
 
-      <div className="text-xs text-gray-500 bg-gray-800/50 rounded-lg p-3 border border-gray-700">
-        <div className="font-medium text-gray-400 mb-1">💡 Pro Tip:</div>
-        Unsure which service to choose? Select "Time Block\" for multiple small
-        tasks or "Custom Task\" for infrastructure work.
+      <div className="text-xs text-gray-500 bg-brand-black/50 rounded-lg p-3 border border-brand-border">
+        <div className="font-bold text-gray-400 mb-1">💡 Pro Tip:</div>
+        Unsure which service to choose? Select "Time Block" for multiple small
+        tasks or "Custom Task" for infrastructure work.
       </div>
     </fieldset>
   );

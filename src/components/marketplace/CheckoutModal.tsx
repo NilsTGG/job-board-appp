@@ -252,12 +252,12 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
         <div
           ref={modalRef}
-          className="inline-block align-bottom bg-gray-800 rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-gray-700"
+          className="inline-block align-bottom bg-brand-surface rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-brand-border"
         >
           <div className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="sm:flex sm:items-start">
-              <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-900/50 sm:mx-0 sm:h-10 sm:w-10">
-                <Package className="h-6 w-6 text-blue-400" />
+              <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-brand-primary/10 sm:mx-0 sm:h-10 sm:w-10">
+                <Package className="h-6 w-6 text-brand-primary" />
               </div>
               <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                 <h3
@@ -277,7 +277,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 >
                   <div>
                     <label
-                      className="block text-sm font-medium text-gray-200 mb-1.5"
+                      className="block text-sm font-bold text-gray-200 mb-1.5"
                       htmlFor="ign-input"
                     >
                       Minecraft Username (IGN){" "}
@@ -291,7 +291,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       required
                       aria-required="true"
                       aria-describedby="ign-help"
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder:text-gray-400"
+                      className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white text-base focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all placeholder:text-gray-500"
                       placeholder="Steve"
                       value={ign}
                       onChange={(e) => setIgn(e.target.value)}
@@ -303,7 +303,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
                   <div>
                     <label
-                      className="block text-sm font-medium text-gray-200 mb-1.5"
+                      className="block text-sm font-bold text-gray-200 mb-1.5"
                       htmlFor="discord-input"
                     >
                       Discord Username{" "}
@@ -317,7 +317,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       required
                       aria-required="true"
                       aria-describedby="discord-help"
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder:text-gray-400"
+                      className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white text-base focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all placeholder:text-gray-500"
                       placeholder="username or User#1234"
                       value={discord}
                       onChange={(e) => setDiscord(e.target.value)}
@@ -332,7 +332,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
                   <div>
                     <label
-                      className="block text-sm font-medium text-gray-200 mb-1.5"
+                      className="block text-sm font-bold text-gray-200 mb-1.5"
                       htmlFor="coords-input"
                     >
                       Delivery Coordinates (x, y, z){" "}
@@ -341,7 +341,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       </span>
                     </label>
                     <div className="relative">
-                      <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                      <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
                       <input
                         id="coords-input"
                         type="text"
@@ -351,12 +351,12 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                           coords && !userLocation ? "true" : "false"
                         }
                         aria-describedby="coords-error coords-help"
-                        className={`w-full bg-gray-700 border rounded-lg pl-10 pr-4 py-2.5 text-white text-base focus:ring-2 outline-none transition-all placeholder:text-gray-400 ${
+                        className={`w-full bg-brand-black border rounded-lg pl-10 pr-4 py-2.5 text-white text-base focus:ring-2 outline-none transition-all placeholder:text-gray-500 ${
                           coords && !userLocation
                             ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                             : coordsError
                             ? "border-yellow-500 focus:ring-yellow-500 focus:border-yellow-500"
-                            : "border-gray-600 focus:ring-blue-500 focus:border-blue-500"
+                            : "border-brand-border focus:ring-brand-primary focus:border-brand-primary"
                         }`}
                         placeholder="100, 64, -200"
                         value={coords}
@@ -389,7 +389,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     ) : userLocation ? (
                       <p
                         id="coords-help"
-                        className="text-green-400 text-sm mt-1.5 flex items-center gap-1"
+                        className="text-brand-success text-sm mt-1.5 flex items-center gap-1"
                       >
                         <span aria-hidden="true">✓</span> Coordinates valid:{" "}
                         {formatCoords(userLocation)}
@@ -412,7 +412,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     aria-live="assertive"
                     className={`mx-4 mb-3 rounded-lg p-3 border ${
                       resultOk
-                        ? "bg-green-900/30 border-green-600/50 text-green-200"
+                        ? "bg-brand-success/10 border-brand-success/20 text-brand-success"
                         : "bg-red-900/30 border-red-600/50 text-red-200"
                     }`}
                   >
@@ -438,8 +438,8 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </div>
 
                 {/* Order Summary */}
-                <div className="mt-6 bg-gray-900/50 rounded-xl p-4 border border-gray-700">
-                  <h4 className="font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                <div className="mt-6 bg-brand-black rounded-xl p-4 border border-brand-border">
+                  <h4 className="font-bold text-gray-300 mb-3 flex items-center gap-2">
                     <Calculator className="h-4 w-4" />
                     Order Summary
                   </h4>
@@ -469,7 +469,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       </span>
                     </div>
 
-                    <div className="border-t border-gray-700 pt-2 mt-2 flex justify-between items-center">
+                    <div className="border-t border-brand-border pt-2 mt-2 flex justify-between items-center">
                       <span className="font-bold text-white">Total</span>
                       <span className="font-bold text-xl text-yellow-400">
                         {deliveryFee ? total : "--"} 💎
@@ -480,20 +480,20 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
                 {deliveryFee && (
                   <div className="mt-4 space-y-2">
-                    <div className="flex items-start gap-2 text-xs text-blue-300 bg-blue-900/20 p-3 rounded-lg border border-blue-800/50">
+                    <div className="flex items-start gap-2 text-xs text-brand-primary bg-brand-primary/10 p-3 rounded-lg border border-brand-primary/20">
                       <Clock className="h-4 w-4 flex-shrink-0 mt-0.5" />
                       <div>
-                        <p className="font-semibold">
+                        <p className="font-bold">
                           Estimated delivery: {estimatedDeliveryTime}
                         </p>
-                        <p className="text-blue-300/80 mt-1">
+                        <p className="text-brand-primary/80 mt-1">
                           You'll receive a Discord DM when I'm online to
                           coordinate.
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-2 text-xs text-gray-400 bg-gray-700/30 p-3 rounded-lg">
-                      <CheckCircle className="h-4 w-4 flex-shrink-0 mt-0.5 text-green-400" />
+                    <div className="flex items-start gap-2 text-xs text-gray-400 bg-brand-black p-3 rounded-lg border border-brand-border">
+                      <CheckCircle className="h-4 w-4 flex-shrink-0 mt-0.5 text-brand-success" />
                       <p>
                         Delivery fee calculated based on optimal route (Nether
                         Highway applied for long distances).
@@ -504,7 +504,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
               </div>
             </div>
           </div>
-          <div className="bg-gray-700/50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+          <div className="bg-brand-black/50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-brand-border">
             <button
               type="submit"
               form="checkout-form"
@@ -515,7 +515,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 isSubmitting ||
                 hasSubmitted
               }
-              className="w-full inline-flex justify-center items-center gap-2 rounded-lg border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="w-full inline-flex justify-center items-center gap-2 rounded-lg border border-transparent shadow-sm px-4 py-2 bg-brand-primary text-base font-bold text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {isSubmitting ? (
                 <>
@@ -533,7 +533,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
             </button>
             <button
               type="button"
-              className="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-600 shadow-sm px-4 py-2 bg-gray-800 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-all"
+              className="mt-3 w-full inline-flex justify-center rounded-lg border border-brand-border shadow-sm px-4 py-2 bg-transparent text-base font-bold text-gray-300 hover:text-white hover:bg-brand-border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-border sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-all"
               onClick={onClose}
             >
               Cancel

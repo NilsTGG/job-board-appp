@@ -178,14 +178,14 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
 
         <div
           ref={modalRef}
-          className="inline-block align-bottom bg-gray-800 rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-gray-700"
+          className="inline-block align-bottom bg-brand-surface rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-brand-border"
         >
           {/* Header */}
-          <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-4">
+          <div className="bg-brand-success/10 border-b border-brand-success/20 px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="bg-white/20 p-2 rounded-full">
-                  <CheckCircle className="h-6 w-6 text-white" />
+                <div className="bg-brand-success/20 p-2 rounded-full border border-brand-success/30">
+                  <CheckCircle className="h-6 w-6 text-brand-success" />
                 </div>
                 <div>
                   <h2
@@ -194,7 +194,7 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
                   >
                     Order Confirmed! 🎉
                   </h2>
-                  <p className="text-green-100 text-sm">
+                  <p className="text-brand-success/80 text-sm">
                     Your order has been received
                   </p>
                 </div>
@@ -213,53 +213,53 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
             <div className="px-6 py-5 space-y-5">
               {/* Estimated Delivery */}
               <div
-                className="bg-blue-900/30 border border-blue-700/50 rounded-xl p-4"
+                className="bg-brand-primary/10 border border-brand-primary/20 rounded-xl p-4"
                 aria-live="polite"
               >
                 <div className="flex items-center gap-3">
-                  <Clock className="h-5 w-5 text-blue-400" />
+                  <Clock className="h-5 w-5 text-brand-primary" />
                   <div>
-                    <div className="text-blue-200 font-semibold">
+                    <div className="text-brand-primary font-bold">
                       Estimated Delivery Time
                     </div>
-                    <div className="text-blue-100 text-lg font-bold">
+                    <div className="text-brand-primary text-lg font-bold">
                       {getEstimatedDelivery()}
                     </div>
                   </div>
                 </div>
-                <p className="text-blue-300/80 text-xs mt-2">
+                <p className="text-gray-300 text-xs mt-2">
                   You'll receive a Discord DM when NilsTG is online to
                   coordinate delivery.
                 </p>
               </div>
 
               {/* What happens next */}
-              <div className="bg-gray-700/50 rounded-xl p-4">
-                <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
-                  <Package className="h-4 w-4 text-purple-400" />
+              <div className="bg-brand-black border border-brand-border rounded-xl p-4">
+                <h3 className="text-white font-bold mb-3 flex items-center gap-2">
+                  <Package className="h-4 w-4 text-brand-accent" />
                   What happens next?
                 </h3>
                 <ol className="space-y-2 text-sm text-gray-300">
                   <li className="flex items-start gap-2">
-                    <span className="bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="bg-brand-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">
                       1
                     </span>
                     <span>Discord DM within 30 minutes (when online)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="bg-brand-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">
                       2
                     </span>
                     <span>Final price confirmation and scheduling</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="bg-brand-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">
                       3
                     </span>
                     <span>Meet in-game at your delivery location</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="bg-brand-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">
                       4
                     </span>
                     <span>Pay diamonds → Items delivered! ✨</span>
@@ -268,8 +268,8 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
               </div>
 
               {/* Order Details */}
-              <div className="bg-gray-900/50 rounded-xl p-4 border border-gray-700">
-                <h3 className="text-white font-semibold mb-3">Order Summary</h3>
+              <div className="bg-brand-black rounded-xl p-4 border border-brand-border">
+                <h3 className="text-white font-bold mb-3">Order Summary</h3>
 
                 <div className="space-y-2 text-sm">
                   {order.cartItems.map((item, idx) => (
@@ -286,7 +286,7 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
                     </div>
                   ))}
 
-                  <div className="border-t border-gray-700 pt-2 mt-2 space-y-1">
+                  <div className="border-t border-brand-border pt-2 mt-2 space-y-1">
                     <div className="flex justify-between text-gray-400">
                       <span>Subtotal</span>
                       <span>{order.subtotal} 💎</span>
@@ -305,26 +305,26 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
 
               {/* Customer Info */}
               <div className="grid grid-cols-2 gap-3 text-sm">
-                <div className="bg-gray-700/30 rounded-lg p-3">
+                <div className="bg-brand-black border border-brand-border rounded-lg p-3">
                   <div className="flex items-center gap-2 text-gray-400 mb-1">
                     <User className="h-3 w-3" />
                     <span>IGN</span>
                   </div>
-                  <div className="text-white font-medium">{order.ign}</div>
+                  <div className="text-white font-bold">{order.ign}</div>
                 </div>
-                <div className="bg-gray-700/30 rounded-lg p-3">
+                <div className="bg-brand-black border border-brand-border rounded-lg p-3">
                   <div className="flex items-center gap-2 text-gray-400 mb-1">
                     <MessageCircle className="h-3 w-3" />
                     <span>Discord</span>
                   </div>
-                  <div className="text-white font-medium">{order.discord}</div>
+                  <div className="text-white font-bold">{order.discord}</div>
                 </div>
-                <div className="col-span-2 bg-gray-700/30 rounded-lg p-3">
+                <div className="col-span-2 bg-brand-black border border-brand-border rounded-lg p-3">
                   <div className="flex items-center gap-2 text-gray-400 mb-1">
                     <MapPin className="h-3 w-3" />
                     <span>Delivery Coordinates</span>
                   </div>
-                  <div className="text-white font-medium font-mono">
+                  <div className="text-white font-bold font-mono">
                     {order.userLocation.x}, {order.userLocation.y},{" "}
                     {order.userLocation.z}
                   </div>
@@ -349,7 +349,7 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
                 <div
                   className={`rounded-lg p-3 text-sm ${
                     resendResult.ok
-                      ? "bg-green-900/30 border border-green-600/50 text-green-200"
+                      ? "bg-brand-success/10 border border-brand-success/20 text-brand-success"
                       : "bg-red-900/30 border border-red-600/50 text-red-200"
                   }`}
                   role="alert"
@@ -373,14 +373,14 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
           )}
 
           {/* Actions */}
-          <div className="bg-gray-700/50 px-6 py-4 flex flex-wrap gap-3 justify-end">
+          <div className="bg-brand-black/50 border-t border-brand-border px-6 py-4 flex flex-wrap gap-3 justify-end">
             <button
               onClick={copyOrderDetails}
               disabled={!order}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-600 hover:bg-gray-500 text-white text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-transparent border border-brand-border hover:bg-brand-border text-white text-sm font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {copied ? (
-                <CheckCircle className="h-4 w-4" />
+                <CheckCircle className="h-4 w-4 text-brand-success" />
               ) : (
                 <Copy className="h-4 w-4" />
               )}
@@ -391,7 +391,7 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
               <button
                 onClick={handleResend}
                 disabled={!order || isResending}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-primary hover:bg-blue-600 text-white text-sm font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <RefreshCw
                   className={`h-4 w-4 ${isResending ? "animate-spin" : ""}`}
@@ -402,7 +402,7 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
 
             <button
               onClick={onClose}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-medium transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-primary hover:bg-blue-600 text-white text-sm font-bold transition-colors"
             >
               Done
             </button>

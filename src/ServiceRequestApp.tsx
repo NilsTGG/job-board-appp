@@ -1,5 +1,13 @@
 import { useState, useMemo, useEffect } from "react";
-import { Package, MapPin, MessageCircle, Clock, Sparkles, Zap } from "./icons";
+import {
+  Package,
+  MapPin,
+  MessageCircle,
+  Clock,
+  Sparkles,
+  Zap,
+  AlertCircle,
+} from "./icons";
 import EnhancedServiceSelector, {
   ServiceType,
 } from "./components/EnhancedServiceSelector";
@@ -364,7 +372,19 @@ function ServiceRequestApp({
   );
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-brand-black text-white">
+      {/* Global Warning Banner */}
+      <div className="bg-yellow-500/10 border-b border-yellow-500/20 text-yellow-500 py-3 relative z-50">
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-center gap-3 text-sm font-medium">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-500 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
+          </span>
+          Services are temporarily paused for academic focus. You may browse,
+          but new orders cannot be placed.
+        </div>
+      </div>
+
       {/* Navigation passed from parent or self-contained if needed, but we'll likely lift it up */}
       {/* For now keeping it here to match original structure, but we might want to hide it if parent handles nav */}
       {/* Actually, if we are making App.tsx the shell, we should probably remove Navigation from here and put it in App.tsx */}
@@ -376,65 +396,62 @@ function ServiceRequestApp({
       {/* Enhanced Hero Section */}
       <div
         id="hero"
-        className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/20"
+        className="relative overflow-hidden bg-brand-black border-b border-brand-border"
       >
         {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5"></div>
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute inset-0 bg-brand-primary/5"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-accent/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-        <div className="relative max-w-4xl mx-auto px-4 pt-24 pb-16">
+        <div className="relative max-w-4xl mx-auto px-4 pt-12 pb-12">
           <div className="text-center">
             {/* Main Title */}
             <div className="flex items-center justify-center space-x-4 mb-6">
               <div className="relative">
-                <Package className="h-16 w-16 text-blue-400 animate-bounce" />
-                <Sparkles className="h-6 w-6 text-yellow-400 absolute -top-2 -right-2 animate-ping" />
+                <Package className="h-16 w-16 text-brand-primary animate-bounce-slow" />
+                <Sparkles className="h-6 w-6 text-yellow-400 absolute -top-2 -right-2 animate-pulse" />
               </div>
               <div>
                 <h1
-                  className="text-5xl font-extrabold tracking-tight bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent"
+                  className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-2"
                   id="main-heading"
                 >
-                  Because You Won't™
+                  Request A Service
                 </h1>
-                <div className="flex items-center justify-center gap-2 mt-2">
-                  <Zap className="h-4 w-4 text-yellow-400" />
+                <div className="flex items-center justify-center gap-2">
+                  <Zap className="h-4 w-4 text-brand-primary" />
                   <p
-                    className="text-sm text-yellow-400 font-medium"
+                    className="text-sm text-gray-400 font-medium uppercase tracking-wider"
                     role="doc-subtitle"
                   >
-                    Professional Minecraft Logistics & Delivery Services
+                    Because You Won't™
                   </p>
-                  <Zap className="h-4 w-4 text-yellow-400" />
+                  <Zap className="h-4 w-4 text-brand-primary" />
                 </div>
               </div>
             </div>
 
             {/* Enhanced Subtitle */}
             <div className="mb-6">
-              <h2 className="text-3xl font-bold text-white leading-tight mb-2">
-                Professional Minecraft Courier & Rescue Services
-              </h2>
-              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-                Expert delivery service for all your Minecraft logistics needs.
-                <span className="text-blue-400 font-medium">
+              <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+                Professional Minecraft logistics.
+                <span className="text-brand-primary font-medium">
                   {" "}
                   Diamonds in → Problem gone.
                 </span>
               </p>
 
               {/* Trust Indicators */}
-              <div className="flex flex-wrap justify-center gap-6 mt-6 text-sm">
-                <div className="flex items-center gap-2 text-green-400 bg-green-900/20 px-3 py-2 rounded-full">
+              <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm">
+                <div className="flex items-center gap-2 text-brand-success bg-brand-success/10 border border-brand-success/20 px-3 py-1.5 rounded-full">
                   <Package className="h-4 w-4" />
                   <span>2,547+ Deliveries</span>
                 </div>
-                <div className="flex items-center gap-2 text-blue-400 bg-blue-900/20 px-3 py-2 rounded-full">
+                <div className="flex items-center gap-2 text-brand-primary bg-brand-primary/10 border border-brand-primary/20 px-3 py-1.5 rounded-full">
                   <Clock className="h-4 w-4" />
                   <span>99.1% Success Rate</span>
                 </div>
-                <div className="flex items-center gap-2 text-purple-400 bg-purple-900/20 px-3 py-2 rounded-full">
+                <div className="flex items-center gap-2 text-brand-accent bg-brand-accent/10 border border-brand-accent/20 px-3 py-1.5 rounded-full">
                   <MessageCircle className="h-4 w-4" />
                   <span>Zero Loss Guarantee</span>
                 </div>
@@ -444,7 +461,7 @@ function ServiceRequestApp({
             {/* Enhanced CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-8">
               <button
-                className="group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-blue-500/25 flex items-center gap-2"
+                className="group bg-brand-primary hover:bg-blue-600 text-white px-8 py-3 rounded-xl font-bold transition-all duration-300 hover:scale-105 shadow-lg shadow-brand-primary/25 flex items-center gap-2"
                 onClick={() => {
                   setActiveTab("order");
                   setTimeout(() => {
@@ -459,7 +476,7 @@ function ServiceRequestApp({
               </button>
 
               <button
-                className="group bg-gray-800 hover:bg-gray-700 border border-gray-600 hover:border-blue-500 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 flex items-center gap-2"
+                className="group bg-brand-surface hover:bg-brand-surface/80 border border-brand-border hover:border-brand-primary text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 hover:scale-105 flex items-center gap-2"
                 onClick={() => {
                   setActiveTab("services");
                   setTimeout(() => {
@@ -486,7 +503,7 @@ function ServiceRequestApp({
 
             {/* Enhanced Key Points */}
             <div className="text-center">
-              <div className="inline-flex items-center gap-6 text-xs uppercase tracking-wide text-gray-400 bg-gray-800/50 px-6 py-3 rounded-full border border-gray-700">
+              <div className="inline-flex items-center gap-6 text-xs uppercase tracking-wide text-gray-400 bg-brand-surface px-6 py-3 rounded-full border border-brand-border">
                 <span>💎 Diamonds Only</span>
                 <span>•</span>
                 <span>📦 No Bulk Farming</span>
@@ -495,7 +512,7 @@ function ServiceRequestApp({
               </div>
               <p className="text-gray-500 mt-4 text-sm">
                 Professional service with transparent pricing • Discord:{" "}
-                <span className="text-blue-400">NilsTG</span>
+                <span className="text-brand-primary font-bold">NilsTG</span>
               </p>
             </div>
           </div>
@@ -513,17 +530,17 @@ function ServiceRequestApp({
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Enhanced Main Form */}
               <div className="lg:col-span-2" id="submit-job">
-                <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-2xl">
+                <div className="bg-brand-surface rounded-xl p-8 border border-brand-border shadow-2xl shadow-brand-black/50">
                   {state.succeeded ? (
                     successBanner
                   ) : (
                     <>
                       <div className="flex items-center gap-3 mb-8">
-                        <div className="p-3 bg-blue-600 rounded-lg">
+                        <div className="p-3 bg-brand-primary rounded-lg shadow-lg shadow-brand-primary/20">
                           <MessageCircle className="h-6 w-6 text-white" />
                         </div>
                         <div>
-                          <h2 className="text-2xl font-bold text-white">
+                          <h2 className="text-2xl font-bold text-white tracking-tight">
                             Request Professional Minecraft Services
                           </h2>
                           <p className="text-gray-400 text-sm">
@@ -1063,33 +1080,23 @@ function ServiceRequestApp({
 
                         <button
                           type="submit"
-                          disabled={
-                            state.submitting ||
-                            !!coordError ||
-                            (serviceType === "delivery" && !distanceInfo)
-                          }
-                          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-700 text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 disabled:hover:scale-100 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                          disabled={true}
+                          className="w-full bg-brand-surface border border-brand-border text-brand-muted py-4 rounded-xl font-bold text-lg transition-all duration-300 opacity-60 cursor-not-allowed shadow-none"
                           aria-describedby="submit-help"
                         >
-                          {state.submitting ? (
-                            <div className="flex items-center justify-center gap-3">
-                              <LoadingSpinner size="small" color="white" />
-                              <span>Submitting Your Request...</span>
-                            </div>
-                          ) : (
-                            <div className="flex items-center justify-center gap-3">
-                              <Package className="h-5 w-5" />
-                              <span>Submit Service Request</span>
-                            </div>
-                          )}
+                          <div className="flex items-center justify-center gap-3">
+                            <Clock className="h-5 w-5" />
+                            <span>Service Currently Unavailable</span>
+                          </div>
                         </button>
 
                         <div
                           id="submit-help"
-                          className="text-xs text-gray-500 text-center"
+                          className="text-xs text-yellow-500/80 text-center flex items-center justify-center gap-2"
                         >
-                          By submitting, you agree to our service terms. We'll
-                          contact you on Discord within 30 minutes when online.
+                          <AlertCircle className="h-3 w-3" />
+                          Submissions are paused while I focus on schoolwork.
+                          Check back soon!
                         </div>
 
                         {/* Form validation errors */}

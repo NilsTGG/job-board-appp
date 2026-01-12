@@ -1,12 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
-import { X, Star, Send, Loader2, CheckCircle, MessageSquarePlus } from "lucide-react";
+import {
+  X,
+  Star,
+  Send,
+  Loader2,
+  CheckCircle,
+  MessageSquarePlus,
+} from "lucide-react";
 
 interface ReviewFormModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) => {
+const ReviewFormModal: React.FC<ReviewFormModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
   const [username, setUsername] = useState("");
   const [discord, setDiscord] = useState("");
   const [orderType, setOrderType] = useState("");
@@ -15,7 +25,9 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) =>
   const [deliverySpeed, setDeliverySpeed] = useState("");
   const [review, setReview] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -71,15 +83,18 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) =>
     try {
       // Format date nicely: "Dec 16, 2025 at 12:51 AM"
       const now = new Date();
-      const formattedDate = now.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      }) + " at " + now.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      });
+      const formattedDate =
+        now.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        }) +
+        " at " +
+        now.toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        });
 
       const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
         method: "POST",
@@ -143,13 +158,16 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) =>
 
         <div
           ref={modalRef}
-          className="relative bg-gray-800 rounded-2xl shadow-xl max-w-lg w-full border border-gray-700 overflow-hidden"
+          className="relative bg-brand-surface rounded-2xl shadow-xl max-w-lg w-full border border-brand-border/50 overflow-hidden"
         >
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4 flex items-center justify-between">
+          <div className="bg-brand-surface border-b border-brand-border/50 px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <MessageSquarePlus className="h-6 w-6 text-white" />
-              <h2 id="review-modal-title" className="text-xl font-bold text-white">
+              <MessageSquarePlus className="h-6 w-6 text-brand-primary" />
+              <h2
+                id="review-modal-title"
+                className="text-xl font-bold text-white"
+              >
                 Leave a Review
               </h2>
             </div>
@@ -166,11 +184,15 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) =>
           <form onSubmit={handleSubmit} className="p-6 space-y-5">
             {/* Success State */}
             {submitStatus === "success" && (
-              <div className="bg-green-900/30 border border-green-500/50 rounded-xl p-4 flex items-center gap-3">
-                <CheckCircle className="h-6 w-6 text-green-400" />
+              <div className="bg-brand-success/10 border border-brand-success/20 rounded-xl p-4 flex items-center gap-3">
+                <CheckCircle className="h-6 w-6 text-brand-success" />
                 <div>
-                  <p className="text-green-300 font-medium">Review Submitted!</p>
-                  <p className="text-green-300/70 text-sm">Thank you for your feedback!</p>
+                  <p className="text-brand-success font-bold">
+                    Review Submitted!
+                  </p>
+                  <p className="text-brand-success/70 text-sm">
+                    Thank you for your feedback!
+                  </p>
                 </div>
               </div>
             )}
@@ -184,7 +206,10 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) =>
 
             {/* Username */}
             <div>
-              <label htmlFor="review-username" className="block text-sm font-medium text-gray-200 mb-1.5">
+              <label
+                htmlFor="review-username"
+                className="block text-sm font-bold text-gray-200 mb-1.5"
+              >
                 Minecraft Username <span className="text-red-400">*</span>
               </label>
               <input
@@ -194,14 +219,18 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) =>
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Your IGN"
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder:text-gray-400"
+                className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all placeholder:text-gray-500"
               />
             </div>
 
             {/* Discord */}
             <div>
-              <label htmlFor="review-discord" className="block text-sm font-medium text-gray-200 mb-1.5">
-                Discord Username <span className="text-gray-500">(optional)</span>
+              <label
+                htmlFor="review-discord"
+                className="block text-sm font-bold text-gray-200 mb-1.5"
+              >
+                Discord Username{" "}
+                <span className="text-gray-500">(optional)</span>
               </label>
               <input
                 id="review-discord"
@@ -209,13 +238,16 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) =>
                 value={discord}
                 onChange={(e) => setDiscord(e.target.value)}
                 placeholder="username or User#1234"
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder:text-gray-400"
+                className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all placeholder:text-gray-500"
               />
             </div>
 
             {/* Order Type */}
             <div>
-              <label htmlFor="review-order" className="block text-sm font-medium text-gray-200 mb-1.5">
+              <label
+                htmlFor="review-order"
+                className="block text-sm font-bold text-gray-200 mb-1.5"
+              >
                 What did you order? <span className="text-red-400">*</span>
               </label>
               <input
@@ -225,13 +257,13 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) =>
                 value={orderType}
                 onChange={(e) => setOrderType(e.target.value)}
                 placeholder="e.g., Villager transport, Shop items..."
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder:text-gray-400"
+                className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all placeholder:text-gray-500"
               />
             </div>
 
             {/* Star Rating */}
             <div>
-              <label className="block text-sm font-medium text-gray-200 mb-2">
+              <label className="block text-sm font-bold text-gray-200 mb-2">
                 Rating <span className="text-red-400">*</span>
               </label>
               <div className="flex items-center gap-1">
@@ -242,34 +274,39 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) =>
                     onClick={() => setRating(star)}
                     onMouseEnter={() => setHoverRating(star)}
                     onMouseLeave={() => setHoverRating(0)}
-                    className="p-1 focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded transition-transform hover:scale-110"
+                    className="p-1 focus:outline-none focus:ring-2 focus:ring-brand-accent rounded transition-transform hover:scale-110"
                     aria-label={`Rate ${star} stars`}
                   >
                     <Star
                       className={`h-8 w-8 transition-colors ${
                         star <= (hoverRating || rating)
-                          ? "text-yellow-400 fill-yellow-400"
-                          : "text-gray-500"
+                          ? "text-brand-accent fill-brand-accent"
+                          : "text-gray-600"
                       }`}
                     />
                   </button>
                 ))}
                 {rating > 0 && (
-                  <span className="ml-2 text-gray-300 text-sm">{rating}/5 stars</span>
+                  <span className="ml-2 text-gray-300 text-sm">
+                    {rating}/5 stars
+                  </span>
                 )}
               </div>
             </div>
 
             {/* Delivery Speed */}
             <div>
-              <label htmlFor="review-speed" className="block text-sm font-medium text-gray-200 mb-1.5">
+              <label
+                htmlFor="review-speed"
+                className="block text-sm font-bold text-gray-200 mb-1.5"
+              >
                 How was the delivery speed?
               </label>
               <select
                 id="review-speed"
                 value={deliverySpeed}
                 onChange={(e) => setDeliverySpeed(e.target.value)}
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all"
               >
                 <option value="">Select...</option>
                 <option value="Lightning fast! ⚡">Lightning fast! ⚡</option>
@@ -282,7 +319,10 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) =>
 
             {/* Review Text */}
             <div>
-              <label htmlFor="review-text" className="block text-sm font-medium text-gray-200 mb-1.5">
+              <label
+                htmlFor="review-text"
+                className="block text-sm font-bold text-gray-200 mb-1.5"
+              >
                 Your Review <span className="text-red-400">*</span>
               </label>
               <textarea
@@ -292,7 +332,7 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) =>
                 value={review}
                 onChange={(e) => setReview(e.target.value)}
                 placeholder="Tell us about your experience..."
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder:text-gray-400 resize-none"
+                className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all placeholder:text-gray-500 resize-none"
               />
             </div>
 
@@ -300,7 +340,7 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) =>
             <button
               type="submit"
               disabled={isSubmitting || !rating || submitStatus === "success"}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-700 text-white py-3 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:cursor-not-allowed"
+              className="w-full bg-brand-primary hover:bg-blue-600 disabled:bg-brand-surface disabled:text-brand-muted text-white py-3 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-black disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <>
