@@ -46,3 +46,9 @@ Thumbs.db
 # Build tools
 .cache/
 .parcel-cache/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
