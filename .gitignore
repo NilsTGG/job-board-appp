@@ -46,3 +46,6 @@ Thumbs.db
 # Build tools
 .cache/
 .parcel-cache/
+
+# Cloudflare Wrangler
+.wrangler/
