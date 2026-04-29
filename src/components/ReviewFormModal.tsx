@@ -208,7 +208,7 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({
             <div>
               <label
                 htmlFor="review-username"
-                className="block text-sm font-bold text-gray-200 mb-1.5"
+                className="midnight-field-label"
               >
                 Minecraft Username <span className="text-red-400">*</span>
               </label>
@@ -219,7 +219,7 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Your IGN"
-                className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all placeholder:text-gray-500"
+                className="midnight-field"
               />
             </div>
 
@@ -227,10 +227,10 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({
             <div>
               <label
                 htmlFor="review-discord"
-                className="block text-sm font-bold text-gray-200 mb-1.5"
+                className="midnight-field-label"
               >
-                Discord Username{" "}
-                <span className="text-gray-500">(optional)</span>
+                  Discord Username{" "}
+                  <span className="midnight-field-label-muted">(optional)</span>
               </label>
               <input
                 id="review-discord"
@@ -238,7 +238,7 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({
                 value={discord}
                 onChange={(e) => setDiscord(e.target.value)}
                 placeholder="username or User#1234"
-                className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all placeholder:text-gray-500"
+                className="midnight-field"
               />
             </div>
 
@@ -246,7 +246,7 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({
             <div>
               <label
                 htmlFor="review-order"
-                className="block text-sm font-bold text-gray-200 mb-1.5"
+                className="midnight-field-label"
               >
                 What did you order? <span className="text-red-400">*</span>
               </label>
@@ -257,13 +257,13 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({
                 value={orderType}
                 onChange={(e) => setOrderType(e.target.value)}
                 placeholder="e.g., Villager transport, Shop items..."
-                className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all placeholder:text-gray-500"
+                className="midnight-field"
               />
             </div>
 
             {/* Star Rating */}
             <div>
-              <label className="block text-sm font-bold text-gray-200 mb-2">
+              <label className="midnight-field-label mb-2">
                 Rating <span className="text-red-400">*</span>
               </label>
               <div className="flex items-center gap-1">
@@ -298,7 +298,7 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({
             <div>
               <label
                 htmlFor="review-speed"
-                className="block text-sm font-bold text-gray-200 mb-1.5"
+                className="midnight-field-label"
               >
                 How was the delivery speed?
               </label>
@@ -306,7 +306,7 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({
                 id="review-speed"
                 value={deliverySpeed}
                 onChange={(e) => setDeliverySpeed(e.target.value)}
-                className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all"
+                className="midnight-field midnight-field--select"
               >
                 <option value="">Select...</option>
                 <option value="Lightning fast! ⚡">Lightning fast! ⚡</option>
@@ -321,7 +321,7 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({
             <div>
               <label
                 htmlFor="review-text"
-                className="block text-sm font-bold text-gray-200 mb-1.5"
+                className="midnight-field-label"
               >
                 Your Review <span className="text-red-400">*</span>
               </label>
@@ -332,7 +332,7 @@ const ReviewFormModal: React.FC<ReviewFormModalProps> = ({
                 value={review}
                 onChange={(e) => setReview(e.target.value)}
                 placeholder="Tell us about your experience..."
-                className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all placeholder:text-gray-500 resize-none"
+                className="midnight-field midnight-field--textarea"
               />
             </div>
 

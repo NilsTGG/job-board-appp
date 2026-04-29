@@ -27,6 +27,23 @@ export interface StoredOrder {
   submissionId?: string | null;
 }
 
+const isStoredOrder = (value: unknown): value is StoredOrder => {
+  if (!value || typeof value !== "object") return false;
+
+  const order = value as Record<string, unknown>;
+  return (
+    Array.isArray(order.cartItems) &&
+    typeof order.subtotal === "number" &&
+    typeof order.deliveryFee === "number" &&
+    typeof order.total === "number" &&
+    typeof order.discord === "string" &&
+    typeof order.ign === "string" &&
+    typeof order.submittedAt === "string" &&
+    !!order.userLocation &&
+    typeof order.userLocation === "object"
+  );
+};
+
 interface OrderConfirmationProps {
   isOpen: boolean;
   onClose: () => void;
@@ -45,18 +62,35 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
     ok: boolean;
     message?: string;
   } | null>(null);
+  const [actionMessage, setActionMessage] = useState<{
+    ok: boolean;
+    message: string;
+  } | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+  const copiedTimeoutRef = useRef<number | null>(null);
 
   // Load order from localStorage
   useEffect(() => {
     if (isOpen) {
+      setActionMessage(null);
       try {
         const stored = localStorage.getItem("lastOrder");
         if (stored) {
-          setOrder(JSON.parse(stored));
+          const parsed = JSON.parse(stored);
+          if (isStoredOrder(parsed)) {
+            setOrder(parsed);
+          } else {
+            localStorage.removeItem("lastOrder");
+            setOrder(null);
+          }
+        } else {
+          setOrder(null);
         }
       } catch (err) {
         console.error("Failed to load order from localStorage", err);
+        localStorage.removeItem("lastOrder");
+        setOrder(null);
       }
     }
   }, [isOpen]);
@@ -64,6 +98,8 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
   // Focus trap for accessibility
   useEffect(() => {
     if (!isOpen || !modalRef.current) return;
+
+    previousFocusRef.current = document.activeElement as HTMLElement | null;
 
     const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -94,8 +130,19 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
     document.addEventListener("keydown", handleKeyDown);
     firstElement?.focus();
 
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      previousFocusRef.current?.focus?.();
+    };
   }, [isOpen, onClose]);
+
+  useEffect(() => {
+    return () => {
+      if (copiedTimeoutRef.current) {
+        window.clearTimeout(copiedTimeoutRef.current);
+      }
+    };
+  }, []);
 
   if (!isOpen) return null;
 
@@ -142,9 +189,17 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setActionMessage({ ok: true, message: "Receipt copied to clipboard." });
+      copiedTimeoutRef.current = window.setTimeout(() => {
+        setCopied(false);
+        setActionMessage(null);
+      }, 2000);
     } catch (err) {
       console.error("Failed to copy", err);
+      setActionMessage({
+        ok: false,
+        message: "Unable to copy receipt details. Please try again.",
+      });
     }
   };
 
@@ -359,6 +414,20 @@ ${order.submissionId ? `Submission ID: ${order.submissionId}` : ""}
                     (resendResult.ok
                       ? "Order resent successfully!"
                       : "Failed to resend order.")}
+                </div>
+              )}
+
+              {actionMessage && (
+                <div
+                  className={`rounded-lg p-3 text-sm ${
+                    actionMessage.ok
+                      ? "bg-brand-success/10 border border-brand-success/20 text-brand-success"
+                      : "bg-red-900/30 border border-red-600/50 text-red-200"
+                  }`}
+                  role="status"
+                  aria-live="polite"
+                >
+                  {actionMessage.message}
                 </div>
               )}
             </div>

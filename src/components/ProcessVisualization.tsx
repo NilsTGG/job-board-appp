@@ -66,7 +66,7 @@ const ProcessVisualization: React.FC = () => {
                 className={`relative group cursor-pointer transition-all duration-300 ${
                   activeStep === step.id
                     ? "transform scale-105"
-                    : "hover:transform hover:scale-102"
+                    : "hover:transform hover:scale-[1.02]"
                 }`}
                 onMouseEnter={() => setActiveStep(step.id)}
                 onMouseLeave={() => setActiveStep(null)}

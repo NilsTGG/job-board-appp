@@ -12,6 +12,13 @@ export default {
           primary: "#3b82f6",
           accent: "#8b5cf6",
           success: "#10b981",
+          muted: "#9ca3af",
+          gray: {
+            100: "#f3f4f6",
+            200: "#e5e7eb",
+            600: "#4b5563",
+          },
+          white: "#ffffff",
           glow: "rgba(59, 130, 246, 0.5)",
         },
       },
@@ -26,11 +33,31 @@ export default {
       },
       animation: {
         "text-gradient": "text-gradient 1.5s linear infinite",
+        "fade-in-up": "fade-in-up 0.5s ease-out both",
+        "bounce-slow": "bounce-slow 2.2s ease-in-out infinite",
       },
       keyframes: {
         "text-gradient": {
           to: {
             "background-position": "200% center",
+          },
+        },
+        "fade-in-up": {
+          from: {
+            opacity: "0",
+            transform: "translateY(12px)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        "bounce-slow": {
+          "0%, 100%": {
+            transform: "translateY(0)",
+          },
+          "50%": {
+            transform: "translateY(-6px)",
           },
         },
       },

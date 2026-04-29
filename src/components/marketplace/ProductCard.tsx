@@ -6,6 +6,7 @@ interface ProductCardProps {
   product: Product;
   shop: Shop;
   onAddToCart: (product: Product, shop: Shop) => void;
+  orderingPaused?: boolean;
 }
 
 // Color mapping for shop badges (Tailwind classes don't work dynamically)
@@ -36,8 +37,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   product,
   shop,
   onAddToCart,
+  orderingPaused = false,
 }) => {
   const badgeColor = COLOR_MAP[shop.themeColor] || "#2563eb";
+  const [imageFailed, setImageFailed] = React.useState(false);
 
   return (
     <article
@@ -46,11 +49,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
     >
       {/* Image Placeholder */}
       <div className="h-48 bg-brand-black flex items-center justify-center relative overflow-hidden group-hover:bg-brand-black transition-colors">
-        {product.image ? (
+        {product.image && !imageFailed ? (
           <img
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            onError={() => setImageFailed(true)}
           />
         ) : (
           <Package className="h-16 w-16 text-gray-700 group-hover:scale-110 transition-transform duration-300" />
@@ -80,13 +84,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
           {product.description}
         </p>
 
+        {orderingPaused && (
+          <p className="mb-4 rounded-lg border border-yellow-500/15 bg-yellow-500/10 px-3 py-2 text-xs leading-relaxed text-yellow-100/80">
+            Browse-only mode. Checkout is paused, so this item cannot be added
+            to a live order right now.
+          </p>
+        )}
+
         <button
+          type="button"
           onClick={() => onAddToCart(product, shop)}
-          className="w-full bg-brand-black border border-brand-border hover:bg-brand-primary hover:border-brand-primary text-white py-2.5 rounded-lg font-bold transition-all duration-200 flex items-center justify-center gap-2 group-hover:bg-brand-primary group-hover:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-black active:scale-[0.98]"
-          aria-label={`Add ${product.name} to cart for ${product.price} diamonds`}
+          disabled={orderingPaused}
+          className="w-full bg-brand-black border border-brand-border hover:bg-brand-primary hover:border-brand-primary text-white py-2.5 rounded-lg font-bold transition-all duration-200 flex items-center justify-center gap-2 group-hover:bg-brand-primary group-hover:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-black active:scale-[0.98] disabled:cursor-not-allowed disabled:border-brand-border disabled:bg-brand-surface disabled:text-brand-muted disabled:hover:bg-brand-surface"
+          aria-label={
+            orderingPaused
+              ? `${product.name} is browse only while checkout is paused`
+              : `Add ${product.name} to cart for ${product.price} diamonds`
+          }
         >
           <ShoppingCart className="h-4 w-4" />
-          Add to Cart
+          {orderingPaused ? "Browse only" : "Add to Cart"}
         </button>
       </div>
     </article>

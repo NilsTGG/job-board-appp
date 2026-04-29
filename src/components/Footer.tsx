@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Package, Heart, Disc } from "../icons";
+import { Package, Disc } from "../icons";
 import PrivacyPolicy from "./PrivacyPolicy";
 
 const Footer: React.FC = () => {

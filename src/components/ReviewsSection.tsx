@@ -54,17 +54,9 @@ const ReviewsSection: React.FC = () => {
     },
   ];
 
-  // Duplicate reviews for seamless infinite loop (only real reviews)
-  const reviewsForLoop = [
-    ...realReviews,
-    ...realReviews,
-    ...realReviews,
-    ...realReviews,
-  ];
-
   // "Leave a Review" placeholder card
   const LeaveReviewCard: React.FC = () => (
-    <div className="flex-shrink-0 w-80 md:w-96 p-6 rounded-xl border border-dashed border-brand-primary/50 bg-brand-surface shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:border-brand-primary focus-within:ring-2 focus-within:ring-brand-primary">
+    <div className="w-full rounded-2xl border border-dashed border-brand-primary/40 bg-brand-surface p-6 shadow-lg transition-colors duration-200 hover:border-brand-primary/70 focus-within:ring-2 focus-within:ring-brand-primary">
       <div className="text-center py-4">
         <div className="inline-flex p-4 rounded-full bg-brand-primary/10 mb-4 border border-brand-primary/20">
           <MessageSquarePlus className="h-8 w-8 text-brand-primary" />
@@ -78,7 +70,7 @@ const ReviewsSection: React.FC = () => {
         </p>
         <button
           onClick={() => setIsReviewModalOpen(true)}
-          className="inline-flex items-center gap-2 bg-brand-primary hover:bg-brand-primary/80 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 hover:scale-105 shadow-lg shadow-brand-primary/25 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-black"
+          className="inline-flex items-center gap-2 rounded-xl bg-brand-primary px-6 py-3 font-bold text-white shadow-lg shadow-brand-primary/20 transition-colors duration-200 hover:bg-brand-primary/80 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-black"
         >
           <Star className="h-4 w-4" />
           Leave a Review
@@ -90,19 +82,13 @@ const ReviewsSection: React.FC = () => {
     </div>
   );
 
-  const ReviewCard: React.FC<{ review: Review; index: number }> = ({
-    review,
-    index,
-  }) => {
+  const ReviewCard: React.FC<{ review: Review }> = ({ review }) => {
     const cardClasses =
       "bg-brand-surface border-brand-border/50 shadow-black/20";
 
     return (
       <div
-        className={`flex-shrink-0 w-80 md:w-96 p-6 rounded-xl border shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 ${cardClasses}`}
-        style={{
-          animationDelay: `${index * 0.1}s`,
-        }}
+        className={`w-full rounded-2xl border p-6 shadow-lg transition-colors duration-200 hover:border-brand-primary/30 ${cardClasses}`}
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
@@ -121,7 +107,7 @@ const ReviewsSection: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center gap-1 text-brand-success">
-            <div className="w-2 h-2 bg-brand-success rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-brand-success rounded-full"></div>
             <span className="text-xs font-bold uppercase tracking-wider">
               Verified
             </span>
@@ -205,7 +191,7 @@ const ReviewsSection: React.FC = () => {
           </p>
           <div className="flex justify-center items-center gap-4 text-sm">
             <div className="flex items-center gap-2 text-green-400">
-              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+              <div className="w-3 h-3 bg-green-400 rounded-full"></div>
               <span>Verified Reviews</span>
             </div>
             <div className="w-1 h-1 bg-gray-500 rounded-full"></div>
@@ -216,34 +202,15 @@ const ReviewsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Infinite Scroll Container */}
-        <div className="relative">
-          {/* Gradient overlays for seamless blending */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-900 via-gray-900/50 to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-900 via-gray-900/50 to-transparent z-10 pointer-events-none"></div>
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.55fr)_minmax(280px,0.95fr)] lg:items-start">
+          <div className="grid gap-6 md:grid-cols-2">
+            {realReviews.map((review) => (
+              <ReviewCard key={review.id} review={review} />
+            ))}
+          </div>
 
-          {/* Scrolling Reviews Container */}
-          <div className="overflow-hidden">
-            <div
-              className="flex gap-6 hover-pause-animation reviews-scroll"
-              style={{
-                width: `${(reviewsForLoop.length + 2) * 400}px`,
-                animation: `scroll-horizontal ${
-                  (reviewsForLoop.length + 2) * 8
-                }s linear infinite`,
-              }}
-            >
-              {reviewsForLoop.map((review, index) => (
-                <ReviewCard
-                  key={`${review.id}-${Math.floor(index / realReviews.length)}`}
-                  review={review}
-                  index={index}
-                />
-              ))}
-              {/* Add Leave Review cards scattered in the scroll */}
-              <LeaveReviewCard />
-              <LeaveReviewCard />
-            </div>
+          <div className="lg:sticky lg:top-28">
+            <LeaveReviewCard />
           </div>
         </div>
 
@@ -286,7 +253,7 @@ const ReviewsSection: React.FC = () => {
               </a>
               <button
                 onClick={() => setIsReviewModalOpen(true)}
-                className="inline-flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-yellow-500 px-6 py-3 font-semibold text-gray-900 shadow-lg transition-colors duration-200 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 focus:ring-offset-gray-900"
               >
                 <Star className="h-5 w-5" />
                 Leave a Review
@@ -300,42 +267,6 @@ const ReviewsSection: React.FC = () => {
       <ReviewFormModal
         isOpen={isReviewModalOpen}
         onClose={() => setIsReviewModalOpen(false)}
-      />
-
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-          @keyframes scroll-horizontal {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(-${realReviews.length * 400}px);
-            }
-          }
-
-          .hover-pause-animation:hover {
-            animation-play-state: paused;
-          }
-
-          @media (prefers-reduced-motion: reduce) {
-            .reviews-scroll {
-              animation: none !important;
-            }
-          }
-
-          @media (max-width: 768px) {
-            @keyframes scroll-horizontal {
-              0% {
-                transform: translateX(0);
-              }
-              100% {
-                transform: translateX(-${realReviews.length * 320}px);
-              }
-            }
-          }
-        `,
-        }}
       />
     </section>
   );

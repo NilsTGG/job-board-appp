@@ -11,12 +11,34 @@ import ShopSidebar from "./components/marketplace/ShopSidebar";
 import ProductCard from "./components/marketplace/ProductCard";
 import CartDrawer, { CartItem } from "./components/marketplace/CartDrawer";
 import CheckoutModal from "./components/marketplace/CheckoutModal";
-import OrderConfirmation from "./components/marketplace/OrderConfirmation";
+import OrderConfirmation, {
+  StoredOrder,
+} from "./components/marketplace/OrderConfirmation";
 import { ProductCardSkeleton } from "./components/Skeleton";
 
 interface MarketplaceAppProps {
   onNavigateToServices?: () => void;
 }
+
+interface OrderDetails {
+  cartItems: CartItem[];
+  subtotal: number;
+  deliveryFee: number;
+  total: number;
+  userLocation: { x: number; y: number; z: number };
+  discord: string;
+  ign: string;
+}
+
+const persistLastOrder = (orderDetails: OrderDetails, submissionId?: string | null) => {
+  const stored: StoredOrder = {
+    ...orderDetails,
+    submittedAt: new Date().toISOString(),
+    submissionId: submissionId ?? null,
+  };
+
+  localStorage.setItem("lastOrder", JSON.stringify(stored));
+};
 
 const MarketplaceApp: React.FC<MarketplaceAppProps> = ({
   onNavigateToServices,
@@ -104,13 +126,10 @@ const MarketplaceApp: React.FC<MarketplaceAppProps> = ({
     setIsCheckoutOpen(true);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleConfirmOrder = async (orderDetails: any) => {
-    console.log("Order Confirmed:", orderDetails);
+  const handleConfirmOrder = async (orderDetails: OrderDetails) => {
     // Build a readable message for forwarding
     const itemsText = orderDetails.cartItems
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .map((i: any) => `• ${i.quantity}x ${i.product.name} (${i.shop.name})`)
+      .map((i) => `• ${i.quantity}x ${i.product.name} (${i.shop.name})`)
       .join("\n");
     const coords = `${orderDetails.userLocation.x}, ${orderDetails.userLocation.y}, ${orderDetails.userLocation.z}`;
     const content = `New Order Received:\n${itemsText}\n\nIGN: ${orderDetails.ign}\nDiscord: ${orderDetails.discord}\nCoords: ${coords}\nDelivery Fee: ${orderDetails.deliveryFee} 💎\nTotal: ${orderDetails.total} 💎`;
@@ -161,14 +180,8 @@ const MarketplaceApp: React.FC<MarketplaceAppProps> = ({
         const submissionId =
           body?.id || body?.submission_id || body?.data?.id || null;
 
-        // Persist last order (helps implement a persistent receipt / confirmation page)
         try {
-          const stored = {
-            ...orderDetails,
-            submittedAt: new Date().toISOString(),
-            submissionId,
-          };
-          localStorage.setItem("lastOrder", JSON.stringify(stored));
+          persistLastOrder(orderDetails, submissionId);
         } catch {
           // ignore localStorage errors
         }
@@ -215,6 +228,12 @@ const MarketplaceApp: React.FC<MarketplaceAppProps> = ({
       }
 
       // Success
+      try {
+        persistLastOrder(orderDetails);
+      } catch {
+        // ignore localStorage errors
+      }
+
       setIsCheckoutOpen(false);
       setCartItems([]);
       setOrderSuccess(true);
@@ -344,6 +363,7 @@ const MarketplaceApp: React.FC<MarketplaceAppProps> = ({
                   product={product}
                   shop={shop}
                   onAddToCart={addToCart}
+                  orderingPaused
                 />
               ))
             )}

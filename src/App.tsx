@@ -12,13 +12,22 @@ function App() {
 
   return (
     <div className="min-h-screen bg-brand-black text-white font-sans selection:bg-brand-primary selection:text-white">
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
       {/* Global Navigation Shell */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-dark/95 backdrop-blur-md border-b border-brand-border shadow-lg h-20 transition-all duration-300">
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 bg-brand-dark/95 backdrop-blur-md border-b border-brand-border shadow-lg h-20 transition-all duration-300"
+        aria-label="Primary"
+      >
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
           {/* Brand */}
-          <div
+          <button
+            type="button"
             className="flex items-center space-x-3 cursor-pointer group"
             onClick={() => setCurrentView("home")}
+            aria-label="Go to home view"
           >
             <div className="relative transform transition-transform group-hover:scale-110 duration-300">
               <Package className="h-8 w-8 text-brand-primary" />
@@ -32,10 +41,14 @@ function App() {
                 Minecraft Services
               </div>
             </div>
-          </div>
+          </button>
 
           {/* View Switcher */}
-          <div className="flex bg-brand-surface p-1 rounded-xl border border-brand-border shadow-inner gap-1">
+          <div
+            className="flex bg-brand-surface p-1 rounded-xl border border-brand-border shadow-inner gap-1"
+            role="group"
+            aria-label="Website sections"
+          >
             <button
               onClick={() => setCurrentView("home")}
               className={`relative flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-300 ${
@@ -44,6 +57,7 @@ function App() {
                   : "text-gray-400 hover:text-white hover:bg-brand-border"
               }`}
               title="Home"
+              aria-pressed={currentView === "home"}
             >
               <Home className="h-4 w-4" />
             </button>
@@ -55,6 +69,7 @@ function App() {
                   ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/25"
                   : "text-gray-400 hover:text-white hover:bg-brand-border"
               }`}
+              aria-pressed={currentView === "services"}
             >
               <Package className="h-4 w-4" />
               <span className="hidden sm:inline">Services</span>
@@ -66,6 +81,7 @@ function App() {
                   ? "bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-lg shadow-purple-500/25"
                   : "text-gray-400 hover:text-white hover:bg-brand-border"
               }`}
+              aria-pressed={currentView === "marketplace"}
             >
               <ShoppingBag className="h-4 w-4" />
               <span className="hidden sm:inline">Shops</span>
@@ -75,10 +91,13 @@ function App() {
       </nav>
 
       {/* Main Content Area */}
-      <div className={`pt-20 ${currentView === "home" ? "pt-0" : ""}`}>
+      <main
+        id="main-content"
+        className={`pt-20 ${currentView === "home" ? "pt-0" : ""}`}
+      >
         {/* Reset padding for home since it has its own layout, actually let's keep nav fixed but LandingPage manages its spacing */}
         {currentView === "home" && (
-          <div className="pt-20">
+          <div className="pt-12 md:pt-14">
             {" "}
             {/* Add padding for fixed nav */}
             <LandingPage
@@ -97,7 +116,7 @@ function App() {
             onNavigateToServices={() => setCurrentView("services")}
           />
         )}
-      </div>
+      </main>
     </div>
   );
 }

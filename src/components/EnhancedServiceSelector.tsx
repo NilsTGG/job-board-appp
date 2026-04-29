@@ -75,7 +75,7 @@ const services: {
       "Multiple small deliveries",
       "Mixed errands",
       "Flexible task time",
-      "Flexible task time",
+      "Peak-hours support window",
     ],
   },
 ];
@@ -84,6 +84,15 @@ const EnhancedServiceSelector: React.FC<Props> = ({ value, onChange }) => {
   const [hoveredService, setHoveredService] = useState<ServiceType | null>(
     null
   );
+
+  const activeIndex = services.findIndex((service) => service.key === value);
+
+  const moveSelection = (direction: 1 | -1) => {
+    const fallbackIndex = activeIndex >= 0 ? activeIndex : 0;
+    const nextIndex =
+      (fallbackIndex + direction + services.length) % services.length;
+    onChange(services[nextIndex].key);
+  };
 
   return (
     <fieldset className="space-y-4" aria-labelledby="service-legend">
@@ -110,6 +119,17 @@ const EnhancedServiceSelector: React.FC<Props> = ({ value, onChange }) => {
               onClick={() => onChange(s.key)}
               onMouseEnter={() => setHoveredService(s.key)}
               onMouseLeave={() => setHoveredService(null)}
+              onKeyDown={(event) => {
+                if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+                  event.preventDefault();
+                  moveSelection(1);
+                }
+
+                if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+                  event.preventDefault();
+                  moveSelection(-1);
+                }
+              }}
               className={[
                 "relative rounded-lg p-4 text-left border text-sm transition-all duration-200 transform",
                 active
@@ -120,6 +140,11 @@ const EnhancedServiceSelector: React.FC<Props> = ({ value, onChange }) => {
               role="radio"
               aria-checked={active}
               aria-describedby={`service-${s.key}-desc`}
+              tabIndex={
+                active || (activeIndex === -1 && s.key === services[0].key)
+                  ? 0
+                  : -1
+              }
             >
               {s.popular && (
                 <div className="absolute -top-2 -right-2 bg-brand-accent text-white text-xs px-2 py-1 rounded-full font-bold animate-pulse shadow-lg">

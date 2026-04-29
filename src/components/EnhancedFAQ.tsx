@@ -145,6 +145,7 @@ const EnhancedFAQ: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
+  const [showDiscordToast, setShowDiscordToast] = useState(false);
 
   const toggleExpanded = (id: number) => {
     const newExpanded = new Set(expandedItems);
@@ -221,7 +222,7 @@ const EnhancedFAQ: React.FC = () => {
       {/* Category Filter */}
       <div
         className="flex flex-wrap gap-2 mb-8 justify-center"
-        role="tablist"
+        role="group"
         aria-label="FAQ categories"
       >
         {categories.map((category) => (
@@ -233,9 +234,8 @@ const EnhancedFAQ: React.FC = () => {
                 ? "bg-brand-primary text-white shadow-lg"
                 : "bg-brand-surface text-brand-muted border border-brand-border hover:text-white hover:border-brand-gray-600"
             }`}
-            role="tab"
-            aria-selected={activeCategory === category.id}
-            aria-controls="faq-content"
+            type="button"
+            aria-pressed={activeCategory === category.id}
           >
             {category.icon}
             {category.name}
@@ -265,7 +265,7 @@ const EnhancedFAQ: React.FC = () => {
       )}
 
       {/* FAQ Items */}
-      <div id="faq-content" className="space-y-4" role="tabpanel">
+      <div id="faq-content" className="space-y-4">
         {filteredFAQs.length === 0 ? (
           <div className="text-center py-12">
             <HelpCircle className="h-16 w-16 text-brand-muted mx-auto mb-4" />
@@ -298,7 +298,7 @@ const EnhancedFAQ: React.FC = () => {
               >
                 <button
                   onClick={() => toggleExpanded(faq.id)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-brand-white/5 transition-colors"
+                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-brand-surface/70 transition-colors"
                   aria-expanded={isExpanded}
                   aria-controls={`faq-answer-${faq.id}`}
                 >
@@ -339,7 +339,7 @@ const EnhancedFAQ: React.FC = () => {
                     role="region"
                     aria-labelledby={`faq-question-${faq.id}`}
                   >
-                    <div className="text-brand-gray-200 text-sm leading-relaxed bg-brand-black/20 rounded p-4 border-l-4 border-brand-primary">
+                    <div className="text-brand-gray-200 text-sm leading-relaxed bg-brand-black/30 rounded-xl p-4 border border-brand-primary/20">
                       {faq.answer}
                     </div>
                   </div>
@@ -364,13 +364,8 @@ const EnhancedFAQ: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               onClick={() => {
-                // Simulate Discord contact
-                const toast = document.createElement("div");
-                toast.className =
-                  "fixed bottom-4 right-4 bg-brand-primary text-white px-6 py-3 rounded-lg shadow-lg z-50";
-                toast.textContent = "Contact me on Discord: NilsTG";
-                document.body.appendChild(toast);
-                setTimeout(() => document.body.removeChild(toast), 3000);
+                setShowDiscordToast(true);
+                window.setTimeout(() => setShowDiscordToast(false), 3000);
               }}
               className="bg-brand-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300 hover:scale-105 shadow-lg"
             >
@@ -391,6 +386,16 @@ const EnhancedFAQ: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {showDiscordToast && (
+        <div
+          className="fixed bottom-4 right-4 z-50 rounded-xl border border-brand-primary/30 bg-brand-dark/95 px-5 py-3 text-sm text-white shadow-2xl shadow-brand-black/50 backdrop-blur-md"
+          role="status"
+          aria-live="polite"
+        >
+          Contact me on Discord: <span className="font-bold text-brand-primary">NilsTG</span>
+        </div>
+      )}
     </section>
   );
 };

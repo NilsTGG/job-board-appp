@@ -15,8 +15,15 @@ interface CheckoutModalProps {
   cartItems: CartItem[];
   // Returns a promise resolving to { ok, message? }
   onConfirmOrder: (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    orderDetails: any
+    orderDetails: {
+      cartItems: CartItem[];
+      subtotal: number;
+      deliveryFee: number;
+      total: number;
+      userLocation: { x: number; y: number; z: number };
+      discord: string;
+      ign: string;
+    }
   ) => Promise<{ ok: boolean; message?: string }>;
 }
 
@@ -141,6 +148,8 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [resultOk, setResultOk] = useState<boolean | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+  const submitTimeoutRef = useRef<number | null>(null);
 
   // Calculate estimated delivery time based on distance
   const estimatedDeliveryTime = useMemo(() => {
@@ -154,6 +163,8 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
   // Focus trap for accessibility
   useEffect(() => {
     if (!isOpen || !modalRef.current) return;
+
+    previousFocusRef.current = document.activeElement as HTMLElement | null;
 
     const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -184,12 +195,47 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
     document.addEventListener("keydown", handleKeyDown);
     firstElement?.focus();
 
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      previousFocusRef.current?.focus?.();
+    };
   }, [isOpen, onClose]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    setCoords("");
+    setCoordsError(null);
+    setDiscord("");
+    setIgn("");
+    setResultMessage(null);
+    setResultOk(null);
+    setHasSubmitted(false);
+    setIsSubmitting(false);
+  }, [isOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (submitTimeoutRef.current) {
+        window.clearTimeout(submitTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!userLocation || !discord || !ign || isSubmitting || hasSubmitted)
+    const normalizedIgn = ign.trim();
+    const normalizedDiscord = discord.trim();
+
+    if (!formspreeEnabled && !webhookEnabled) {
+      setResultOk(false);
+      setResultMessage(
+        "Ordering is unavailable right now because no submission method is configured."
+      );
+      return;
+    }
+
+    if (!userLocation || !normalizedDiscord || !normalizedIgn || isSubmitting || hasSubmitted)
       return;
 
     setIsSubmitting(true);
@@ -203,8 +249,8 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
         deliveryFee,
         total,
         userLocation,
-        discord,
-        ign,
+        discord: normalizedDiscord,
+        ign: normalizedIgn,
       });
 
       setResultOk(res.ok);
@@ -218,7 +264,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
       // On success, automatically close after a short delay so user sees the confirmation
       if (res.ok) {
         setHasSubmitted(true);
-        setTimeout(() => {
+        submitTimeoutRef.current = window.setTimeout(() => {
           setIsSubmitting(false);
           setHasSubmitted(false);
           onClose();
@@ -277,7 +323,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 >
                   <div>
                     <label
-                      className="block text-sm font-bold text-gray-200 mb-1.5"
+                      className="midnight-field-label"
                       htmlFor="ign-input"
                     >
                       Minecraft Username (IGN){" "}
@@ -291,19 +337,26 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       required
                       aria-required="true"
                       aria-describedby="ign-help"
-                      className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white text-base focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all placeholder:text-gray-500"
+                      className="midnight-field"
                       placeholder="Steve"
                       value={ign}
-                      onChange={(e) => setIgn(e.target.value)}
-                    />
-                    <p id="ign-help" className="text-sm text-gray-400 mt-1.5">
+                      onChange={(e) => {
+                        setIgn(e.target.value);
+                        if (resultMessage) {
+                          setResultMessage(null);
+                          setResultOk(null);
+                        }
+                      }}
+                      maxLength={32}
+                      />
+                    <p id="ign-help" className="midnight-field-note">
                       Your in-game name for delivery
                     </p>
                   </div>
 
                   <div>
                     <label
-                      className="block text-sm font-bold text-gray-200 mb-1.5"
+                      className="midnight-field-label"
                       htmlFor="discord-input"
                     >
                       Discord Username{" "}
@@ -317,14 +370,21 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       required
                       aria-required="true"
                       aria-describedby="discord-help"
-                      className="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-2.5 text-white text-base focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition-all placeholder:text-gray-500"
+                      className="midnight-field"
                       placeholder="username or User#1234"
                       value={discord}
-                      onChange={(e) => setDiscord(e.target.value)}
-                    />
+                      onChange={(e) => {
+                        setDiscord(e.target.value);
+                        if (resultMessage) {
+                          setResultMessage(null);
+                          setResultOk(null);
+                        }
+                      }}
+                      maxLength={64}
+                      />
                     <p
                       id="discord-help"
-                      className="text-sm text-gray-400 mt-1.5"
+                      className="midnight-field-note"
                     >
                       We'll DM you to coordinate delivery
                     </p>
@@ -332,7 +392,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
                   <div>
                     <label
-                      className="block text-sm font-bold text-gray-200 mb-1.5"
+                      className="midnight-field-label"
                       htmlFor="coords-input"
                     >
                       Delivery Coordinates (x, y, z){" "}
@@ -341,7 +401,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       </span>
                     </label>
                     <div className="relative">
-                      <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
+                      <MapPin className="absolute left-3 top-3 h-5 w-5 text-brand-muted" />
                       <input
                         id="coords-input"
                         type="text"
@@ -351,7 +411,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                           coords && !userLocation ? "true" : "false"
                         }
                         aria-describedby="coords-error coords-help"
-                        className={`w-full bg-brand-black border rounded-lg pl-10 pr-4 py-2.5 text-white text-base focus:ring-2 outline-none transition-all placeholder:text-gray-500 ${
+                        className={`midnight-field midnight-field--with-icon ${
                           coords && !userLocation
                             ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                             : coordsError
@@ -360,7 +420,13 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                         }`}
                         placeholder="100, 64, -200"
                         value={coords}
-                        onChange={(e) => setCoords(e.target.value)}
+                        onChange={(e) => {
+                          setCoords(e.target.value);
+                          if (resultMessage) {
+                            setResultMessage(null);
+                            setResultOk(null);
+                          }
+                        }}
                         onBlur={() => {
                           // Auto-format coords on blur if valid
                           if (userLocation) {
@@ -372,7 +438,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     {coords && !userLocation ? (
                       <p
                         id="coords-error"
-                        className="text-red-400 text-sm mt-1.5 flex items-center gap-1"
+                        className="mt-1.5 flex items-center gap-1 text-sm text-red-400"
                         role="alert"
                       >
                         <span aria-hidden="true">✗</span> Invalid format. Use:
@@ -381,7 +447,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     ) : coordsError ? (
                       <p
                         id="coords-error"
-                        className="text-yellow-400 text-sm mt-1.5"
+                        className="mt-1.5 text-sm text-yellow-400"
                         role="alert"
                       >
                         ⚠️ {coordsError}
@@ -389,7 +455,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     ) : userLocation ? (
                       <p
                         id="coords-help"
-                        className="text-brand-success text-sm mt-1.5 flex items-center gap-1"
+                        className="mt-1.5 flex items-center gap-1 text-sm text-brand-success"
                       >
                         <span aria-hidden="true">✓</span> Coordinates valid:{" "}
                         {formatCoords(userLocation)}
@@ -397,7 +463,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     ) : (
                       <p
                         id="coords-help"
-                        className="text-sm text-gray-400 mt-1.5"
+                        className="midnight-field-note"
                       >
                         Press F3 in-game to find your coordinates
                       </p>
@@ -495,8 +561,8 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     <div className="flex items-start gap-2 text-xs text-gray-400 bg-brand-black p-3 rounded-lg border border-brand-border">
                       <CheckCircle className="h-4 w-4 flex-shrink-0 mt-0.5 text-brand-success" />
                       <p>
-                        Delivery fee calculated based on optimal route (Nether
-                        Highway applied for long distances).
+                        Delivery fee is currently a flat marketplace charge and
+                        does not vary by route length.
                       </p>
                     </div>
                   </div>
@@ -510,10 +576,11 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
               form="checkout-form"
               disabled={
                 !userLocation ||
-                !discord ||
-                !ign ||
+                !discord.trim() ||
+                !ign.trim() ||
                 isSubmitting ||
-                hasSubmitted
+                hasSubmitted ||
+                (!formspreeEnabled && !webhookEnabled)
               }
               className="w-full inline-flex justify-center items-center gap-2 rounded-lg border border-transparent shadow-sm px-4 py-2 bg-brand-primary text-base font-bold text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >

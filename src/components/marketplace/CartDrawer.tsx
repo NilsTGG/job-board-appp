@@ -54,8 +54,10 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
             Your Cart
           </h2>
           <button
+            type="button"
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors"
+            aria-label="Close cart drawer"
           >
             <X className="h-6 w-6" />
           </button>
@@ -116,8 +118,9 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                     <h3 className="text-white font-bold truncate text-base">
                       {item.product.name}
                     </h3>
-                    <button
-                      onClick={() => onRemoveItem(item.product.id)}
+                      <button
+                        type="button"
+                        onClick={() => onRemoveItem(item.product.id)}
                       className="text-red-400 hover:text-red-300 hover:bg-red-500/20 p-1.5 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500"
                       aria-label={`Remove ${item.product.name} from cart`}
                       title="Remove item"
@@ -132,6 +135,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 bg-brand-surface rounded-lg px-2 py-1.5 border border-brand-border">
                       <button
+                        type="button"
                         onClick={() => onUpdateQuantity(item.product.id, -1)}
                         className="text-gray-400 hover:text-white hover:bg-brand-border w-7 h-7 flex items-center justify-center rounded transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary"
                         aria-label={`Decrease quantity of ${item.product.name}`}
@@ -145,6 +149,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                         {item.quantity}
                       </span>
                       <button
+                        type="button"
                         onClick={() => onUpdateQuantity(item.product.id, 1)}
                         className="text-gray-400 hover:text-white hover:bg-brand-border w-7 h-7 flex items-center justify-center rounded transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary"
                         aria-label={`Increase quantity of ${item.product.name}`}
@@ -164,15 +169,14 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
 
         {/* Footer */}
         <div className="p-6 border-t border-brand-border bg-brand-black">
-          {/* Delivery Fee Notice - Shown BEFORE checkout */}
-          <div className="mb-4 p-3 bg-brand-primary/10 border border-brand-primary/20 rounded-lg">
-            <div className="flex items-center gap-2 text-brand-primary text-sm font-bold mb-1">
+          <div className="mb-4 rounded-lg border border-yellow-500/20 bg-yellow-500/10 p-3">
+            <div className="flex items-center gap-2 text-sm font-bold text-yellow-300 mb-1">
               <Package className="h-4 w-4" />
-              Flat Delivery Fee
+              Checkout paused
             </div>
-            <p className="text-gray-300 text-sm">
-              <span className="text-yellow-400 font-bold">+4 💎</span> delivery
-              will be added at checkout
+            <p className="text-sm text-yellow-100/80">
+              Cart review is available for browsing, but orders cannot be placed
+              right now.
             </p>
           </div>
 
@@ -183,17 +187,18 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
             </span>
           </div>
           <button
+            type="button"
             onClick={onCheckout}
             disabled={true}
             className="w-full bg-brand-surface border border-brand-border text-brand-muted py-3 rounded-xl font-bold text-lg transition-all duration-300 shadow-none cursor-not-allowed flex flex-col items-center justify-center gap-1"
             aria-label="Checkout is currently disabled"
           >
-            <span>Checkout Unavailable</span>
-            <span className="text-xs font-normal opacity-70">
-              Orders paused for school focus
-            </span>
-          </button>
-        </div>
+              <span>Ordering is paused</span>
+              <span className="text-xs font-normal opacity-70">
+                Browse inventory now, come back when checkout reopens
+              </span>
+            </button>
+          </div>
       </div>
     </div>
   );

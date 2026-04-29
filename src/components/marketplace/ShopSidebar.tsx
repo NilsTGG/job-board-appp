@@ -84,9 +84,7 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
         </button>
         <div
           className={`space-y-2 ${
-            expandedSection === "shops" || window.innerWidth >= 1024
-              ? "block"
-              : "hidden lg:block"
+            expandedSection === "shops" ? "block" : "hidden"
           }`}
         >
           <button
@@ -147,9 +145,7 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
         </button>
         <div
           className={`space-y-2 ${
-            expandedSection === "categories" || window.innerWidth >= 1024
-              ? "block"
-              : "hidden lg:block"
+            expandedSection === "categories" ? "block" : "hidden"
           }`}
         >
           <button
@@ -164,8 +160,10 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
           </button>
           {CATEGORIES.map((cat) => (
             <button
+              type="button"
               key={cat.id}
               onClick={() => onSelectCategory(cat.id)}
+              aria-pressed={selectedCategory === cat.id}
               className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 focus:ring-offset-brand-black ${
                 selectedCategory === cat.id
                   ? "bg-brand-accent text-white font-bold"
@@ -228,7 +226,93 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
 
       {/* Desktop Sidebar */}
       <div className="hidden lg:block w-64 flex-shrink-0 space-y-8">
-        <SidebarContent />
+        <div>
+          <div className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <Store className="h-5 w-5 text-brand-primary" />
+            Shops
+          </div>
+          <div className="space-y-2">
+            <button
+              onClick={() => onSelectShop(null)}
+              className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-black ${
+                selectedShopId === null
+                  ? "bg-brand-primary text-white font-bold"
+                  : "text-gray-300 hover:bg-brand-surface hover:text-white"
+              }`}
+            >
+              All Shops
+            </button>
+            {SHOPS.map((shop) => {
+              const isSelected = selectedShopId === shop.id;
+              const style = isSelected
+                ? { backgroundColor: COLOR_MAP[shop.themeColor] || undefined }
+                : undefined;
+
+              return (
+                <button
+                  key={shop.id}
+                  onClick={() => onSelectShop(shop.id)}
+                  aria-pressed={isSelected}
+                  className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-brand-black ${
+                    isSelected
+                      ? "text-white font-bold"
+                      : "text-gray-300 hover:bg-brand-surface hover:text-white"
+                  }`}
+                  style={style}
+                >
+                  {shop.name}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div>
+          <div className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <Filter className="h-5 w-5 text-brand-accent" />
+            Categories
+          </div>
+          <div className="space-y-2">
+            <button
+              onClick={() => onSelectCategory(null)}
+              className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 focus:ring-offset-brand-black ${
+                selectedCategory === null
+                  ? "bg-brand-accent text-white font-bold"
+                  : "text-gray-300 hover:bg-brand-surface hover:text-white"
+              }`}
+            >
+              All Categories
+            </button>
+            {CATEGORIES.map((cat) => (
+              <button
+                type="button"
+                key={cat.id}
+                onClick={() => onSelectCategory(cat.id)}
+                aria-pressed={selectedCategory === cat.id}
+                className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 focus:ring-offset-brand-black ${
+                  selectedCategory === cat.id
+                    ? "bg-brand-accent text-white font-bold"
+                    : "text-gray-300 hover:bg-brand-surface hover:text-white"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {(selectedShopId || selectedCategory) && (
+          <button
+            onClick={() => {
+              onSelectShop(null);
+              onSelectCategory(null);
+            }}
+            className="w-full mt-4 py-2 px-4 bg-brand-surface border border-brand-border hover:bg-brand-border text-gray-300 rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
+          >
+            <X className="h-4 w-4" />
+            Clear All Filters
+          </button>
+        )}
       </div>
     </>
   );
